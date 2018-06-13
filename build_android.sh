@@ -1,6 +1,6 @@
 #!/bin/bash
-mkdir -p ~/android/system
-cd ~/android/system
+mkdir -p android/system
+cd android/system
 repo init -u git@github.com:commaai/android.git
 repo sync
 
