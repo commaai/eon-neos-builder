@@ -1,7 +1,7 @@
 #!/bin/bash
-mkdir -p android/system
-cd android/system
-tools/repo init -u git@github.com:commaai/android.git
+mkdir -p mindroid/system
+cd mindroid/system
+tools/repo init -u git@github.com:commaai/android.git -b mindroid
 tools/repo sync
 
 source build/envsetup.sh

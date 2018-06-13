@@ -14,7 +14,7 @@ mkdir -p build
 pushd build
   mkdir -p boot
   pushd boot
-    abootimg -x "$FIRMWARE_DIR"/android/system/out/target/product/oneplus3/boot.img
+    abootimg -x "$FIRMWARE_DIR"/mindroid/system/out/target/product/oneplus3/boot.img
 
     # extract ramdisk
     sudo rm -rf ramdisk

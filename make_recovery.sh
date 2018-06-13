@@ -5,7 +5,7 @@ echo "$FIRMWARE_DIR"
 
 mkdir -p build
 pushd build
-  cp "$FIRMWARE_DIR"/android/system/out/target/product/oneplus3/recovery.img recoverynew.img.nonsecure
+  cp "$FIRMWARE_DIR"/mindroid/system/out/target/product/oneplus3/recovery.img recoverynew.img.nonsecure
 
   # sign bootimg (stage 1)
   java -Xmx512M -jar ../tools/BootSignature.jar /boot recoverynew.img.nonsecure "$FIRMWARE_DIR"/keys/verity.pk8 "$FIRMWARE_DIR"/keys/verity.x509.pem recoverynew.img.nonsecure

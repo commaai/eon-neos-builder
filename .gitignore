@@ -1,5 +1,6 @@
 .*.swp
 android
+mindroid
 android_kernel_*
 build
 usr

@@ -16,7 +16,7 @@ pushd build
 
   # prepare system image
   pushd system
-    simg2img "$FIRMWARE_DIR"/android/system/out/target/product/oneplus3/system.img system.img.raw
+    simg2img "$FIRMWARE_DIR"/mindroid/system/out/target/product/oneplus3/system.img system.img.raw
     mkdir -p mnt
     sudo mount -o loop system.img.raw mnt
 
