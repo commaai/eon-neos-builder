@@ -1,2 +1,5 @@
+.*.swp
 android
 android_kernel_*
+build
+usr
