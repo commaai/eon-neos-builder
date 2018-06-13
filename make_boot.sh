@@ -7,11 +7,14 @@ if [ -z "$TARGET" ]; then
   exit 1
 fi
 
+FIRMWARE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "$FIRMWARE_DIR"
+
 mkdir -p build
 pushd build
   mkdir -p boot
   pushd boot
-    abootimg -x ../../android/system/out/target/product/oneplus3/boot.img
+    abootimg -x "$FIRMWARE_DIR"/android/system/out/target/product/oneplus3/boot.img
 
     # extract ramdisk
     sudo rm -rf ramdisk
@@ -21,7 +24,15 @@ pushd build
       gunzip -c ../initrd.img | sudo cpio -i
 
       echo "running populate ramdisk"
-      sudo "$FIRMWARE_DIR"/populate_ramdisk.sh oneplus
+
+      # copy ramdisk files, include symlinks
+      ln -s /system/bin bin
+      ln -s /data/data/com.termux/files/home home
+      ln -s /data/data/com.termux/files/tmp tmp
+      ln -s /data/data/com.termux/files/usr usr
+      sudo cp -v "$FIRMWARE_DIR"/ramdisk_common/* .
+      echo "7" > VERSION
+      touch EON
 
       # repack ramdisk
       rm -f ../initrd_new.img.gz
@@ -30,7 +41,7 @@ pushd build
     popd
 
     # copy new kernel
-    KERNEL=../../android_kernel_"$TARGET"_msm8996/arch/arm64/boot/Image.gz-dtb
+    KERNEL="$FIRMWARE_DIR"/android_kernel_"$TARGET"_msm8996/arch/arm64/boot/Image.gz-dtb
     if [ -f $KERNEL ]; then
       echo "using external kernel with hash"
       sha1sum $KERNEL

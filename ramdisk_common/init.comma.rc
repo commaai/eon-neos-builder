@@ -1,0 +1,50 @@
+# **** comma additions ****
+
+service comma-usb-sh /comma.usb.sh
+   class core
+   user root
+   group root
+   oneshot
+
+on post-fs-data
+   mkdir /data/data/com.termux 0777 root root
+   mkdir /data/data/com.termux/files 0777 root root
+   mkdir /data/data/com.termux/files/tmp 0777 root root
+   symlink /system/comma/usr /data/data/com.termux/files/usr
+   symlink /system/comma/home /data/data/com.termux/files/home
+
+on property:init.svc.sshd=stopped && property:persist.neos.ssh=1
+   start sshd
+
+on property:init.svc.sshd=running && property:persist.neos.ssh=0
+   stop sshd
+
+service sshd /comma.ssh.sh
+   class late_start
+   user root
+   group root
+   wait /data/data/com.termux/files/usr
+   oneshot
+
+on property:neos.vpn=1
+   enable openvpn
+
+service openvpn /system/comma/vpn/vpn.sh
+   class late_start
+   user root
+   group root
+   wait /data/data/com.termux/files/usr
+   setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
+   disabled
+
+on property:sys.boot_completed=1
+   start comma
+
+service comma /data/data/com.termux/files/usr/bin/tmux new-session -s comma -d /comma.sh
+   user root
+   group root
+   setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
+   setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+   setenv HOME /data/data/com.termux/files/home
+   oneshot
+   disabled
