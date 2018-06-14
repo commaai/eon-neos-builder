@@ -13,12 +13,20 @@ What is it?
 What works
 -----
 
-* GPU
-* OpenCL
-* GPS
-* IMU
-* Camera with visiond
-* Touchscreen
-* Wi-FI
-* Audio
+* Compute
+** GPU
+** OpenCL
+** DSP
+* Sensors
+** GPS
+** IMU
+** Camera with visiond
+** Audio
+** Touchscreen
+* Connectivity
+** Ethernet
+** Radio
+** Wi-FI
+** Bluetooth
+** Tethering
 
