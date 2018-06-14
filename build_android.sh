@@ -6,5 +6,5 @@ cd mindroid/system
 
 source build/envsetup.sh
 breakfast oneplus3
-make -j bootimage recoveryimage systemimage
+make -j
 
