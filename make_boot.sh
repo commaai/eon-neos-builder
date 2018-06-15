@@ -62,6 +62,6 @@ pushd build
   openssl rsautl -sign -in bootnew.img.sha256 -inkey "$FIRMWARE_DIR"/keys/qcom.key -out bootnew.img.sig
   dd if=/dev/zero of=bootnew.img.sig.padded bs=4096 count=1
   dd if=bootnew.img.sig of=bootnew.img.sig.padded conv=notrunc
-  cat bootnew.img.nonsecure bootnew.img.sig.padded > bootnew.img
+  cat bootnew.img.nonsecure bootnew.img.sig.padded > bootnew_$TARGET.img
 popd
 

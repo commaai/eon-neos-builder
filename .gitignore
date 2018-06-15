@@ -2,5 +2,6 @@
 android
 mindroid
 android_kernel_*
+kernel
 build
 usr
