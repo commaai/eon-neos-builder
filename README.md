@@ -10,6 +10,17 @@ What is it?
 * A minified version of Android
 * Userspace from termux
 
+Usage
+------
+
+ ./build_all.sh
+ ./flash_oneplus.sh   # change to leeco if appropriate
+
+Supported Phones
+------
+* Oneplus 3T
+* LePro 3
+
 What works
 -----
 
