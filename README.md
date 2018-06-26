@@ -14,16 +14,6 @@ Usage
 ------
 
 ### Building
-
-#### Build for Leeco
-```
-./build_android.sh
-./build_kernel_leeco.sh
-./make_boot.sh leeco
-./make_recovery.sh leeco
-./make_system.sh
-```
-
 #### Build for OnePlus 3T
 ```
 ./build_android.sh
@@ -33,18 +23,29 @@ Usage
 ./make_system.sh
 ```
 
+#### Build for LeEco LePro 3
+```
+./build_android.sh
+./build_kernel_leeco.sh
+./make_boot.sh leeco
+./make_recovery.sh leeco
+./make_system.sh
+```
+
 #### Build All
 ```
 ./build_all.sh
 ```
 
 ### Flashing Devices
-
-#### Flash to Leeco
-`./flash_leeco.sh`
-
-#### Flash to OnePlus
-`./flash_oneplus.sh`
+#### Flash OnePlus 3T
+```
+./flash_oneplus.sh
+```
+#### Flash LeEco LePro 3
+```
+./flash_leeco.sh
+```
 
 Supported Devices
 ------
@@ -53,7 +54,6 @@ Supported Devices
 
 What works
 -----
-
 - [X] **Compute**
   - [X] GPU
   - [X] OpenCL
