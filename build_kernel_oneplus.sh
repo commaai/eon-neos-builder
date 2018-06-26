@@ -1,5 +1,5 @@
 #!/bin/bash
-git clone git@github.com:commaai/android_kernel_oneplus_msm8996.git
+git clone https://github.com/commaai/android_kernel_oneplus_msm8996.git
 cd android_kernel_oneplus_msm8996
 git pull
 
