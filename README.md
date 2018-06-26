@@ -13,31 +13,53 @@ What is it?
 Usage
 ------
 
- ./build_all.sh
- ./flash_oneplus.sh   # change to leeco if appropriate
+### Building
+#### Build for OnePlus 3T
+```
+./build_oneplus.sh
+```
 
-Supported Phones
+#### Build for LeEco LePro 3
+```
+./build_leeco.sh
+```
+
+#### Build All
+```
+./build_all.sh
+```
+
+### Flashing Devices
+#### Flash OnePlus 3T
+```
+./flash_oneplus.sh
+```
+#### Flash LeEco LePro 3
+```
+./flash_leeco.sh
+```
+
+Supported Devices
 ------
-* Oneplus 3T
-* LePro 3
+* [OnePlus 3T](https://www.oneplus.com/3t)
+* [LeEco LePro 3](https://www.cnet.com/products/leeco-lepro-3/review/)
 
 What works
 -----
-
-* Compute
-** GPU
-** OpenCL
-** DSP
-* Sensors
-** GPS
-** IMU
-** Camera with visiond
-** Audio
-** Touchscreen
-* Connectivity
-** Ethernet
-** Radio
-** Wi-FI
-** Bluetooth
-** Tethering
+- [X] **Compute**
+  - [X] GPU
+  - [X] OpenCL
+  - [X] DSP
+- [X] **Sensors**
+  - [X] GPS
+  - [X] IMU
+  - [X] Camera with visiond
+  - [X] Audio
+  - [X] Touchscreen
+- [X] **Connectivity**
+  - [X] Ethernet
+  - [X] Radio
+  - [X] Wi-FI
+  - [X] Bluetooth
+  - [X] Tethering
 
