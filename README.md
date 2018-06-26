@@ -16,20 +16,12 @@ Usage
 ### Building
 #### Build for OnePlus 3T
 ```
-./build_android.sh
-./build_kernel_oneplus.sh
-./make_boot.sh oneplus
-./make_recovery.sh oneplus
-./make_system.sh
+./build_oneplus.sh
 ```
 
 #### Build for LeEco LePro 3
 ```
-./build_android.sh
-./build_kernel_leeco.sh
-./make_boot.sh leeco
-./make_recovery.sh leeco
-./make_system.sh
+./build_leeco.sh
 ```
 
 #### Build All
