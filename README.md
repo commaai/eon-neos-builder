@@ -39,6 +39,16 @@ Usage
 ./flash_leeco.sh
 ```
 
+### Make OTA update
+```
+./prepare_ota.sh
+```
+
+TODO
+------
+
+* Make the OTA support both OnePlus and LeEco
+
 Supported Devices
 ------
 * [OnePlus 3T](https://www.oneplus.com/3t)
