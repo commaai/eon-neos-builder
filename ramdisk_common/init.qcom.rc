@@ -64,6 +64,7 @@ on early-boot
 on fs
     wait /dev/block/bootdevice
     mount_all fstab.qcom
+    exec /system/bin/sh /init.lepro.sh
 
 on boot
     # Secure touch
