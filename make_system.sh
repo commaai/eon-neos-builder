@@ -3,7 +3,7 @@ set -e
 
 # check that /usr is up to date
 if [ ! -d usr ]; then
-  git clone https://github.com/commaai/usr.git
+  git clone https://github.com/commaai/usr.git --depth 1
 fi
 (cd usr && git pull)
 
