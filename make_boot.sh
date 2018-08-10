@@ -41,7 +41,7 @@ pushd build
     popd
 
     # copy new kernel
-    KERNEL="$FIRMWARE_DIR"/android_kernel_"$TARGET"_msm8996/arch/arm64/boot/Image.gz-dtb
+    KERNEL="$FIRMWARE_DIR"/android_kernel_"$TARGET"_msm8996/out/arch/arm64/boot/Image.gz-dtb
     if [ -f $KERNEL ]; then
       echo "using external kernel with hash"
       sha1sum $KERNEL

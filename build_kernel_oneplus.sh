@@ -3,8 +3,8 @@ git clone https://github.com/commaai/android_kernel_oneplus_msm8996.git --depth 
 cd android_kernel_oneplus_msm8996
 git pull
 
-export PATH=/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin:$PATH
+export CROSS_COMPILE=/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-
+export ARCH=arm64
 
-CROSS_COMPILE=aarch64-linux-android- ARCH=arm64 make comma_defconfig
-CROSS_COMPILE=aarch64-linux-android- ARCH=arm64 make -j8
-
+make oneplus3_defconfig
+make -j$(nproc --all)
