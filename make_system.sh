@@ -40,14 +40,6 @@ pushd build
     sudo chmod 600 mnt/comma/home/.ssh/*
     sudo chmod 600 mnt/comma/usr/etc/ssh/*
 
-    if [[ $LEECO ]]; then
-      echo "copying LeEco files"
-      sudo cp -vp ../../lepatch/a530_zap.mdt mnt/etc/firmware/
-      sudo cp -vp ../../lepatch/WCNSS_qcom_cfg.ini mnt/etc/wifi/
-      sudo cp -vp ../../lepatch/mixer_paths_tasha.xml mnt/etc/
-      sudo cp -vp ../../lepatch/audio_platform_info.xml mnt/etc/
-    fi
-
     # done with system
     sudo umount mnt
     img2simg system.img.raw ../system.good.img
