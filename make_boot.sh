@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 TARGET="$1"
 if [ -z "$TARGET" ]; then
@@ -9,12 +8,18 @@ fi
 
 FIRMWARE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "$FIRMWARE_DIR"
+BOOTIMG="$FIRMWARE_DIR"/mindroid/system/out/target/product/oneplus3/boot.img
+BOOTIMG_ALT="$FIRMWARE_DIR"/prebuilt/$TARGET/boot.img
 
 mkdir -p build
 pushd build
   mkdir -p boot
   pushd boot
-    abootimg -x "$FIRMWARE_DIR"/mindroid/system/out/target/product/oneplus3/boot.img
+    if [ -e $BOOTIMG ]; then
+      abootimg -x $BOOTIMG
+    else
+      abootimg -x $BOOTIMG_ALT
+    fi
 
     # extract ramdisk
     sudo rm -rf ramdisk
