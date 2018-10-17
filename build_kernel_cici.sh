@@ -1,5 +1,5 @@
 #!/bin/bash
-git clone https://github.com/commaai/android_kernel_cici_msm8996.git --depth 1
+git clone git@github.com:commaai/android_kernel_cici_msm8996.git --depth 1
 cd android_kernel_cici_msm8996
 git pull
 
