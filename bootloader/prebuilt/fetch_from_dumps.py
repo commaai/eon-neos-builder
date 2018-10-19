@@ -18,12 +18,13 @@ if __name__ == "__main__":
   goodchild = []
   for child in root:
     if child.attrib['label'] in ['PrimaryGPT', 'BackupGPT']:
+      child.set('filename', os.path.join("dumps", child.attrib['filename']))
       goodchild.append(child)
       continue
     if child.attrib['label'] in ['system', 'cache', 'vendor', 'userdata']:
       continue
     # not in package?
-    if child.attrib['label'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
+    if child.attrib['filename'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
       continue
     assert child.attrib['SECTOR_SIZE_IN_BYTES'] == "4096"
     assert child.attrib['file_sector_offset'] == "0"
@@ -42,23 +43,23 @@ if __name__ == "__main__":
 
   toxml = []
 
-  for i, fn in enumerate(["sda", "sdb", "sdc", "sdd", "sde", "sdf"]):
-    print("parsing %s" % fn)
+  for partition_number, partition_file in enumerate(["sda", "sdb", "sdc", "sdd", "sde", "sdf"]):
+    print("parsing %s" % partition_file)
     try:
-      f = open(os.path.join(sys.argv[1], fn), "rb")
+      f = open(os.path.join(sys.argv[1], partition_file), "rb")
     except IOError:
-      print "OPEN %s FAILED" % fn
+      print "OPEN %s FAILED" % partition_file
       continue
 
     # 6 sectors
     gpt_main = f.read(24576)
-    with open("gpt_main%d.bin" % i, "wb") as g:
+    with open(os.path.join("dumps", "gpt_main%d.bin" % partition_number), "wb") as g:
       g.write(gpt_main)
 
     # 5 sectors
     f.seek(-20480, os.SEEK_END)
     gpt_backup = f.read(20480)
-    with open("gpt_backup%d.bin" % i, "wb") as g:
+    with open(os.path.join("dumps", "gpt_backup%d.bin" % partition_number), "wb") as g:
       g.write(gpt_backup)
 
     ptr = 0x1000
@@ -71,7 +72,7 @@ if __name__ == "__main__":
     while gpt_main[ptr:ptr+0x10] != "\x00"*0x10:
       name = gpt_main[ptr+0x38:ptr+0x80][::2].strip('\x00')
       start, end, flags = struct.unpack("<QQQ", gpt_main[ptr+0x20:ptr+0x38])
-      print "  %s%d = %s -- 0x%x-0x%x" % (fn, i, name, start, end)
+      print "  %s%d = %s -- 0x%x-0x%x" % (partition_file, i, name, start, end)
 
       if name in lookup:
         print "    writing file %s" % lookup[name]
@@ -80,8 +81,8 @@ if __name__ == "__main__":
           f.seek(start*SECTOR_SIZE)
           g.write(f.read((end-start+1)*SECTOR_SIZE))
         # we built this
-        if lookup[name] in ['emmc_appsboot.mbn']:
-          fn = lookup[name]
+        #if lookup[name] in ['emmc_appsboot.mbn']:
+        #  fn = lookup[name]
         toxml.append({
           'SECTOR_SIZE_IN_BYTES': '4096',
           'file_sector_offset': '0',
@@ -89,7 +90,7 @@ if __name__ == "__main__":
           'label': name,
           'num_partition_sectors': str(end-start+1),
           'partofsingleimage': 'false',
-          'physical_partition_number': str(i),
+          'physical_partition_number': str(partition_number),
           'readbackverify': 'false',
           'size_in_KB': "%.1f" % (start*SECTOR_SIZE/1024),
           'sparse': 'false',
