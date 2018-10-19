@@ -5,24 +5,42 @@ import struct
 import xml.etree.ElementTree as ET
 from hexdump import hexdump
 
-# adb exec-out 'dd bs=268435456 if=/dev/block/sda | gzip' | gunzip | pv > sda
+# adb exec-out 'dd bs=268435456 if=/dev/block/sda 2&> /dev/null | gzip' | gunzip | pv > sda
 
 SECTOR_SIZE = 4096
 
 if __name__ == "__main__":
+  os.system("mkdir -p dumps")
   tree = ET.parse('rawprogram_template.xml')
   root = tree.getroot()
 
   lookup = {}
+  goodchild = []
   for child in root:
     if child.attrib['label'] in ['PrimaryGPT', 'BackupGPT']:
+      goodchild.append(child)
       continue
     if child.attrib['label'] in ['system', 'cache', 'vendor', 'userdata']:
       continue
+    # not in package?
+    if child.attrib['label'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
+      continue
+    assert child.attrib['SECTOR_SIZE_IN_BYTES'] == "4096"
+    assert child.attrib['file_sector_offset'] == "0"
+    assert child.attrib['readbackverify'] == "false"
+    assert child.attrib['partofsingleimage'] == "false"
+    assert child.attrib['sparse'] == "false"
+
     #print child.tag, child.attrib
     print child.attrib['label'], child.attrib['filename']
     lookup[child.attrib['label']] = child.attrib['filename']
 
+  # add back the GPTs
+  root.clear()
+  for child in goodchild:
+    root.append(child)
+
+  toxml = []
 
   for i, fn in enumerate(["sda", "sdb", "sdc", "sdd", "sde", "sdf"]):
     print("parsing %s" % fn)
@@ -57,10 +75,27 @@ if __name__ == "__main__":
 
       if name in lookup:
         print "    writing file %s" % lookup[name]
-        with open(lookup[name], "wb") as g:
+        fn = os.path.join("dumps", lookup[name])
+        with open(fn, "wb") as g:
           f.seek(start*SECTOR_SIZE)
           g.write(f.read((end-start+1)*SECTOR_SIZE))
-
+        # we built this
+        if lookup[name] in ['emmc_appsboot.mbn']:
+          fn = lookup[name]
+        toxml.append({
+          'SECTOR_SIZE_IN_BYTES': '4096',
+          'file_sector_offset': '0',
+          'filename': fn,
+          'label': name,
+          'num_partition_sectors': str(end-start+1),
+          'partofsingleimage': 'false',
+          'physical_partition_number': str(i),
+          'readbackverify': 'false',
+          'size_in_KB': "%.1f" % (start*SECTOR_SIZE/1024),
+          'sparse': 'false',
+          'start_byte_hex': '0x%x' % (start*SECTOR_SIZE),
+          'start_sector': str(start)
+        })
         del lookup[name]
 
       ptr += 0x80
@@ -68,5 +103,14 @@ if __name__ == "__main__":
 
     f.close()
     
-  print(lookup)      
+  assert lookup == {}
+
+  # add in written files
+  for x in toxml:
+    ele = ET.Element("program")
+    for k,d in x.items():
+      ele.set(k, d)
+    root.append(ele)
+    
+  tree.write('rawprogram.xml')
 
