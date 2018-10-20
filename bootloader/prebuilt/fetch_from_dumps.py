@@ -11,6 +11,8 @@ SECTOR_SIZE = 4096
 
 if __name__ == "__main__":
   os.system("mkdir -p dumps")
+  os.system("cp patch.xml dumps/")
+  os.system("cp prog_ufs_firehose_8996_ddr.elf dumps/")
   tree = ET.parse('rawprogram_template.xml')
   root = tree.getroot()
 
@@ -18,14 +20,14 @@ if __name__ == "__main__":
   goodchild = []
   for child in root:
     if child.attrib['label'] in ['PrimaryGPT', 'BackupGPT']:
-      child.set('filename', os.path.join("dumps", child.attrib['filename']))
+      #child.set('filename', os.path.join("dumps", child.attrib['filename']))
       goodchild.append(child)
       continue
     if child.attrib['label'] in ['system', 'cache', 'vendor', 'userdata']:
       continue
     # not in package?
-    if child.attrib['filename'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
-      continue
+    #if child.attrib['filename'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
+    #  continue
     assert child.attrib['SECTOR_SIZE_IN_BYTES'] == "4096"
     assert child.attrib['file_sector_offset'] == "0"
     assert child.attrib['readbackverify'] == "false"
@@ -35,6 +37,8 @@ if __name__ == "__main__":
     #print child.tag, child.attrib
     print child.attrib['label'], child.attrib['filename']
     lookup[child.attrib['label']] = child.attrib['filename']
+
+  lookup['persist'] = 'persist.img'
 
   # add back the GPTs
   root.clear()
@@ -81,12 +85,15 @@ if __name__ == "__main__":
           f.seek(start*SECTOR_SIZE)
           g.write(f.read((end-start+1)*SECTOR_SIZE))
         # we built this
-        #if lookup[name] in ['emmc_appsboot.mbn']:
-        #  fn = lookup[name]
+
+        if lookup[name] in ['emmc_appsboot.mbn']:
+          tfn = '../'+lookup[name]
+        else:
+          tfn = lookup[name]
         toxml.append({
           'SECTOR_SIZE_IN_BYTES': '4096',
           'file_sector_offset': '0',
-          'filename': fn,
+          'filename': tfn,
           'label': name,
           'num_partition_sectors': str(end-start+1),
           'partofsingleimage': 'false',
@@ -113,5 +120,7 @@ if __name__ == "__main__":
       ele.set(k, d)
     root.append(ele)
     
-  tree.write('rawprogram.xml')
+  tree.write('dumps/rawprogram.xml')
+  with open("dumps/patch.xml", "wb") as g:
+    g.write('<patches></patches>')
 
