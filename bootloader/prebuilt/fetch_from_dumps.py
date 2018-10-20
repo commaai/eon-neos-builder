@@ -26,8 +26,8 @@ if __name__ == "__main__":
     if child.attrib['label'] in ['system', 'cache', 'vendor', 'userdata']:
       continue
     # not in package?
-    #if child.attrib['filename'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
-    #  continue
+    if child.attrib['filename'] in ['adspso.bin', 'BTFM.bin', 'NON-HLOS.bin']:
+      continue
     assert child.attrib['SECTOR_SIZE_IN_BYTES'] == "4096"
     assert child.attrib['file_sector_offset'] == "0"
     assert child.attrib['readbackverify'] == "false"
@@ -37,8 +37,6 @@ if __name__ == "__main__":
     #print child.tag, child.attrib
     print child.attrib['label'], child.attrib['filename']
     lookup[child.attrib['label']] = child.attrib['filename']
-
-  lookup['persist'] = 'persist.img'
 
   # add back the GPTs
   root.clear()
@@ -77,6 +75,10 @@ if __name__ == "__main__":
       name = gpt_main[ptr+0x38:ptr+0x80][::2].strip('\x00')
       start, end, flags = struct.unpack("<QQQ", gpt_main[ptr+0x20:ptr+0x38])
       print "  %s%d = %s -- 0x%x-0x%x" % (partition_file, i, name, start, end)
+
+      # **** full recovery ****
+      #if name not in lookup and name not in ['boot', 'recovery', 'system', 'userdata', 'cache']:
+      #  lookup[name] = name+".dump"
 
       if name in lookup:
         print "    writing file %s" % lookup[name]
