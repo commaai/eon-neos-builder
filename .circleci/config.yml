@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Build image
+          command: "docker build -t eon-neos-builder ."
+      - run:
+          name: Build images
+          command: |
+            docker run eon-neos-builder ./run_ci.sh"
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
