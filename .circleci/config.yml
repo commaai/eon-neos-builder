@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Build images
           command: |
-            docker run eon-neos-builder ./run_ci.sh"
+            docker run eon-neos-builder ./run_ci.sh
 
 workflows:
   version: 2
