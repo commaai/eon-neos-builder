@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ./build_android.sh
 ./build_kernel_oneplus.sh
 ./make_boot.sh oneplus

@@ -1,4 +1,6 @@
-#/bin/bash -e
+#!/usr/bin/env bash
+set -e
+
 ./build_android.sh
 ./build_kernel_leeco.sh
 ./build_kernel_oneplus.sh
@@ -7,4 +9,3 @@
 ./make_recovery.sh leeco
 ./make_recovery.sh oneplus
 ./make_system.sh
-
