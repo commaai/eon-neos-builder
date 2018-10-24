@@ -1,0 +1,12 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_script:
+- docker build -t eon-neos-builder .
+
+script:
+- docker run eon-neos-builder ./run_ci.sh
+
