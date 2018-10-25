@@ -60,8 +60,10 @@ def load_mbn_file(fn):
     else:
       if i == 3:
         print "PATCH"
-        o = struct.pack("<HH", 2700, 2900)
-        n = struct.pack("<HH", 2500, 3000)
+        #o = struct.pack("<HH", 2700, 2900)
+        #n = struct.pack("<HH", 2500, 3000)
+        o = struct.pack("<HH", 0xb22, 0xc1c)
+        n = struct.pack("<HH", 0xa8c, 0xce4)
         idx = d.find(o)
         print hex(idx)
         d = d[:idx] + n + d[idx+4:]
