@@ -10,19 +10,21 @@ from Crypto.Util.number import bytes_to_long, long_to_bytes
 
 def parse_cert_chain(cert_chain):
   with tempfile.NamedTemporaryFile() as cert:
-    cert.write(cert_chain)
-    cert.flush()
-    os.system("openssl x509 -in %s -inform DER -text > /tmp/kasdfj" % cert.name)
-    tcert = open("/tmp/kasdfj").read()
-    print filter(lambda x: "Subject" in x, tcert.split("\n"))
-    mod = tcert.split("Modulus:")[1].split("Exponent")[0]
-    mod = mod.replace(" ", "").replace(":", "").replace("\n", "")
-    mod = bytes_to_long(mod.decode("hex"))
+    with tempfile.NamedTemporaryFile() as cert_parsed:
+      cert.write(cert_chain)
+      cert.flush()
+      os.system("openssl x509 -in %s -inform DER -text > %s" % (cert.name, cert_parsed.name))
+      tcert = open(cert_parsed.name).read()
+      print filter(lambda x: "Subject" in x, tcert.split("\n"))
+      mod = tcert.split("Modulus:")[1].split("Exponent")[0]
+      mod = mod.replace(" ", "").replace(":", "").replace("\n", "")
+      mod = bytes_to_long(mod.decode("hex"))
   return mod
 
 def load_mbn_file(fn):
   elffile = ELFFile(open(fn))
   allhash = ""
+  segs = []
   for i, seg in enumerate(elffile.iter_segments()):
     d = seg.data()
     print(len(d))
@@ -56,17 +58,27 @@ def load_mbn_file(fn):
 
       allhash += "\x00"*0x20
     else:
+      if i == 3:
+        print "PATCH"
+        o = struct.pack("<HH", 2700, 2900)
+        n = struct.pack("<HH", 2500, 3000)
+        idx = d.find(o)
+        print hex(idx)
+        d = d[:idx] + n + d[idx+4:]
+        #d = d.replace(o, n)
       allhash += hashlib.sha256(d).digest()
+    segs.append(d)
   hexdump(allhash)
   hexdump(hash_chunk)
-  assert allhash == hash_chunk
+  if allhash != hash_chunk:
+    print "WARNING: data changed"
 
-  return header, allhash, signature, cert_chain
+  return header, allhash, signature, cert_chain, segs
 
 fn = sys.argv[1]
 
 #header, hash_chunk, signature, cert_chain = load_mbn_file("dragonboard/emmc_appsboot.mbn")
-header, hash_chunk, signature, cert_chain = load_mbn_file(fn)
+header, new_hash_chunk, signature, cert_chain, segs = load_mbn_file(fn)
 #with open("got_chain.DER", "wb") as f:
   #f.write(cert_chain[cert_chain.find("\x30\x82", 0x200):])
   #f.write(cert_chain[0x4a7:])
@@ -78,7 +90,7 @@ print "rsa"
 hexdump("\x00"+p)
 ghash = p[-0x20:]
 print("out")
-stp0 = hashlib.sha256(header+hash_chunk).digest()
+stp0 = hashlib.sha256(header+new_hash_chunk).digest()
 stp1 = hashlib.sha256("\x36"*7 + "\x3c" + stp0).digest()
 datasign = hashlib.sha256("\x5c"*8 + stp1).digest()
 hexdump(datasign)
@@ -90,8 +102,23 @@ with tempfile.NamedTemporaryFile() as dataToSign:
 new_cert_chain = open("cert/atte.DER").read() + open("cert/root.DER").read()
 new_cert_chain += "\xff" * (len(cert_chain) - len(new_cert_chain))
 
+"""
 tmp = open(fn).read()
+tmp = tmp.replace(hash_chunk, new_hash_chunk)
 tmp = tmp.replace(signature, new_signature)
 tmp = tmp.replace(cert_chain, new_cert_chain)
+o = struct.pack("<HH", 2700, 2900)
+n = struct.pack("<HH", 2700, 3300)
+tmp = tmp.replace(o, n)
 open(fn+".patched", "wb").write(tmp)
+"""
+
+with open(fn+".patched", "wb") as f:
+  f.write(segs[0])
+  f.write("\x00"*(0x1000-len(segs[0])))
+  nseg1 = header+new_hash_chunk+new_signature+new_cert_chain
+  f.write(nseg1)
+  f.write("\x00"*(0x2000-len(nseg1)))
+  f.write(segs[2])
+  f.write(segs[3])
 
