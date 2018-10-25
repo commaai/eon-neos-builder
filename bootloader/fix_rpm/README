@@ -1,0 +1,13 @@
+# generates keys for signing the RPM, run this once
+./gen_keys.sh
+
+# output ../microsom/rpm.mbn.patched
+# note that the regulator patch is hardcoded in here
+./fix_rpm_mbn_signature.py ../microsom/rpm.mbn
+
+# flash it to the device
+fastboot flash rpm ../microsom/rpm.mbn.patched
+
+# if it no longer boots into fastboot, this will reset to stock
+./flash_bootloader_cici.sh
+
