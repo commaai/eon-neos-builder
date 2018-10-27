@@ -15,7 +15,7 @@ trap "show_log" ERR
 ./make_boot.sh oneplus
 ./make_recovery.sh leeco
 ./make_recovery.sh oneplus
-} > log.txt
+} > log.txt 2>&1
 
 tail -n 1000 log.txt
 
