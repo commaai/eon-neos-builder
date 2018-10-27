@@ -8,5 +8,5 @@ before_script:
 - docker build -t eon-neos-builder .
 
 script:
-- travis_wait docker run eon-neos-builder ./run_ci.sh
+- travis_wait 600 docker run eon-neos-builder ./run_ci.sh
 
