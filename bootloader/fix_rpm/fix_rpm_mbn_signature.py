@@ -8,6 +8,13 @@ import struct
 import tempfile
 from Crypto.Util.number import bytes_to_long, long_to_bytes
 
+                  #[reg_num, og_low, og_high, new_low, new_high]
+regulators_to_patch = [
+                      [17, 0x9c4, 0xa8c, 0x654, 0x708],
+                      [18, 0xa8c, 0xb54, 0x654, 0x708],
+                      [29, 0xabe, 0xb22, 0x654, 0x708]
+                      ]
+
 def parse_cert_chain(cert_chain):
   with tempfile.NamedTemporaryFile() as cert:
     with tempfile.NamedTemporaryFile() as cert_parsed:
@@ -62,14 +69,22 @@ def load_mbn_file(fn):
         print "PATCH"
         #o = struct.pack("<HH", 2700, 2900)
         #n = struct.pack("<HH", 2500, 3000)
-        o = struct.pack("<HH", 0xb22, 0xc1c)
-        n = struct.pack("<HH", 0xa8c, 0xce4)
-        idx = d.find(o)
-        print hex(idx)
-        d = d[:idx] + n + d[idx+4:]
-        #d = d.replace(o, n)
+        
+        # L19 ranges - Doesnt work below 1700mV
+        #o = struct.pack("<HH", 0xb22, 0xc1c)
+        #n = struct.pack("<HH", 0x6d6, 0x708)
+
+        for i in range(len(regulators_to_patch)):
+          o = struct.pack("<HH", regulators_to_patch[i][1], regulators_to_patch[i][2])
+          n = struct.pack("<HH", regulators_to_patch[i][3], regulators_to_patch[i][4])
+
+          idx = d.find(o)
+          print hex(idx)
+          d = d[:idx] + n + d[idx+4:]
+          #d = d.replace(o, n)
       allhash += hashlib.sha256(d).digest()
     segs.append(d)
+
   hexdump(allhash)
   hexdump(hash_chunk)
   if allhash != hash_chunk:
