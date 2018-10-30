@@ -8,7 +8,10 @@ pipeline {
     }
     stage('Build Android') {
       steps {
-        sh 'docker run eon-neos-builder ./run_ci.sh'
+        timeout(time: 1, unit: 'DAYS') {
+          sh 'docker run eon-neos-builder ./run_ci.sh'
+        }
+        
       }
     }
   }
