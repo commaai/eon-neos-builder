@@ -10,4 +10,9 @@ fi
 
 source build/envsetup.sh
 breakfast oneplus3
-make -j
+
+if [[ -z "${LIMIT_CORES}" ]]; then
+    make -j
+else
+    make -j8
+fi
