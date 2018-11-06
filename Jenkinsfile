@@ -9,7 +9,7 @@ pipeline {
     stage('Build Android') {
       steps {
         timeout(time: 1, unit: 'DAYS') {
-          sh 'docker run eon-neos-builder ./run_ci.sh'
+          sh 'docker run --privileged eon-neos-builder ./run_ci.sh'
         }
         
       }

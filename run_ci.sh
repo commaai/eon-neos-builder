@@ -8,6 +8,4 @@ LIMIT_CORES=1 ./build_android.sh
 ./make_boot.sh oneplus
 ./make_recovery.sh leeco
 ./make_recovery.sh oneplus
-
-# TODO: Figure out mounting inside docker
-# ./make_system.sh
+./make_system.sh
