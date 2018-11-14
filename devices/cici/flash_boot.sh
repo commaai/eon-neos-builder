@@ -1,5 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+OUT=$DIR/out
 
-fastboot flash boot $DIR/out/boot.img
+fastboot flash boot $OUT/boot.img

@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 OUT=$DIR/out
 ROOT=$DIR/../..
 TOOLS=$ROOT/tools
+
+cd $DIR
 
 mkdir -p $OUT
 

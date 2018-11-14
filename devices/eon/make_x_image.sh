@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
 IMG_TYPE=$1
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 OUT=$DIR/out
 ROOT=$DIR/../..
 TOOLS=$ROOT/tools
+
+cd $DIR
 
 export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/usr/bin/aarch64-linux-gnu-
 export ARCH=arm64

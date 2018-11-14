@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 OUT=$DIR/out
 ROOT=$DIR/../..
 TOOLS=$ROOT/tools
+
+cd $DIR
 
 export EMMC_BOOT=1
 export VERIFIED_BOOT=1
@@ -12,7 +14,7 @@ export TOOLCHAIN_PREFIX=$TOOLS/arm-eabi-4.8/bin/arm-eabi-
 $TOOLS/extract_toolchains.sh
 mkdir -p $OUT
 
-cd $DIR/bootloader
+cd bootloader
 
 if [ ! -d lk_cici ]; then
   git clone git@github.com:commaai/lk_cici.git --depth 1

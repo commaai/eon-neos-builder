@@ -1,8 +1,10 @@
 #!/bin/bash -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
-cd $DIR/bootloader/qdl
+cd $DIR
+
+cd bootloader/qdl
 make -j$(nproc --all)
 
 cd ../microsom
