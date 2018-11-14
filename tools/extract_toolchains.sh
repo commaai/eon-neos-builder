@@ -7,6 +7,7 @@
 # https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/+archive/master.tar.gz
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+THIS_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 
 cd $DIR
 
@@ -20,12 +21,25 @@ LATEST_FSF_GCC_TARBALL=$(find . -name $LATEST_FSF_GCC*.xz)
 GOOGLE_GCC_4_9_TARBALL=$(find . -name $GOOGLE_GCC_4_9*.gz)
 GOOGLE_GCC_4_8_32BIT_TARBALL=$(find . -name $GOOGLE_GCC_4_8_32BIT*.gz)
 
+# Delete the old extracted toolchains if they need to be updated
+if [ $THIS_SCRIPT -nt $LATEST_FSF_GCC ] || \
+   [ $THIS_SCRIPT -nt $GOOGLE_GCC_4_9 ] || \
+   [ $THIS_SCRIPT -nt $GOOGLE_GCC_4_8_32BIT ] || \
+   [ $LATEST_FSF_BINUTILS_TARBALL -nt $LATEST_FSF_GCC ] || \
+   [ $LATEST_FSF_GCC_TARBALL -nt $LATEST_FSF_GCC ] || \
+   [ $GOOGLE_GCC_4_9_TARBALL -nt $GOOGLE_GCC_4_9 ] || \
+   [ $GOOGLE_GCC_4_8_32BIT_TARBALL -nt $GOOGLE_GCC_4_8_32BIT ]; then
+  rm -rf $LATEST_FSF_GCC
+  rm -rf $GOOGLE_GCC_4_9
+  rm -rf $GOOGLE_GCC_4_8_32BIT
+fi
+
 if [ ! -d $LATEST_FSF_GCC ]; then
   mkdir $LATEST_FSF_GCC
   tar -xJf $LATEST_FSF_GCC_TARBALL -C $LATEST_FSF_GCC &>/dev/null
   tar -xJf $LATEST_FSF_BINUTILS_TARBALL -C $LATEST_FSF_GCC &>/dev/null
 
-  if [ ! -e /usr/lib/libmpfr.so.6 ]; then
+  if [ -z "$(ldconfig -p | grep libmpfr.so.6)" ]; then
     echo "libmpfr.so.6 not found, editing GCC to use libmpfr.so.4 instead"
     find $LATEST_FSF_GCC -type f -executable -exec sed -i "s/libmpfr.so.6/libmpfr.so.4/g" {} \;
   fi
