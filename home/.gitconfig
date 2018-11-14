@@ -1,7 +1,0 @@
-[user]
-	email = george@comma.ai
-	name = George Hotz
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
