@@ -24,8 +24,9 @@ make comma_defconfig
 make -j$(nproc --all)
 cd ..
 
-# Pack ramdisk
+# Create necessary empty directories that git discards and pack ramdisk
 cd ramdisk-$IMG_TYPE
+mkdir -p data dev oem proc sys system
 find . | cpio -R 0:0 -H newc -o 2>/dev/null | gzip > ../ramdisk-$IMG_TYPE.gz
 cd ..
 
