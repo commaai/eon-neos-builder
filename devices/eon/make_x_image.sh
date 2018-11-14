@@ -8,7 +8,7 @@ TOOLS=$ROOT/tools
 
 cd $DIR
 
-export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/usr/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/bin/aarch64-linux-gnu-
 export ARCH=arm64
 
 $TOOLS/extract_toolchains.sh
