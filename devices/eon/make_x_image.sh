@@ -20,15 +20,9 @@ fi
 
 # Compile kernel
 cd android_kernel_comma_msm8996
+git pull
 make comma_defconfig
 make -j$(nproc --all)
-cd ..
-
-# Create necessary empty directories that git discards and pack ramdisk
-cd ramdisk-$IMG_TYPE
-mkdir -p data dev oem proc sys system
-chmod 771 data
-find . | cpio -R 0:0 -H newc -o 2>/dev/null | gzip > ../ramdisk-$IMG_TYPE.gz
 cd ..
 
 # Assemble an unsigned boot.img
@@ -52,7 +46,7 @@ dd if=unf-$IMG_TYPE.img.sig of=unf-$IMG_TYPE.img.sig.padded conv=notrunc
 cat unf-$IMG_TYPE.img unf-$IMG_TYPE.img.sig.padded > $OUT/$IMG_TYPE.img
 
 # Clean up
-rm unf-$IMG_TYPE* ramdisk-$IMG_TYPE.gz
+rm unf-$IMG_TYPE*
 
 # Print output message
 GREEN="\033[0;32m"
