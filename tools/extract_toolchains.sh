@@ -5,6 +5,8 @@
 # https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/master.tar.gz
 # https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/+archive/master.tar.gz
 
+echo "Extracting toolchains..."
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 THIS_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 
@@ -52,5 +54,3 @@ if [ ! -d $GOOGLE_GCC_4_8_32BIT ]; then
   mkdir $GOOGLE_GCC_4_8_32BIT
   tar -xzf $GOOGLE_GCC_4_8_32BIT_TARBALL -C $GOOGLE_GCC_4_8_32BIT &>/dev/null
 fi
-
-echo "Toolchains extracted!"
