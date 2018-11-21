@@ -20,7 +20,9 @@ cd $DIR/mindroid/system
 $TOOLS/repo init -u https://github.com/commaai/android.git -b mindroid
 $TOOLS/repo sync -c -j$(nproc --all)
 
+set +e
 source build/envsetup.sh
+set -e
 breakfast oneplus3
 
 if [[ -z "${LIMIT_CORES}" ]]; then
@@ -34,8 +36,9 @@ cd $DIR/mindroid
 if [ ! -d usr ]; then
   git clone https://github.com/commaai/usr.git --depth 1
 fi
-cd usr
-git pull
+pushd usr
+  git pull
+popd
 
 $TOOLS/simg2img $DIR/mindroid/system/out/target/product/oneplus3/system.img system.img.raw
 mkdir -p mnt
