@@ -5,5 +5,5 @@ android_kernel_*
 kernel
 build
 usr
-eon-neos
+neosupdate
 out
