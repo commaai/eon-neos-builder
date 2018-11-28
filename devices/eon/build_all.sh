@@ -6,4 +6,4 @@ cd $DIR
 
 ./build_boot.sh
 ./build_recovery.sh
-./build_system.h
+./build_system.sh

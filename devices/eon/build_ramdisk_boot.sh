@@ -3,12 +3,15 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 cd "$DIR"
 
+BOOT_RAMDISK="mindroid/system/out/target/product/oneplus3/ramdisk.img"
+[ ! -f $BOOT_RAMDISK ] && ./build_android.sh
+
 # extract ramdisk
 sudo rm -rf boot_ramdisk
 mkdir -p boot_ramdisk
 
 pushd boot_ramdisk
-  gunzip -c ../mindroid/system/out/target/product/oneplus3/ramdisk.img | sudo cpio -i
+  gunzip -c ../$BOOT_RAMDISK | sudo cpio -i
 
   echo "running populate ramdisk"
 
