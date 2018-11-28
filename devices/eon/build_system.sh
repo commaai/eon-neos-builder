@@ -14,31 +14,28 @@ if [[ -z "${SKIP_DEPS}" ]]; then
     sudo apt-get install -y cpio openjdk-8-jdk git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python bc android-tools-fsutils
 fi
 
+if [[ -z "${LIMIT_CORES}" ]]; then
+  JOBS=$(nproc --all)
+else
+  JOBS=8
+fi
+
 # Build mindroid
 mkdir -p $DIR/mindroid/system
 cd $DIR/mindroid/system
 $TOOLS/repo init -u https://github.com/commaai/android.git -b mindroid
-$TOOLS/repo sync -c -j$(nproc --all)
+$TOOLS/repo sync -c -j$JOBS
 
-set +e
-source build/envsetup.sh
-set -e
-breakfast oneplus3
-
-if [[ -z "${LIMIT_CORES}" ]]; then
-    make -j$(nproc --all)
-else
-    make -j8
-fi
+(source build/envsetup.sh && breakfast oneplus3 && make -j$JOBS)
 
 # Bake in NEOS
 cd $DIR/mindroid
 if [ ! -d usr ]; then
   git clone https://github.com/commaai/usr.git --depth 1
 fi
-pushd usr
-  git pull
-popd
+cd usr
+git pull
+cd ..
 
 $TOOLS/simg2img $DIR/mindroid/system/out/target/product/oneplus3/system.img system.img.raw
 mkdir -p mnt
