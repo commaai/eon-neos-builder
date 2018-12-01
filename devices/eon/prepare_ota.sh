@@ -9,7 +9,8 @@ OTA="$DIR/ota"
 NEOSUPDATE="$DIR/neosupdate"
 RECOVERY_IMAGE="$DIR/out/recovery.img"
 NEOS_UPDATE_URL=${NEOS_UPDATE_URL:-https://commadist.azureedge.net/neosupdate}
-NEOS_STAGING_UPDATE_URL=${NEOS_STAGING_UPDATE_URL:-http://192.168.5.1:8000/neosupdate}
+NEOS_STAGING_UPDATE_URL=${NEOS_STAGING_UPDATE_URL:-https://commadist.blob.core.windows.net/neosupdate-staging}
+NEOS_LOCAL_UPDATE_URL=${NEOS_LOCAL_UPDATE_URL:-https://192.168.5.1:8000/neosupdate}
 
 mkdir -p $NEOSUPDATE
 
@@ -44,6 +45,16 @@ tee $NEOSUPDATE/update.staging.json > /dev/null <<EOM
   "ota_url": "$NEOS_STAGING_UPDATE_URL/ota-signed-$OTA_HASH.zip",
   "ota_hash": "$OTA_HASH",
   "recovery_url": "$NEOS_STAGING_UPDATE_URL/recovery-$RECOVERY_HASH.img",
+  "recovery_len": $RECOVERY_LEN,
+  "recovery_hash": "$RECOVERY_HASH"
+}
+EOM
+
+tee $NEOSUPDATE/update.local.json > /dev/null <<EOM
+{
+  "ota_url": "$NEOS_LOCAL_UPDATE_URL/ota-signed-$OTA_HASH.zip",
+  "ota_hash": "$OTA_HASH",
+  "recovery_url": "$NEOS_LOCAL_UPDATE_URL/recovery-$RECOVERY_HASH.img",
   "recovery_len": $RECOVERY_LEN,
   "recovery_hash": "$RECOVERY_HASH"
 }
