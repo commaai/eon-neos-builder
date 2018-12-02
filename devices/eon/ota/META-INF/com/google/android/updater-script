@@ -1,0 +1,13 @@
+getprop("ro.display.series") == "OnePlus 3" || getprop("ro.display.series") == "OnePlus 3T" || abort("E3004: This package is for \"OnePlus 3\" devices; this is a \"" + getprop("ro.display.series") + "\".");
+show_progress(0.500000, 0);
+
+ui_print("Flashing boot.img");
+show_progress(0.100000, 10);
+package_extract_file("files/boot.img", "/dev/block/bootdevice/by-name/boot");
+
+ui_print("Flashing system.img");
+show_progress(0.500000, 50);
+package_extract_file("files/system.img", "/dev/block/bootdevice/by-name/system");
+
+set_progress(1.000000);
+
