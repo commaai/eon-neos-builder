@@ -35,11 +35,11 @@ sudo chmod 600 mnt/comma/usr/etc/ssh/*
 sudo chmod 600 mnt/comma/home/.ssh/*
 sudo chmod 600 mnt/comma/usr/etc/ssh/*
 sudo umount mnt
-$TOOLS/img2simg system.img.raw $OUT/system.img
+$TOOLS/img2simg system.img.raw $OUT/system.simg
+mv system.img.raw $OUT/system.img
 
 # Clean up
 rm -rf mnt
-rm system.img.raw
 
 # Print output message
 GREEN="\033[0;32m"
