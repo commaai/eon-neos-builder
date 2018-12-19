@@ -1,0 +1,1 @@
+../eon/flash_boot.sh
