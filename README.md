@@ -14,40 +14,30 @@ Usage
 ------
 
 ### Building
-#### Build for OnePlus 3T
-```
-./build_oneplus.sh
-```
 
-#### Build for LeEco LePro 3
-```
-./build_leeco.sh
-```
-
-#### Build All
-```
+```bash
+cd devices/eon
+./build_ramdisks.sh
 ./build_all.sh
 ```
 
+Images are written to the `out` directory.
+
 ### Flashing Devices
-#### Flash OnePlus 3T
-```
-./flash_oneplus.sh
-```
-#### Flash LeEco LePro 3
-```
-./flash_leeco.sh
+
+Boot device to fastboot. With an EON Gold, hold Power+Volume Down. With an EON, hold Power+Volume Up.
+
+```bash
+cd devices/eon
+./flash.sh
 ```
 
 ### Make OTA update
-```
+
+```bash
+cd devices/eon
 ./prepare_ota.sh
 ```
-
-TODO
-------
-
-* Make the OTA support both OnePlus and LeEco
 
 Supported Devices
 ------
