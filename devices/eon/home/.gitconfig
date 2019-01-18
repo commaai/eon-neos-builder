@@ -1,6 +1,6 @@
 [user]
-	email = george@comma.ai
-	name = George Hotz
+	email = selfdriver@comma.ai
+	name = Self Driver
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
