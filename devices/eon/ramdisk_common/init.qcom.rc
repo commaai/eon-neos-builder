@@ -871,8 +871,8 @@ service qmuxd /system/bin/qmuxd
     user radio
     group radio audio bluetooth gps nfc qcom_diag
 
-#service netmgrd /system/bin/netmgrd
-#    class main
+service netmgrd /system/bin/netmgrd
+    class main
 
 service ipacm-diag /system/bin/ipacm-diag
     class main
@@ -885,19 +885,19 @@ service ipacm /system/bin/ipacm
     user net_admin
     group net_admin inet
 
-#service qti /system/vendor/bin/qti
-#    class main
-#    user radio
-#    group radio net_raw qcom_diag usb net_admin
+service qti /system/vendor/bin/qti
+    class main
+    user radio
+    group radio net_raw qcom_diag usb net_admin
 
-#service sensors /system/bin/sensors.qcom
-#    class core
-#    user root
-#    group root
+service sensors /system/bin/sensors.qcom
+    class core
+    user root
+    group root
 
-#on property:ro.use_data_netmgrd=false
+on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
-    #stop netmgrd
+    stop netmgrd
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
