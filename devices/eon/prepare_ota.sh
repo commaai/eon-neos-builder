@@ -9,7 +9,7 @@ OTA="$DIR/ota"
 NEOSUPDATE="$DIR/neosupdate"
 RECOVERY_IMAGE="$DIR/out/recovery.img"
 NEOS_UPDATE_URL=${NEOS_UPDATE_URL:-https://commadist.azureedge.net/neosupdate}
-NEOS_STAGING_UPDATE_URL=${NEOS_STAGING_UPDATE_URL:-https://commadist.blob.core.windows.net/neosupdate-staging}
+NEOS_STAGING_UPDATE_URL=${NEOS_STAGING_UPDATE_URL:-https://commadist.azureedge.net/neosupdate-staging}
 NEOS_LOCAL_UPDATE_URL=${NEOS_LOCAL_UPDATE_URL:-http://192.168.5.1:8000/neosupdate}
 
 mkdir -p $NEOSUPDATE
