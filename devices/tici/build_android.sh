@@ -23,5 +23,5 @@ cd $DIR/android
 $TOOLS/repo init -u https://github.com/commaai/android.git -b sdm845
 $TOOLS/repo sync -c -j$JOBS
 
-#(source build/envsetup.sh && breakfast oneplus3 && make -j$JOBS)
+./build.sh sdm845
 
