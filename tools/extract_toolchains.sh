@@ -9,6 +9,7 @@ echo "Extracting toolchains..."
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 THIS_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+ROOT=$DIR/..
 
 cd $DIR
 
@@ -20,8 +21,10 @@ GOOGLE_GCC_4_8_32BIT=arm-eabi-4.8
 if [ ! -f $LINARO_GCC_PREFIX*.xz ] || \
    [ ! -f $GOOGLE_GCC_4_9*.gz ] || \
    [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ]; then
+  cd $ROOT
   git lfs install
   git lfs pull
+  cd $DIR
 fi
 
 LINARO_GCC_TARBALL=$(find . -name $LINARO_GCC_PREFIX*.xz)

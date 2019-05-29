@@ -10,6 +10,11 @@ What is it?
 * A minified version of Android
 * Userspace from termux
 
+### Prerequisite
+
+* [Install git-lfs](https://github.com/git-lfs/git-lfs/wiki/Installation)
+  * for large files such as toolchain.
+
 Usage
 ------
 
