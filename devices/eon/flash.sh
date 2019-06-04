@@ -4,7 +4,6 @@
 ./flash_recovery.sh
 ./flash_system.sh
 
-fastboot format userdata
+fastboot erase userdata
 fastboot format cache
 fastboot reboot
-

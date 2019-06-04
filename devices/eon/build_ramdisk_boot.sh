@@ -25,8 +25,7 @@ pushd boot_ramdisk
   touch EON
 
   # repack ramdisk
-  rm ../ramdisk-boot.gz
+  rm -f ../ramdisk-boot.gz
   sudo find . | sudo cpio -o -H newc -O ../ramdisk-boot
   gzip ../ramdisk-boot
 popd
-
