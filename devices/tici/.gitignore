@@ -1,3 +1,5 @@
 android
 edk2_tici
 out
+edk2_cici
+unf-boot.img*
