@@ -11,10 +11,15 @@ cd $DIR
 
 mkdir -p $OUT
 
+
 pushd $DIR/build_usr
-rm -rf out
-./install.py
-./finish.sh
+if [ -z "$STAGE2" ]; then
+    sudo rm -rf out/
+    ./install.py
+    ./finish.sh
+else
+    ./pull.sh
+fi
 popd
 
 cd $DIR/mindroid
@@ -29,7 +34,7 @@ sudo sed -i 's/ro.adb.secure=1/ro.adb.secure=0/' mnt/build.prop
 sudo sed -i 's/neos.vpn=1/neos.vpn=0/' mnt/build.prop
 
 # Turn off in production
-echo "service.adb.tcp.port=5555" | sudo tee -a mnt/build.prop
+# echo "service.adb.tcp.port=5555" | sudo tee -a mnt/build.prop
 
 sudo cp -Rv "$DIR/home" mnt/comma/home
 sudo chmod 600 mnt/comma/home/.ssh/*

@@ -14,6 +14,7 @@ find /usr/var/lib/dpkg/info -type f  -executable -exec sh -c 'exec "$1"' _ {} \;
 chmod +x /usr/var/lib/dpkg/info/*.prerm
 
 # Fix arm-none-eabi-gcc
+# TODO: build from scratch
 pushd /usr/local/bin
 patchelf --add-needed /usr/lib/libandroid-support.so arm-none-eabi*
 popd
@@ -27,9 +28,20 @@ popd
 
 cd /tmp
 
+# ------- Openvpn
+VERSION="2.4.7"
+wget --tries=inf -O openvpn-$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
+tar xvf openvpn-v${VERSION}.tar.gz
+pushd openvpn-$VERSION
+autoreconf -i -v -f
+./configure --disable-plugin-auth-pam --prefix=/usr
+make -j4
+make install
+popd
+
 # -------- Capnp stuff
 VERSION=0.6.1
-wget https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
+wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
 
 pushd capnproto-c++-${VERSION}
@@ -99,7 +111,7 @@ cd $HOME
 pip2 install pipenv
 
 # Default python2
-cp /usr/bin/python2 /usr/bin/python
+ln -s /usr/bin/python2 /usr/bin/python
 cp /usr/bin/pip2 /usr/bin/pip
 
 pipenv install --deploy --system
