@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9cf129c06180cd686a362fb0de6dc4c2f06dbb5b4d9e25a080b22321e91ece95"
+            "sha256": "7c8060fc44af2193a3da139892001aabfc2b0665b806c6121a669add4b7e9939"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -238,7 +238,6 @@
             "version": "==1.7.1"
         },
         "logentries": {
-            "editable": true,
             "git": "https://github.com/commaai/le_python.git",
             "ref": "5eef8f5be5929d33973e1b10e686fa0cdcd6792f"
         },
@@ -311,7 +310,6 @@
             "version": "==1.16.4"
         },
         "overpy": {
-            "editable": true,
             "git": "https://github.com/commaai/python-overpy.git",
             "ref": "f86529af402d4642e1faeb146671c40284007323"
         },
