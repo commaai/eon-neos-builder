@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-overpy = {editable = true,git = "https://github.com/commaai/python-overpy.git",ref = "f86529af402d4642e1faeb146671c40284007323"}
+overpy = {ref = "f86529af402d4642e1faeb146671c40284007323",git = "https://github.com/commaai/python-overpy.git",editable = true}
 flask = "*"
 atomicwrites = "*"
 cffi = "*"
@@ -31,13 +31,14 @@ tqdm = "*"
 Cython = "*"
 PyYAML = "*"
 websocket_client = "*"
-Logentries = {ref = "5eef8f5be5929d33973e1b10e686fa0cdcd6792f",git = "https://github.com/commaai/le_python.git",editable = true}
+Logentries = {editable = true,git = "https://github.com/commaai/le_python.git",ref = "5eef8f5be5929d33973e1b10e686fa0cdcd6792f"}
 urllib3 = "*"
 chardet = "*"
 idna = "*"
 gunicorn = "*"
 utm = "*"
 json-rpc = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "2.7"
