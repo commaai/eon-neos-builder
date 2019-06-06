@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f477d9a10bcf9eb921d499065fa99427917b38f9bac1acbf2c5d8519f644d62d"
+            "sha256": "66c73f95af9c59db2b3e6971a5d5718fbc979ad63b77fcf29edc0f53a26b8a03"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -221,12 +221,13 @@
             ],
             "version": "==2.10.1"
         },
-        "jsonrpc": {
+        "json-rpc": {
             "hashes": [
-                "sha256:3fa3d4fa2bf08fc243961835ac10140d5f954c6cc251be40e44af8cd584df00f"
+                "sha256:bc84451268b48a576d3138744322a8ce673eccadf7424edf4d446b1ddb59e58c",
+                "sha256:d6ed3dae670a12e4caa738d309807357d22e2f6e222bb34e8ef019e8b5b1228b"
             ],
             "index": "pypi",
-            "version": "==1.2"
+            "version": "==1.12.1"
         },
         "libusb1": {
             "hashes": [
