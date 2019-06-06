@@ -26,15 +26,17 @@ patchelf --add-needed /usr/lib/libandroid-support.so lto1
 patchelf --add-needed /usr/lib/libandroid-support.so lto-wrapper
 popd
 
-cd /tmp
+
+mkdir /tmp/build
+cd /tmp/build
 
 # ------- Openvpn
 VERSION="2.4.7"
-wget --tries=inf -O openvpn-$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
+wget --tries=inf -O openvpn-v$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
 tar xvf openvpn-v${VERSION}.tar.gz
 pushd openvpn-$VERSION
 autoreconf -i -v -f
-./configure --disable-plugin-auth-pam --prefix=/usr
+LDFLAGS="-L/usr/lib64 -llog" ./configure --disable-plugin-auth-pam --prefix=/usr
 make -j4
 make install
 popd
@@ -105,12 +107,15 @@ make -j4
 make install
 popd
 
+# Cleanup
+cd $HOME
+rm -rf /tmp/build
 
 # Python stuff
-cd $HOME
 pip2 install pipenv
 
 # Default python2
+rm /usr/bin/python
 ln -s /usr/bin/python2 /usr/bin/python
 cp /usr/bin/pip2 /usr/bin/pip
 
