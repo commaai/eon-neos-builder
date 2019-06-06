@@ -81,7 +81,7 @@ popd
 git clone --depth 1 -b v4.2.0 git://github.com/zeromq/czmq.git czmq
 pushd czmq
 ./autogen.sh
-CFLAGS=-I/usr LDFLAGS="-L/usr/lib64 -llog" PKG_CONFIG_PATH=/usr/lib64/pkgconfig ./configure --prefix=/usr
+CFLAGS=-I/usr LDFLAGS="-L/usr/lib64 -llog" PKG_CONFIG_PATH=/usr/lib64/pkgconfig ./configure --prefix=/usr --with-liblz4=no
 make -j4
 make install
 popd
