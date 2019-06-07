@@ -39,6 +39,8 @@ gunicorn = "*"
 utm = "*"
 json-rpc = "*"
 jinja2 = "*"
+nose = "*"
+pycryptodome = "*"
 
 [requires]
 python_version = "2.7"
