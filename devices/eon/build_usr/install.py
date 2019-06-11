@@ -140,6 +140,7 @@ if __name__ == "__main__":
         'libzmq',
         'make',
         'man',
+        'ncurses-dev',
         'openssh',
         'openssl-dev',
         'openssl-tool',

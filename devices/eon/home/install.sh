@@ -107,6 +107,26 @@ make -j4
 make install
 popd
 
+# ----- DFU util 0.8
+wget --tries=inf http://dfu-util.sourceforge.net/releases/dfu-util-0.8.tar.gz
+tar xvf dfu-util-0.8.tar.gz
+pushd dfu-util-0.8
+./configure --prefix=/usr
+make -j4
+make install
+popd
+
+# ----- Nload
+wget --tries=inf -O nload-v0.7.4.tar.gz https://github.com/rolandriegel/nload/archive/v0.7.4.tar.gz
+tar xvf nload-v0.7.4.tar.gz
+pushd nload-0.7.4
+bash run_autotools
+./configure --prefix=/usr
+make -j4
+make install
+popd
+
+
 # Cleanup
 cd $HOME
 rm -rf /tmp/build
