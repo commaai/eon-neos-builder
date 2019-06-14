@@ -29,7 +29,7 @@ cd ..
 #--kernel android/out/target/product/sdm845/obj/kernel/msm-4.9/arch/arm64/boot/Image.gz-dtb \
 $TOOLS/mkbootimg \
   --kernel android_kernel_comma_sdm845/arch/arm64/boot/Image.gz-dtb \
-  --cmdline "console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA84000 androidboot.hardware=qcom androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 androidboot.selinux=permissive buildvariant=userdebug" \
+  --cmdline "console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA84000 androidboot.hardware=qcom androidboot.console=ttyMSM0 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 androidboot.selinux=permissive buildvariant=userdebug" \
   --base 0x80000000 \
   --kernel_offset 0x8000 \
   --ramdisk_offset 0x2000000 \

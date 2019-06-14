@@ -4,3 +4,6 @@ mnt/
 out/
 usr/
 venv/
+boot_ramdisk
+ramdisk-recovery.gz
+

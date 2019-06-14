@@ -25,6 +25,7 @@ export ANDROID_TOOLCHAIN=$TOOLS/aarch64-linux-android-4.9/bin
 export TARGET_OUT_INTERMEDIATES=out/intermediates
 
 # Run build
+mkdir -p Conf
 make cleanall
 #make -C BaseTools/Source/C
 make -f Standalone.mk abl

@@ -3,3 +3,7 @@ edk2_tici
 out
 edk2_cici
 unf-boot.img*
+boot_ramdisk
+ramdisk_common
+ramdisk-boot.gz
+.ccache
