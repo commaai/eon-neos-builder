@@ -22,7 +22,7 @@ pushd boot_ramdisk
   ln -s /data/data/com.termux/files/usr usr
   sudo cp -v "$DIR"/ramdisk_common/* .
   echo "10" > VERSION
-  echo "2" > REVISION
+  echo "8" > REVISION
   touch EON
 
   # repack ramdisk
