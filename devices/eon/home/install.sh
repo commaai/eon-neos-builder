@@ -30,23 +30,21 @@ popd
 mkdir /tmp/build
 cd /tmp/build
 
-# ------- Openvpn
-VERSION="2.4.7"
-wget --tries=inf -O openvpn-v$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
-tar xvf openvpn-v${VERSION}.tar.gz
-pushd openvpn-$VERSION
-autoreconf -i -v -f
-LDFLAGS="-L/usr/lib64 -llog" ./configure --disable-plugin-auth-pam --prefix=/usr
-make -j4
-make install
-popd
 
 # -------- Capnp stuff
+# Version 0.7.0 doesnt work with pycapnp for some reason. TODO: Figure out why
+# VERSION=0.7.0
 VERSION=0.6.1
+
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
 
 pushd capnproto-c++-${VERSION}
+
+# Patch for 0.7.0
+# sed -i '399s/#if __APPLE__ || __CYGWIN__/#if __APPLE__ || __CYGWIN__ || 1/' src/kj/filesystem-disk-unix.c++
+
+# Patch for 0.6.1
 patch -p1 < ~/capnp.patch
 CXXFLAGS="-fPIC -O2" ./configure --prefix=/usr
 make -j4 install
@@ -55,11 +53,11 @@ popd
 git clone https://github.com/commaai/c-capnproto.git
 pushd c-capnproto
 git submodule update --init --recursive
-autoreconf -f -i -s
+CFLAGS="-fPIC -O2" autoreconf -f -i -s
 CFLAGS="-fPIC -O2" ./configure --prefix=/usr
-gcc -O2 -c lib/capn-malloc.c
-gcc -O2 -c lib/capn-stream.c
-gcc -O2 -c lib/capn.c
+gcc -fPIC -O2 -c lib/capn-malloc.c
+gcc -fPIC -O2 -c lib/capn-stream.c
+gcc -fPIC -O2 -c lib/capn.c
 ar rcs libcapn.a capn-malloc.o capn-stream.o capn.o
 cp libcapn.a /usr/lib
 
@@ -67,25 +65,24 @@ make -j4 install
 popd
 
 
-# ----- zmq stuff
-git clone --depth 1 -b v4.3.1 git://github.com/zeromq/libzmq.git libzmq
-pushd libzmq
-sed -i '461d' CMakeLists.txt
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+# ----- libzmq
+VERSION="4.2.0"
+wget --tries=inf https://github.com/zeromq/libzmq/releases/download/v$VERSION/zeromq-$VERSION.tar.gz
+tar xvf zeromq-$VERSION.tar.gz
+pushd zeromq-$VERSION
+CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" CXXFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" ./configure --prefix=/usr --enable-drafts=no
 make -j4
 make install
 popd
 
-git clone --depth 1 -b v4.2.0 git://github.com/zeromq/czmq.git czmq
-pushd czmq
-./autogen.sh
-CFLAGS=-I/usr LDFLAGS="-L/usr/lib64 -llog" PKG_CONFIG_PATH=/usr/lib64/pkgconfig ./configure --prefix=/usr --with-liblz4=no
+VERSION="4.0.2"
+wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq-$VERSION.tar.gz
+tar xvf czmq-$VERSION.tar.gz
+pushd czmq-$VERSION
+CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=/usr --enable-drafts=no --with-liblz4=no
 make -j4
 make install
 popd
-
 
 # ---- Eigen
 wget --tries=inf http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
@@ -103,6 +100,27 @@ wget --tries=inf https://github.com/libusb/libusb/releases/download/v1.0.22/libu
 tar xjf libusb-1.0.22.tar.bz2
 pushd libusb-1.0.22
 ./configure --prefix=/usr --disable-udev
+make -j4
+make install
+popd
+
+# ------- tcpdump
+VERSION="4.9.2"
+wget --tries=inf https://www.tcpdump.org/release/tcpdump-$VERSION.tar.gz
+tar xvf tcpdump-$VERSION.tar.gz
+pushd tcpdump-$VERSION
+./configure --prefix=/usr
+make -j4
+make install
+popd
+
+# ------- Openvpn
+VERSION="2.4.7"
+wget --tries=inf -O openvpn-v$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
+tar xvf openvpn-v${VERSION}.tar.gz
+pushd openvpn-$VERSION
+autoreconf -i -v -f
+LDFLAGS="-L/usr/lib64 -llog" ./configure --disable-plugin-auth-pam --prefix=/usr
 make -j4
 make install
 popd
