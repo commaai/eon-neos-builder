@@ -13,36 +13,74 @@ chmod +x /usr/var/lib/dpkg/info/*.postinst
 find /usr/var/lib/dpkg/info -type f  -executable -exec sh -c 'exec "$1"' _ {} \;
 chmod +x /usr/var/lib/dpkg/info/*.prerm
 
-# Fix arm-none-eabi-gcc
-# TODO: build from scratch
-pushd /usr/local/bin
-patchelf --add-needed /usr/lib/libandroid-support.so arm-none-eabi*
-popd
-
-pushd /usr/local/libexec/gcc/arm-none-eabi/4.7.1
-patchelf --add-needed /usr/lib/libandroid-support.so cc1
-patchelf --add-needed /usr/lib/libandroid-support.so collect2
-patchelf --add-needed /usr/lib/libandroid-support.so lto1
-patchelf --add-needed /usr/lib/libandroid-support.so lto-wrapper
-popd
-
-
 mkdir /tmp/build
 cd /tmp/build
 
+# -------- GCC
+mkdir gcc
+pushd gcc
+
+BINUTILS=binutils-2.32
+GCC=gcc-4.7.1
+PREFIX=/usr
+
+mkdir src
+pushd src
+wget --tries=inf ftp://ftp.gnu.org/gnu/binutils/$BINUTILS.tar.bz2
+tar -xf $BINUTILS.tar.bz2
+popd
+
+mkdir -p build/$BINUTILS
+pushd build/$BINUTILS
+../../src/$BINUTILS/configure --target=arm-none-eabi \
+  --build=aarch64-unknown-linux-gnu \
+  --prefix=$PREFIX --with-cpu=cortex-m4 \
+  --with-mode=thumb \
+  --disable-nls \
+  --disable-werror
+make -j4 all
+make install
+popd
+
+mkdir -p src
+pushd src
+wget --tries=inf ftp://ftp.gnu.org/gnu/gcc/$GCC/$GCC.tar.bz2
+tar -xf $GCC.tar.bz2
+cd $GCC
+contrib/download_prerequisites
+popd
+
+export PATH="$PREFIX/bin:$PATH"
+
+mkdir -p build/$GCC
+pushd build/$GCC
+../../src/$GCC/configure --target=arm-none-eabi \
+  --build=aarch64-unknown-linux-gnu \
+  --disable-libssp --disable-gomp --disable-libstcxx-pch --enable-threads \
+  --disable-shared --disable-libmudflap \
+  --prefix=$PREFIX --with-cpu=cortex-m4 \
+  --with-mode=thumb --disable-multilib \
+  --enable-interwork \
+  --enable-languages="c" \
+  --disable-nls \
+  --disable-libgcc
+make -j4 all-gcc
+make install-gcc
+popd
+
+
+# replace stdint.h with stdint-gcc.h for Android compatibility
+mv $PREFIX/lib/gcc/arm-none-eabi/4.7.1/include/stdint-gcc.h $PREFIX/lib/gcc/arm-none-eabi/4.7.1/include/stdint.h
+
+popd
 
 # -------- Capnp stuff
-# Version 0.7.0 doesnt work with pycapnp for some reason. TODO: Figure out why
-# VERSION=0.7.0
 VERSION=0.6.1
 
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
 
 pushd capnproto-c++-${VERSION}
-
-# Patch for 0.7.0
-# sed -i '399s/#if __APPLE__ || __CYGWIN__/#if __APPLE__ || __CYGWIN__ || 1/' src/kj/filesystem-disk-unix.c++
 
 # Patch for 0.6.1
 patch -p1 < ~/capnp.patch
@@ -64,25 +102,25 @@ cp libcapn.a /usr/lib
 make -j4 install
 popd
 
-
 # ----- libzmq
-VERSION="4.2.0"
-wget --tries=inf https://github.com/zeromq/libzmq/releases/download/v$VERSION/zeromq-$VERSION.tar.gz
-tar xvf zeromq-$VERSION.tar.gz
-pushd zeromq-$VERSION
-CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" CXXFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" ./configure --prefix=/usr --enable-drafts=no
-make -j4
-make install
-popd
+# ZMQ is build on the host, and copied in
+# VERSION="4.2.0"
+# wget --tries=inf https://github.com/zeromq/libzmq/releases/download/v$VERSION/zeromq-$VERSION.tar.gz
+# tar xvf zeromq-$VERSION.tar.gz
+# pushd zeromq-$VERSION
+# CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" CXXFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" ./configure --prefix=/usr --enable-drafts=no
+# make -j4
+# make install
+# popd
 
-VERSION="4.0.2"
-wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq-$VERSION.tar.gz
-tar xvf czmq-$VERSION.tar.gz
-pushd czmq-$VERSION
-CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=/usr --enable-drafts=no --with-liblz4=no
-make -j4
-make install
-popd
+# VERSION="4.0.2"
+# wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq-$VERSION.tar.gz
+# tar xvf czmq-$VERSION.tar.gz
+# pushd czmq-$VERSION
+# CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=/usr --enable-drafts=no --with-liblz4=no
+# make -j4
+# make install
+# popd
 
 # ---- Eigen
 wget --tries=inf http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
@@ -145,11 +183,9 @@ make install
 popd
 
 
-# Cleanup
+# ------- Install python packages
 cd $HOME
-rm -rf /tmp/build
 
-# Python stuff
 pip2 install pipenv
 
 # Default python2
