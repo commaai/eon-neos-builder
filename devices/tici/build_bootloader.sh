@@ -19,7 +19,6 @@ mkdir -p $OUT
 
 # Set correct env variables for EDK2 build
 export PRODUCT_OUT=$OUT
-export TARGET_GCC_VERSION=4.9
 export BUILD_TOOLS=$TOOLS
 export ANDROID_TOOLCHAIN=$TOOLS/aarch64-linux-android-4.9/bin
 

@@ -18,11 +18,13 @@ LINARO_GCC_PREFIX=gcc-arm
 GOOGLE_GCC_4_9=aarch64-linux-android-4.9
 GOOGLE_GCC_4_8_32BIT=arm-eabi-4.8
 EDK2_LLVM=llvm-arm-toolchain-ship
+SEC_IMAGE=SecImage
 
 if [ ! -f $LINARO_GCC_PREFIX*.xz ] || \
    [ ! -f $GOOGLE_GCC_4_9*.gz ] || \
    [ ! -f $EDK2_LLVM*.gz ] || \
-   [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ]; then
+   [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ] || \
+   [ ! -f $SEC_IMAGE*.gz ]; then
   cd $ROOT
   git lfs install
   git lfs pull
@@ -33,6 +35,7 @@ LINARO_GCC_TARBALL=$(find . -name $LINARO_GCC_PREFIX*.xz)
 GOOGLE_GCC_4_9_TARBALL=$(find . -name $GOOGLE_GCC_4_9*.gz)
 GOOGLE_GCC_4_8_32BIT_TARBALL=$(find . -name $GOOGLE_GCC_4_8_32BIT*.gz)
 EDK2_LLVM_TARBALL=$(find . -name $EDK2_LLVM*.gz)
+SEC_IMAGE_TARBALL=$(find . -name $SEC_IMAGE*.gz)
 
 # Delete the old extracted toolchains if they need to be updated
 if [ $THIS_SCRIPT -nt $LINARO_GCC ] || \
@@ -64,4 +67,9 @@ fi
 if [ ! -d $EDK2_LLVM ]; then
   mkdir $EDK2_LLVM
   tar -xzf $EDK2_LLVM_TARBALL -C $EDK2_LLVM &>/dev/null
+fi
+
+if [ ! -d $SEC_IMAGE ]; then
+  mkdir $SEC_IMAGE
+  tar -xzf $SEC_IMAGE_TARBALL -C $SEC_IMAGE &>/dev/null
 fi

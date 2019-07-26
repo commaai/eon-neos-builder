@@ -2,3 +2,4 @@ aarch64-linux-android-4.9/
 aarch64-linux-gnu-gcc/
 arm-eabi-4.8/
 llvm-arm-toolchain-ship/
+SecImage/
