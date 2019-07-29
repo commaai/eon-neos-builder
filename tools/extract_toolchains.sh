@@ -17,25 +17,25 @@ LINARO_GCC=aarch64-linux-gnu-gcc
 LINARO_GCC_PREFIX=gcc-arm
 GOOGLE_GCC_4_9=aarch64-linux-android-4.9
 GOOGLE_GCC_4_8_32BIT=arm-eabi-4.8
-SNAPDRAGON_LLVM=snapdragon-llvm-6.0.2-linux64
+EDK2_LLVM=llvm-arm-toolchain-ship
+SEC_IMAGE=SecImage
 
 if [ ! -f $LINARO_GCC_PREFIX*.xz ] || \
    [ ! -f $GOOGLE_GCC_4_9*.gz ] || \
-   [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ]; then
+   [ ! -f $EDK2_LLVM*.gz ] || \
+   [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ] || \
+   [ ! -f $SEC_IMAGE*.gz ]; then
   cd $ROOT
   git lfs install
   git lfs pull
   cd $DIR
 fi
 
-if [ ! -f $SNAPDRAGON_LLVM*.gz ]; then
-  echo "ERROR: Snapdragon LLVM not found! Download the archive from https://developer.qualcomm.com/download/sdllvm/snapdragon-llvm-compiler-android-linux64.tar.gz and copy to the /tools directory."	
-fi
-
 LINARO_GCC_TARBALL=$(find . -name $LINARO_GCC_PREFIX*.xz)
 GOOGLE_GCC_4_9_TARBALL=$(find . -name $GOOGLE_GCC_4_9*.gz)
 GOOGLE_GCC_4_8_32BIT_TARBALL=$(find . -name $GOOGLE_GCC_4_8_32BIT*.gz)
-SNAPDRAGON_LLVM_TARBALL=$(find . -name $SNAPDRAGON_LLVM*.gz)
+EDK2_LLVM_TARBALL=$(find . -name $EDK2_LLVM*.gz)
+SEC_IMAGE_TARBALL=$(find . -name $SEC_IMAGE*.gz)
 
 # Delete the old extracted toolchains if they need to be updated
 if [ $THIS_SCRIPT -nt $LINARO_GCC ] || \
@@ -64,7 +64,12 @@ if [ ! -d $GOOGLE_GCC_4_8_32BIT ]; then
   tar -xzf $GOOGLE_GCC_4_8_32BIT_TARBALL -C $GOOGLE_GCC_4_8_32BIT &>/dev/null
 fi
 
-if [ ! -d $SNAPDRAGON_LLVM ]; then
-  mkdir $SNAPDRAGON_LLVM
-  tar -xzf $SNAPDRAGON_LLVM_TARBALL -C $SNAPDRAGON_LLVM &>/dev/null
+if [ ! -d $EDK2_LLVM ]; then
+  mkdir $EDK2_LLVM
+  tar -xzf $EDK2_LLVM_TARBALL -C $EDK2_LLVM &>/dev/null
+fi
+
+if [ ! -d $SEC_IMAGE ]; then
+  mkdir $SEC_IMAGE
+  tar -xzf $SEC_IMAGE_TARBALL -C $SEC_IMAGE &>/dev/null
 fi

@@ -1,4 +1,5 @@
 aarch64-linux-android-4.9/
 aarch64-linux-gnu-gcc/
 arm-eabi-4.8/
-snapdragon-llvm-6.0.2-linux64/
+llvm-arm-toolchain-ship/
+SecImage/
