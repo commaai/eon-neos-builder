@@ -144,6 +144,7 @@ if __name__ == "__main__":
         'libpcap-dev',
         'make',
         'man',
+        'nano',
         'ncurses-dev',
         'openssh',
         'openssl-dev',
