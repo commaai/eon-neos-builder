@@ -20,7 +20,7 @@ fi
 # build mindroid
 mkdir -p $DIR/android
 cd $DIR/android
-$TOOLS/repo init -u https://github.com/commaai/android.git -b sdm845
+$TOOLS/repo init -u git@github.com:commaai/android.git -b tici-8
 $TOOLS/repo sync -c -j$JOBS
 
 ./build.sh sdm845

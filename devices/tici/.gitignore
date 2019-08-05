@@ -1,4 +1,4 @@
-android
+android*
 edk2_tici
 out
 edk2_cici
@@ -7,3 +7,4 @@ boot_ramdisk
 ramdisk_common
 ramdisk-boot.gz
 .ccache
+qdl
