@@ -7,3 +7,4 @@ boot_ramdisk
 ramdisk-boot.gz
 .ccache
 qdl
+system.img.raw

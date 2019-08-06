@@ -11,12 +11,12 @@ mkdir -p $OUT
 $TOOLS/simg2img $DIR/android/out/target/product/sdm845/system.img system.img.raw
 mkdir -p mnt
 sudo mount -o loop system.img.raw mnt
-sudo mkdir -p mnt/comma
-sudo cp -R ../eon/build_usr/out/data/data/com.termux/files/usr mnt/comma
-
-sudo cp -Rv "$DIR/../eon/home" mnt/comma/home
-sudo chmod 600 mnt/comma/home/.ssh/*
-#sudo chmod 600 -R mnt/comma/usr/etc/ssh
+sudo mkdir -p mnt/system/comma
+sudo cp -R ../eon/build_usr/out/data/data/com.termux/files/usr mnt/system/comma
+sudo cp -v "$DIR"/ramdisk_common/* mnt/
+sudo cp -Rv "$DIR/../eon/home" mnt/system/comma/home
+sudo chmod 600 mnt/system/comma/home/.ssh/*
+sudo chmod 600 -R mnt/system/comma/usr/etc/ssh
 sudo umount mnt
 $TOOLS/img2simg system.img.raw $OUT/system.simg
 mv system.img.raw $OUT/system.img
