@@ -6,7 +6,7 @@ TOOLS=$ROOT/tools
 IMG_TYPE=boot
 
 if [ ! -d android_kernel_comma_sdm845 ]; then
-  git clone git@github.com:commaai/android_kernel_comma_sdm845.git --depth 1
+  git clone git@github.com:commaai/android_kernel_comma_sdm845.git --branch msm --depth 1
 fi
 
 export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/bin/aarch64-linux-gnu-
@@ -17,6 +17,7 @@ mkdir -p $OUT
 
 # Compile kernel
 cd android_kernel_comma_sdm845
+git pull
 # the DTC from the Android tree supports "-@"
 # TODO: move it into the kernel for true standalone build
 DTC="../android/out/host/linux-x86/bin/dtc"
@@ -27,7 +28,7 @@ cd ..
 
 # Assemble an unsigned boot.img
 #--kernel android/out/target/product/sdm845/obj/kernel/msm-4.9/arch/arm64/boot/Image.gz-dtb \
-$TOOLS/mkbootimg \
+android/out/host/linux-x86/bin/mkbootimg \
   --kernel android_kernel_comma_sdm845/arch/arm64/boot/Image.gz-dtb \
   --cmdline "console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA84000 androidboot.hardware=qcom androidboot.console=ttyMSM0 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 androidboot.selinux=permissive buildvariant=userdebug" \
   --base 0x80000000 \
@@ -48,4 +49,6 @@ cat unf-$IMG_TYPE.img unf-$IMG_TYPE.img.sig.padded > $OUT/$IMG_TYPE.img
 
 # Clean up
 rm unf-$IMG_TYPE*
+
+android/out/host/linux-x86/bin/mkdtimg create $OUT/dtbo.img --page_size=4096 $(find -L android_kernel_comma_sdm845/arch/arm64/boot/dts -name "*.dtbo")
 
