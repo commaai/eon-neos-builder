@@ -53,3 +53,13 @@ rm unf-$IMG_TYPE*
 
 android/out/host/linux-x86/bin/mkdtimg create $OUT/dtbo.img --page_size=4096 $(find -L android_kernel_comma_sdm845/arch/arm64/boot/dts -name "*.dtbo")
 
+android/out/host/linux-x86/bin/avbtool make_vbmeta_image --output $OUT/vbmeta.img
+android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/boot.img \
+  --partition_name boot --partition_size 67108864 \
+  --output_vbmeta_image $OUT/vbmeta.img
+android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/dtbo.img \
+  --partition_name dtbo --partition_size 8388608 \
+  --output_vbmeta_image $OUT/vbmeta.img
+
+
+
