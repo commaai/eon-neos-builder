@@ -9,7 +9,8 @@ if [ ! -d android_kernel_comma_sdm845 ]; then
   git clone git@github.com:commaai/android_kernel_comma_sdm845.git --branch msm --depth 1
 fi
 
-export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/bin/aarch64-linux-gnu-
+#export CROSS_COMPILE=$TOOLS/aarch64-linux-gnu-gcc/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=../android/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 export ARCH=arm64
 
 $TOOLS/extract_toolchains.sh
