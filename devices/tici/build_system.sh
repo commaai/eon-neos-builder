@@ -8,7 +8,12 @@ TOOLS=$ROOT/tools
 cd $DIR
 mkdir -p $OUT
 
-$TOOLS/simg2img $DIR/android/out/target/product/sdm845/system.img system.img.raw
+#ANDROID=$DIR/android
+ANDROID=/raid/thundercomm/android
+
+$TOOLS/simg2img $ANDROID/out/target/product/sdm845/system.img system.img.raw
+$TOOLS/simg2img $ANDROID/out/target/product/sdm845/vendor.img $OUT/vendor.img
+
 mkdir -p mnt
 sudo mount -o loop system.img.raw mnt
 sudo mkdir -p mnt/system/comma
@@ -44,12 +49,9 @@ echo "added hashtree footers"
 $TOOLS/img2simg $OUT/system.img $OUT/system.simg
 echo "remade simg"
 
-cp android/out/target/product/sdm845/vendor.img $OUT/vendor.simg
-$TOOLS/simg2img $OUT/vendor.simg $OUT/vendor.img
-# already done, no changes
-#android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/vendor.img \
-#  --partition_name vendor --partition_size 1073741824
-#$TOOLS/img2simg $OUT/vendor.img $OUT/vendor.simg
+android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/vendor.img \
+  --partition_name vendor --partition_size 1073741824
+$TOOLS/img2simg $OUT/vendor.img $OUT/vendor.simg
 echo "did vendor"
 
 
