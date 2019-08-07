@@ -25,7 +25,7 @@ sudo sh -c 'echo -e "\nimport /init.comma.rc" >> mnt/init.rc'
 sudo mkdir mnt/tmp
 sudo umount mnt
 mv system.img.raw $OUT/system.img
-$TOOLS/img2simg $OUT/system.img $OUT/system.simg
+#$TOOLS/img2simg $OUT/system.img $OUT/system.simg
 
 # Clean up
 rm -rf mnt
@@ -36,4 +36,20 @@ NO_COLOR='\033[0m'
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 echo -e "${GREEN}Output: ${BOLD}$OUT/system.img${NORMAL}${NO_COLOR}"
+
+export PATH=android/out/host/linux-x86/bin:$PATH
+android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/system.img \
+  --partition_name system --partition_size 3221225472 --setup_as_rootfs_from_kernel
+echo "added hashtree footers"
+$TOOLS/img2simg $OUT/system.img $OUT/system.simg
+echo "remade simg"
+
+cp android/out/target/product/sdm845/vendor.img $OUT/vendor.simg
+$TOOLS/simg2img $OUT/vendor.simg $OUT/vendor.img
+# already done, no changes
+#android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/vendor.img \
+#  --partition_name vendor --partition_size 1073741824
+#$TOOLS/img2simg $OUT/vendor.img $OUT/vendor.simg
+echo "did vendor"
+
 

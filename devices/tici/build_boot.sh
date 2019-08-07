@@ -44,6 +44,7 @@ android/out/host/linux-x86/bin/mkbootimg \
   --pagesize 4096 \
   --os_version 8.1 --os_patch_level 2018-06-20 \
   --output $OUT/boot.img
+# the key to making keymaster happy is *not* signing, but adding the hash. thundercomm specific
 android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/boot.img \
   --partition_name boot --partition_size 67108864
 
