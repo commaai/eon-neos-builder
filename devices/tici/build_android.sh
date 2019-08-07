@@ -23,5 +23,5 @@ cd $DIR/android
 $TOOLS/repo init -u git@github.com:commaai/android.git -b tici-8
 $TOOLS/repo sync -c -j$JOBS
 
-./build.sh -j 32 sdm845
+./build.sh -v eng -j 32 sdm845
 
