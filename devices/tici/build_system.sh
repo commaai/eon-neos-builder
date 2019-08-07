@@ -25,7 +25,7 @@ sudo ln -s /system/bin mnt/bin
 
 # ramdisk is now here
 sudo cp -v "$DIR"/ramdisk_common/* mnt/.
-sudo sh -c 'echo -e "\nimport /init.comma.rc" >> mnt/init.rc'
+#sudo sh -c 'echo -e "\nimport /init.comma.rc" >> mnt/init.rc'
 
 sudo mkdir mnt/tmp
 sudo umount mnt

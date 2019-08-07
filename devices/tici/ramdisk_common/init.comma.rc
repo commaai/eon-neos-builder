@@ -12,6 +12,7 @@ on post-fs-data
    mkdir /data/data/com.termux/files/tmp 0777 root root
    symlink /system/comma/usr /data/data/com.termux/files/usr
    symlink /system/comma/home /data/data/com.termux/files/home
+   mount tmpfs tmpfs /tmp mode=0755,uid=0,gid=1000
 
 on property:init.svc.sshd=stopped && property:persist.neos.ssh=1
    start sshd
