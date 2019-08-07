@@ -18,7 +18,6 @@ sudo cp -Rv "$DIR/../eon/home" mnt/system/comma/home
 sudo chmod 600 mnt/system/comma/home/.ssh/*
 sudo chmod 600 -R mnt/system/comma/usr/etc/ssh
 sudo umount mnt
-$TOOLS/img2simg system.img.raw $OUT/system.simg
 mv system.img.raw $OUT/system.img
 
 # Clean up
