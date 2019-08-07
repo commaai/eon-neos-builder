@@ -15,15 +15,16 @@ android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/boot.img \
 echo "added hash footers"
 
 #android/out/host/linux-x86/bin/avbtool erase_footer --image $OUT/system.img
-android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/system.img \
-  --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
-  --partition_name system --partition_size 3221225472
-echo "added hashtree footers"
+#android/out/host/linux-x86/bin/avbtool add_hashtree_footer --image $OUT/system.img \
+#  --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
+#  --partition_name system --partition_size 3221225472
+#echo "added hashtree footers"
 
 android/out/host/linux-x86/bin/avbtool make_vbmeta_image --output $OUT/vbmeta.img \
   --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
   --include_descriptors_from_image $OUT/boot.img \
   --include_descriptors_from_image $OUT/dtbo.img \
+  --include_descriptors_from_image $OUT/vendor.img \
   --generate_dm_verity_cmdline_from_hashtree $OUT/system.img
 echo "made image"
 
