@@ -51,16 +51,3 @@ cat unf-$IMG_TYPE.img unf-$IMG_TYPE.img.sig.padded > $OUT/$IMG_TYPE.img
 # Clean up
 rm unf-$IMG_TYPE*
 
-android/out/host/linux-x86/bin/mkdtimg create $OUT/dtbo.img --page_size=4096 $(find -L android_kernel_comma_sdm845/arch/arm64/boot/dts -name "*.dtbo")
-
-android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/dtbo.img \
-  --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
-  --partition_name dtbo --partition_size 8388608
-android/out/host/linux-x86/bin/avbtool add_hash_footer --image $OUT/boot.img \
-  --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
-  --partition_name boot --partition_size 67108864
-android/out/host/linux-x86/bin/avbtool make_vbmeta_image --output $OUT/vbmeta.img \
-  --algorithm SHA256_RSA4096 --key android/external/avb/test/data/testkey_rsa4096.pem \
-  --include_descriptors_from_image $OUT/boot.img \
-  --include_descriptors_from_image $OUT/dtbo.img
-
