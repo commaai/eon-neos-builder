@@ -8,8 +8,8 @@ TOOLS=$ROOT/tools
 cd $DIR
 mkdir -p $OUT
 
-#ANDROID=$DIR/android
-ANDROID=/raid/thundercomm/android
+ANDROID=$DIR/android
+#ANDROID=~/Desktop/Thundercomm/
 
 $TOOLS/simg2img $ANDROID/out/target/product/sdm845/system.img system.img.raw
 $TOOLS/simg2img $ANDROID/out/target/product/sdm845/vendor.img $OUT/vendor.img

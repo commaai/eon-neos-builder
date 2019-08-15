@@ -20,8 +20,12 @@ fi
 # build mindroid
 mkdir -p $DIR/android
 cd $DIR/android
-$TOOLS/repo init -u git@github.com:commaai/android.git -b tici-8
-$TOOLS/repo sync -c -j$JOBS
+if [[ -z "${SKIP_REPO}" ]]; then
+  $TOOLS/repo init -u git@github.com:commaai/android.git -b tici-8
+  $TOOLS/repo sync -c -j$JOBS
+else
+  echo "Skipping repo init and sync"
+fi
 
-./build.sh -j 32 sdm845
+./build.sh -j$JOBS tici
 
