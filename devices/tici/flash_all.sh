@@ -6,8 +6,8 @@ OUT_DIR=out
 
 fastboot flash boot_a $OUT_DIR/boot.img
 fastboot flash dtbo_a $OUT_DIR/dtbo.img
-fastboot flash system_a $OUT_DIR/system.img
 fastboot flash vendor_a $OUT_DIR/vendor.img
+fastboot flash system_a $OUT_DIR/system.img
 fastboot flash vbmeta_a $OUT_DIR/vbmeta.img
 
 if [[! -z "${FLASH_B}" ]]; then
