@@ -8,3 +8,6 @@ export VALGRIND_LIB='/usr/lib/valgrind'
 export PYTHONPATH="/data/pythonpath"
 export GIT_SSH_COMMAND="ssh -i /data/gitkey"
 export LANG="en_US.UTF-8"
+
+export VIMINIT='source $MYVIMRC'
+export MYVIMRC="~/.vimrc"
