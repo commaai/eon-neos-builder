@@ -45,13 +45,13 @@ while true; do
     exec /data/data/com.termux/files/continue.sh
   fi
 
-  rm -f /data/data/ai.comma.neos.setup/installer
-  am start -n ai.comma.neos.setup/.SetupWizardActivity
-  while [ ! -f /data/data/ai.comma.neos.setup/installer ]; do
+  rm -f /data/data/ai.comma.plus.neossetup/installer
+  am start -n ai.comma.plus.neossetup/.MainActivity
+  while [ ! -f /data/data/ai.comma.plus.neossetup/installer ]; do
     echo "waiting for installer"
     sleep 1
   done
 
-  chmod +x /data/data/ai.comma.neos.setup/installer
-  /data/data/ai.comma.neos.setup/installer
+  chmod +x /data/data/ai.comma.plus.neossetup/installer
+  /data/data/ai.comma.plus.neossetup/installer
 done
