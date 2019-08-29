@@ -5,3 +5,6 @@
 4. Build new system image with compiled packages. Make sure EON is still connected for this step. `STAGE2=1 ./build_system.sh`
 5. Flash again and test `sudo ./flash.sh`
 6. ./prepare_ota.sh
+
+
+Building the NEOS setup apk requires the android sdk and `ANDROID_HOME` to point to it.
