@@ -13,12 +13,17 @@ mkdir -p $OUT
 
 
 pushd $DIR/build_usr
-if [ -z "$STAGE2" ]; then
-    sudo rm -rf out/
-    ./install.py
-    ./finish.sh
+
+if [ -z "$CLEAN_USR" ]; then
+    ./pull_from_release.sh
 else
-    ./pull.sh
+    if [ -z "$STAGE2" ]; then
+        sudo rm -rf out/
+        ./install.py
+        ./finish.sh
+    else
+        ./pull.sh
+    fi
 fi
 popd
 

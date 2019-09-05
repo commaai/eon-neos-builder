@@ -7,7 +7,6 @@ fi
 chmod 600 "$DIR/id_rsa"
 sshphone="ssh -i $DIR/id_rsa -p 8022 -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o StrictHostKeyChecking=no"
 
-
 # Copy finished /usr from phone to put in image
 sudo rm -rf out/
 mkdir -p out/data/data/com.termux/files/usr
