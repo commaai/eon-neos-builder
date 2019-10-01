@@ -22,7 +22,7 @@ else
         ./install.py
         ./finish.sh
     else
-        ./pull.sh
+        ./pull_from_phone.sh
     fi
 fi
 popd
