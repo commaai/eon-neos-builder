@@ -186,11 +186,5 @@ popd
 # ------- Install python packages
 cd $HOME
 
-pip2 install pipenv
-
-# Default python2
-rm /usr/bin/python
-ln -s /usr/bin/python2 /usr/bin/python
-cp /usr/bin/pip2 /usr/bin/pip
-
+pip install pipenv
 pipenv install --deploy --system

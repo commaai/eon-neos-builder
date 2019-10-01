@@ -151,8 +151,7 @@ if __name__ == "__main__":
         'openssl-tool',
         'patchelf',
         'pkg-config',
-        'python2',
-        'python2-dev',
+        'python-dev',
         'rsync',
         'strace',
         'tar',
@@ -160,6 +159,7 @@ if __name__ == "__main__":
         'vim',
         'wget',
         'xz-utils',
+        'zlib-dev',
     ]
 
     pkg_deps, pkg_filenames = load_packages()
