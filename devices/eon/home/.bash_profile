@@ -11,3 +11,6 @@ export LANG="en_US.UTF-8"
 
 export VIMINIT='source $MYVIMRC'
 export MYVIMRC="~/.vimrc"
+
+# Disable history writing
+export PYTHONSTARTUP="~/.pythonrc"
