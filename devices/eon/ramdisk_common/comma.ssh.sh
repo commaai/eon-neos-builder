@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-if [ -f /data/params/d/GithubSshKeys ]; then
+if [ ! -f /data/params/d/GithubSshKeys ]; then
     mkdir -p /data/params/d
     cp /data/data/com.termux/files/home/.ssh/authorized_keys /data/params/d/GithubSshKeys
 fi
