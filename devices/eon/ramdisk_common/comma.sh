@@ -68,5 +68,11 @@ while true; do
   done
 
   chmod +x /data/data/ai.comma.plus.neossetup/installer
-  /data/data/ai.comma.plus.neossetup/installer
+
+  if [ ! /data/data/ai.comma.plus.neossetup/installer ]; then
+      echo "Installer failed"
+      rm -f /data/data/ai.comma.plus.neossetup/installer
+      rm -f /data/data/com.termux/files/continue.sh
+      reboot
+  fi
 done
