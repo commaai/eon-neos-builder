@@ -40,6 +40,10 @@ echo $$ > /dev/cpuset/app/tasks
 # (our parent, tmux, also gets all the cores)
 echo $PPID > /dev/cpuset/app/tasks
 
+if ! iptables -t mangle -w -C POSTROUTING -j TTL --ttl-set 64 > /dev/null 2>&1; then
+    iptables -t mangle -w -A POSTROUTING -j TTL --ttl-set 64
+fi
+
 if [ ! -f /persist/comma/id_rsa.pub ]; then
   mkdir -p /persist/comma
 
