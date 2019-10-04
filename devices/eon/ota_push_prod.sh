@@ -7,7 +7,7 @@ OTA_HASH=$(cat $NEOSUPDATE/update.json | jq -r .ota_hash)
 RECOVERY_HASH=$(cat $NEOSUPDATE/update.json | jq -r .recovery_hash)
 
 DATA_ACCOUNT="commadist"
-DATA_CONTAINER="neosupdate-staging"
+DATA_CONTAINER="neosupdate"
 
 SAS_EXPIRY=$(date -u '+%Y-%m-%dT%H:%M:%SZ' -d '+1 hour')
 DATA_SAS_TOKEN=$(az storage container generate-sas --account-name $DATA_ACCOUNT --name $DATA_CONTAINER --https-only --permissions w --expiry $SAS_EXPIRY --output tsv)
