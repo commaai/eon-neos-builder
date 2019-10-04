@@ -27,7 +27,7 @@ tqdm = "*"
 Cython = "*"
 PyYAML = "*"
 websocket_client = "*"
-Logentries = {git = "https://github.com/commaai/le_python.git",ref = "5eef8f5be5929d33973e1b10e686fa0cdcd6792f"}
+Logentries = {git = "https://github.com/commaai/le_python.git",ref = "feaeacb48f7f4bdb02c0a8fc092326d4e101b7f2"}
 urllib3 = "*"
 chardet = "*"
 idna = "*"

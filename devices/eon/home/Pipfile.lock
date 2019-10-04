@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "37adffcad86d870d95dc913379b68bf305c2c7d2b2ee63e8d8dec9adebb3046b"
+            "sha256": "3e123917b371ec1f6f2c680103a7ec9f2592b3c1c10372b416fc33217bfa30ef"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,10 +18,10 @@
     "default": {
         "asn1crypto": {
             "hashes": [
-                "sha256:2f1adbb7546ed199e3c90ef23ec95c5cf3585bac7d11fb7eb562a3fe89c64e87",
-                "sha256:9d5c20441baf0cb60a4ac34cc447c6c189024b6b4c6cd7877034f4965c464e49"
+                "sha256:d02bf8ea1b964a5ff04ac7891fe3a39150045d1e5e4fe99273ba677d11b92a04",
+                "sha256:f822954b90c4c44f002e2cd46d636ab630f1fe4df22c816a82b66505c404eb2a"
             ],
-            "version": "==0.24.0"
+            "version": "==1.0.0"
         },
         "astroid": {
             "hashes": [
@@ -258,7 +258,7 @@
         },
         "logentries": {
             "git": "https://github.com/commaai/le_python.git",
-            "ref": "5eef8f5be5929d33973e1b10e686fa0cdcd6792f",
+            "ref": "feaeacb48f7f4bdb02c0a8fc092326d4e101b7f2",
             "version": "==0.8"
         },
         "markupsafe": {
@@ -601,7 +601,7 @@
                 "sha256:d896919306dd0aa22d0132f62a1b78d11aaf4c9fc5b3410d3c666b818191630a",
                 "sha256:ffde2fbfad571af120fcbfbbc61c72469e72f550d676c3342492a9dfdefb8f12"
             ],
-            "markers": "implementation_name == 'cpython' and python_version < '3.8'",
+            "markers": "python_version < '3.8' and implementation_name == 'cpython'",
             "version": "==1.4.0"
         },
         "urllib3": {
