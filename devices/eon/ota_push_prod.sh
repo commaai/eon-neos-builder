@@ -6,5 +6,11 @@ NEOSUPDATE="$DIR/neosupdate"
 OTA_HASH=$(cat $NEOSUPDATE/update.json | jq -r .ota_hash)
 RECOVERY_HASH=$(cat $NEOSUPDATE/update.json | jq -r .recovery_hash)
 
-azcopy --source $NEOSUPDATE/ota-signed-$OTA_HASH.zip --destination https://commadist.blob.core.windows.net/neosupdate/ota-signed-$OTA_HASH.zip  --dest-key $(az storage account keys list --account-name commadist --output tsv --query "[0].value")
-azcopy --source $NEOSUPDATE/recovery-$RECOVERY_HASH.img --destination https://commadist.blob.core.windows.net/neosupdate/recovery-$RECOVERY_HASH.img  --dest-key $(az storage account keys list --account-name commadist --output tsv --query "[0].value")
+DATA_ACCOUNT="commadist"
+DATA_CONTAINER="neosupdate-staging"
+
+SAS_EXPIRY=$(date -u '+%Y-%m-%dT%H:%M:%SZ' -d '+1 hour')
+DATA_SAS_TOKEN=$(az storage container generate-sas --account-name $DATA_ACCOUNT --name $DATA_CONTAINER --https-only --permissions w --expiry $SAS_EXPIRY --output tsv)
+
+azcopy cp $NEOSUPDATE/recovery-$RECOVERY_HASH.img "https://$DATA_ACCOUNT.blob.core.windows.net/$DATA_CONTAINER/recovery-$RECOVERY_HASH.img?$DATA_SAS_TOKEN"
+azcopy cp $NEOSUPDATE/ota-signed-$OTA_HASH.zip "https://$DATA_ACCOUNT.blob.core.windows.net/$DATA_CONTAINER/ota-signed-$OTA_HASH.zip?$DATA_SAS_TOKEN"

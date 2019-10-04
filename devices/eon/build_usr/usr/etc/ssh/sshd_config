@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2397aacdfbc6c4c8c9b1a541e340edccae7b23380f9c0fb2cfceff9ee4611ebc
-size 138
+PrintMotd no
+PasswordAuthentication no
+PubkeyAcceptedKeyTypes +ssh-dss
+Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
+
+StrictModes no
+AuthorizedKeysFile /data/params/d/GithubSshKeys

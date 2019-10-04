@@ -1,5 +1,10 @@
 #!/system/bin/sh
 
+if [ ! -f /data/params/d/GithubSshKeys ]; then
+    mkdir -p /data/params/d
+    cp /data/data/com.termux/files/home/.ssh/authorized_keys /data/params/d/GithubSshKeys
+fi
+
 # init race conditions
 if [ "$(getprop persist.neos.ssh)" = "1" ]; then
   export HOME=/data/data/com.termux/files/home

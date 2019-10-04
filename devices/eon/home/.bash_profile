@@ -10,7 +10,7 @@ export GIT_SSH_COMMAND="ssh -i /data/gitkey"
 export LANG="en_US.UTF-8"
 
 export VIMINIT='source $MYVIMRC'
-export MYVIMRC="~/.vimrc"
+export MYVIMRC="/data/data/com.termux/files/home/.vimrc"
 
 # Disable history writing
-export PYTHONSTARTUP="~/.pythonrc"
+export PYTHONSTARTUP="/data/data/com.termux/files/home/.pythonrc"

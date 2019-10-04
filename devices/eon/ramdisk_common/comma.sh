@@ -40,6 +40,10 @@ echo $$ > /dev/cpuset/app/tasks
 # (our parent, tmux, also gets all the cores)
 echo $PPID > /dev/cpuset/app/tasks
 
+if ! iptables -t mangle -w -C PREROUTING -i wlan0 -j TTL  --ttl-set 65 > /dev/null 2>&1; then
+    iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
+fi
+
 if [ ! -f /persist/comma/id_rsa.pub ]; then
   mkdir -p /persist/comma
 
@@ -65,4 +69,9 @@ while true; do
 
   chmod +x /data/data/ai.comma.plus.neossetup/installer
   /data/data/ai.comma.plus.neossetup/installer
+
+  if [ $? -ne 0 ]; then
+      echo "Installer failed"
+      rm -f /data/data/com.termux/files/continue.sh
+  fi
 done
