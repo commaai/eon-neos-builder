@@ -38,10 +38,11 @@ Flask = "*"
 PyJWT = "*"
 "Jinja2" = "*"
 nose = "*"
-pyflakes = "*"
+flake8 = "*"
 pylint = "*"
 pycryptodome = "*"
 pillow = "*"
+scons = "*"
 
 [requires]
 python_version = "3.7.3"
