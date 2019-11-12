@@ -152,17 +152,6 @@ make -j4
 make install
 popd
 
-# ------- Openvpn
-VERSION="2.4.7"
-wget --tries=inf -O openvpn-v$VERSION.tar.gz https://github.com/OpenVPN/openvpn/archive/v$VERSION.tar.gz
-tar xvf openvpn-v${VERSION}.tar.gz
-pushd openvpn-$VERSION
-autoreconf -i -v -f
-LDFLAGS="-L/usr/lib64 -llog" ./configure --disable-plugin-auth-pam --prefix=/usr
-make -j4
-make install
-popd
-
 # ----- DFU util 0.8
 wget --tries=inf http://dfu-util.sourceforge.net/releases/dfu-util-0.8.tar.gz
 tar xvf dfu-util-0.8.tar.gz
