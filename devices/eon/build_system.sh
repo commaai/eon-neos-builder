@@ -35,6 +35,8 @@ sudo mount -o loop system.img.raw mnt
 sudo mkdir -p mnt/comma
 sudo cp -R ../build_usr/out/data/data/com.termux/files/usr mnt/comma
 
+sudo chmod a+rx mnt/comma mnt/comma/usr mnt/comma/usr/lib
+
 sudo sed -i 's/ro.adb.secure=1/ro.adb.secure=0/' mnt/build.prop
 sudo sed -i 's/neos.vpn=1/neos.vpn=0/' mnt/build.prop
 
