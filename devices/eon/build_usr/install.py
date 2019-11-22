@@ -139,7 +139,7 @@ if __name__ == "__main__":
         'libmpc',
         'libtool',
         'libuuid-dev',
-        'libzmq',
+        #'libzmq',
         'libpcap',
         'libpcap-dev',
         'make',
