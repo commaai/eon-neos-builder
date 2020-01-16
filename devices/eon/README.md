@@ -1,6 +1,7 @@
-Make sure python3 is not in your path, so remove all the pyenv shim directories. 
+Make sure python3 is not in your path, so remove all the pyenv shim directories.
 
 If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
+If you want the dashcam branch to be checked pre checked out in the image set `EMBED_DASHCAM=1`
 
 # Normal build procedure
 1. Build averything. This will pull `/usr` from the latest shipped NEOS. `./build_all.sh`
