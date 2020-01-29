@@ -55,6 +55,8 @@ if [ ! -f /persist/comma/id_rsa.pub ]; then
   chmod 744 /persist/comma/id_rsa
 fi
 
+rm -f /data/params/d/AthenadPid
+
 while true; do
   if [ -f /data/data/com.termux/files/continue.sh ]; then
     exec /data/data/com.termux/files/continue.sh
