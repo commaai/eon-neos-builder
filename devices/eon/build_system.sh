@@ -39,6 +39,7 @@ sudo chmod a+rx mnt/comma mnt/comma/usr mnt/comma/usr/lib
 if [ -z "$EMBED_DASHCAM" ]; then
     echo "Skipping dashcam checkout"
 else
+    sudo rm -rf mnt/comma/openpilot
     sudo git clone --branch=dashcam-staging --depth=1 https://github.com/commaai/openpilot.git mnt/comma/openpilot
 fi
 

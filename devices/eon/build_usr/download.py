@@ -29,5 +29,5 @@ def download(url, fhash, finalname):
 
 if __name__ == "__main__":
   #up = requests.get("https://raw.githubusercontent.com/commaai/eon-neos/master/update.json").json()
-  up = json.loads(open('/home/batman/one/installer/updater/update.json').read())
+  up = json.loads(open('/home/batman/openpilot/installer/updater/update.json').read())
   download(up['ota_url'], up['ota_hash'], "ota-signed-latest.zip")
