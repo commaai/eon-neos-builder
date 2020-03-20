@@ -3,6 +3,7 @@ import sys
 from elftools.elf.elffile import ELFFile
 from hexdump import hexdump
 import struct
+import binascii
 
 e = ELFFile(open("devcfg.mbn" if len(sys.argv) == 1 else sys.argv[1], "rb"))
 
@@ -67,13 +68,14 @@ while 1:
   l,a = struct.unpack("QQ", d[off:off+0x10])
   if l == 0:
     break
-  print(hex(cnt), "" if cnt not in sidx else sidx[cnt], l,hex(a-la))
-  cnt += 1
+
   off += 0x10
   if l < 0x100:
-    hexdump(d[a-la:a-la+l])
+    dat = d[a-la:a-la+l]
   else:
-    print("TOO BIG TO PRINT")
+    dat = b"\xb1\xb1\xb1\xb1"
+  print(hex(cnt), "" if cnt not in sidx else sidx[cnt], l,hex(a-la), binascii.hexlify(dat))
+  cnt += 1
 
 """
 # the "0x58" table
