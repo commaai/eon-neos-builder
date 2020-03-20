@@ -39,12 +39,11 @@ tbl = d[off:off+table_length]
 
 s1 = tbl[g32(off+4):g32(off+8)].split(b"\x00")
 s2 = tbl[g32(off+8):g32(off+0xc)].split(b"\x00")
+ee = tbl[g32(off+0xc):]
 
-hexdump(tbl)
-print(s1)
-print(s2)
-
-
+print(hex(len(s1)), s1)
+print(hex(len(s2)), s2)
+hexdump(ee)
 
 """
 print("****** 0x48 table ******")
@@ -59,6 +58,8 @@ while 1:
   off += 0x10
   if l < 0x100:
     hexdump(d[a-la:a-la+l])
+  else:
+    print("TOO BIG TO PRINT")
 
 # the "0x58" table
 # 0x28 length entries
@@ -69,7 +70,7 @@ off = g32(0x58) - la
 for i in range(cnt):
   a = struct.unpack("Q", d[off:off+8])[0] - la
   print(hex(a), gs(a))
+  hexdump(d[off+8:off+0x28])
   off += 0x28
 """
-
 
