@@ -2,11 +2,6 @@
 
 echo "Starting dependency installs"
 
-# Pick up env variables added to bashrc since the last run, in case
-# the user hasn't started a new shell or sourced bashrc themselves
-source ~/.bashrc
-hash -r
-
 # Add third-party package repos and keys required for Ubuntu 16.04
 sudo apt-get install curl
 # git-lfs
@@ -33,18 +28,17 @@ fi
 if [[ ! $(command -v sdkmanager) ]]; then
   echo "Adding Android tools to PATH"
   echo 'export PATH="$PATH:/usr/lib/android-sdk/tools/bin"' >> ~/.bashrc
+  export PATH="$PATH:/usr/lib/android-sdk/tools/bin"
 else
   echo "Android sdkmanager already in path, skipping..."
 fi
 if [[ -z "$ANDROID_HOME" ]]; then
   echo "Adding ANDROID_HOME to environment"
-  echo 'export ANDROID_HOME=/usr/lib/android-sdk' >> ~/.bashrc
+  echo 'export ANDROID_HOME="/usr/lib/android-sdk"' >> ~/.bashrc
+  export ANDROID_HOME="/usr/lib/android-sdk"
 else
   echo "ANDROID_HOME already set, skipping..."
 fi
-
-source ~/.bashrc
-hash -r
 
 sdkmanager "platform-tools" "platforms;android-23" "platforms;android-27"
 sdkmanager "extras;android;m2repository"

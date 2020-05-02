@@ -8,7 +8,7 @@ cd $DIR
 
 # install build tools
 if [[ -z "${SKIP_DEPS}" ]]; then
-  $DIR/install_deps.sh
+  source $DIR/install_deps.sh
 fi
 
 if [[ -z "${LIMIT_CORES}" ]]; then
