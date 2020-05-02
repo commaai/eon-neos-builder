@@ -12,6 +12,7 @@ What is it?
 
 ### Prerequisite
 
+* An Ubuntu 16.04 build environment with at least 80GB of available disk space
 * [Install git-lfs](https://github.com/git-lfs/git-lfs/wiki/Installation)
   * for large files such as toolchain.
 
