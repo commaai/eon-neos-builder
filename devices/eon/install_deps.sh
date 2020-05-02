@@ -7,8 +7,7 @@ echo "Starting dependency installs"
 source ~/.bashrc
 hash -r
 
-# Third party package repos and keys required for Ubuntu 16.04
-# git-lfs and yarn on Ubuntu 16.04
+# Add third-party package repos and keys required for Ubuntu 16.04
 sudo apt-get install curl
 # git-lfs
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
@@ -17,11 +16,9 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
-# nodejs (version in Ubuntu repo is too old)
-
 # Basic dependencies
 sudo apt-get update
-sudo apt-get install -y cpio git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python bc android-tools-fsutils git-lfs openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
+sudo apt-get install -y cpio git-core git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python bc android-tools-fsutils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
 
 # Additional setup for Android SDK environment and toolset
 if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
