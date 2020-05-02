@@ -21,7 +21,6 @@ EDK2_LLVM=llvm-arm-toolchain-ship
 SEC_IMAGE=SecImage
 
 cd $ROOT
-git lfs install
 git lfs pull
 cd $DIR
 
