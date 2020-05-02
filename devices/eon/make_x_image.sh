@@ -15,7 +15,7 @@ $TOOLS/extract_toolchains.sh
 mkdir -p $OUT
 
 if [ ! -d android_kernel_comma_msm8996 ]; then
-  git clone git@github.com:commaai/android_kernel_comma_msm8996.git --depth 1
+  git clone https://github.com/commaai/android_kernel_comma_msm8996.git --depth 1
 fi
 
 # Compile kernel
