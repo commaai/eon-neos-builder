@@ -40,9 +40,6 @@ if [[ -z "$ANDROID_HOME" ]]; then
 else
   echo "ANDROID_HOME already set, skipping..."
 fi
-if [[ ! $(command -v yarn) ]]; then
-  echo "Installing Yarn (for building the NEOSSetup APK)"
-
 
 source ~/.bashrc
 hash -r
