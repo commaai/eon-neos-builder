@@ -14,7 +14,7 @@ fi
 if [[ -z "${LIMIT_CORES}" ]]; then
   JOBS=$(nproc --all)
 else
-  JOBS=8
+  JOBS=8F
 fi
 
 # build mindroid
@@ -25,3 +25,4 @@ $TOOLS/repo sync -c -j$JOBS
 
 export PATH=$PWD/bin:$PATH
 (source build/envsetup.sh && breakfast oneplus3 && make -j$JOBS)
+F

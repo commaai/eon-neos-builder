@@ -18,31 +18,7 @@ What is it?
 Usage
 ------
 
-### Building
-
-```bash
-cd devices/eon
-./build_ramdisks.sh
-./build_all.sh
-```
-
-Images are written to the `out` directory.
-
-### Flashing Devices
-
-Boot device to fastboot. With an EON Gold, hold Power+Volume Down. With an EON, hold Power+Volume Up.
-
-```bash
-cd devices/eon
-./flash.sh
-```
-
-### Make OTA update
-
-```bash
-cd devices/eon
-./prepare_ota.sh
-```
+See the device-specific instructions in `devices/eon/README.md`
 
 Supported Devices
 ------

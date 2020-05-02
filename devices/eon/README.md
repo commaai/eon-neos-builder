@@ -4,8 +4,12 @@ If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
 If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
 
 # Normal build procedure
-1. Build everything. This will pull `/usr` from the latest shipped NEOS. `./build_all.sh`
-2. Build OTA images: `./prepare_ota.sh`
+1. If not already done, set some Git config parameters:
+   - `git config --global user.name "John Doe"`
+   - `git config --global user.email "john.doe@example.com`
+   - `git config --global color.ui true`
+2. Build everything. This will pull `/usr` from the latest shipped NEOS. `./build_all.sh`
+3. Build OTA images. `./prepare_ota.sh`
 
 # Build procedure with clean /usr
 This process requires an EON connected with [Comma Smays](https://comma.ai/shop/products/comma-smays-adapter)!
