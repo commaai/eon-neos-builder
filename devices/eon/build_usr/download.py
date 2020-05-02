@@ -28,6 +28,10 @@ def download(url, fhash, finalname):
   os.system("rm -f %s; ln -s %s %s" % (finalname, fn, finalname))
 
 if __name__ == "__main__":
-  #up = requests.get("https://raw.githubusercontent.com/commaai/eon-neos/master/update.json").json()
-  up = json.loads(open('/home/batman/openpilot/installer/updater/update.json').read())
+  try:
+    # For Comma internal builds, prefer locally defined NEOS image URLs
+    up = json.loads(open('/home/batman/openpilot/installer/updater/update.json').read())
+  except Exception:
+    # For external builds, use the public NEOS image URLs
+    up = requests.get("https://raw.githubusercontent.com/commaai/eon-neos/master/update.json").json()
   download(up['ota_url'], up['ota_hash'], "ota-signed-latest.zip")
