@@ -13,7 +13,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 
 # Basic dependencies
 sudo apt-get update
-sudo apt-get install -y cpio git-core git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python bc android-tools-fsutils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
+sudo apt-get install -y cpio git-core git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python python-requests bc android-tools-fsutils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
 
 # Additional setup for Android SDK environment and toolset
 if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
