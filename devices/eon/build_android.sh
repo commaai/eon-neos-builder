@@ -14,7 +14,7 @@ fi
 if [[ -z "${LIMIT_CORES}" ]]; then
   JOBS=$(nproc --all)
 else
-  JOBS=8F
+  JOBS=8
 fi
 
 # build mindroid
