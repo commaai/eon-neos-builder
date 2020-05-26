@@ -22,6 +22,7 @@ if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
   curl -o sdk-tools.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
   unzip -o sdk-tools.zip -d "/usr/lib/android-sdk/"
   sudo chmod +x /usr/lib/android-sdk/tools/bin/*
+  rm sdk-tools.zip
 else
   echo "Android SDK tools already installed, skipping..."
 fi
