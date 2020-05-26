@@ -88,20 +88,6 @@ CXXFLAGS="-fPIC -O2" ./configure --prefix=/usr
 make -j4 install
 popd
 
-git clone https://github.com/commaai/c-capnproto.git
-pushd c-capnproto
-git submodule update --init --recursive
-CFLAGS="-fPIC -O2" autoreconf -f -i -s
-CFLAGS="-fPIC -O2" ./configure --prefix=/usr
-gcc -fPIC -O2 -c lib/capn-malloc.c
-gcc -fPIC -O2 -c lib/capn-stream.c
-gcc -fPIC -O2 -c lib/capn.c
-ar rcs libcapn.a capn-malloc.o capn-stream.o capn.o
-cp libcapn.a /usr/lib
-
-make -j4 install
-popd
-
 # ----- libzmq
 # ZMQ is build on the host, and copied in
 # VERSION="4.2.0"
