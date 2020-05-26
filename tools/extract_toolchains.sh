@@ -20,16 +20,9 @@ GOOGLE_GCC_4_8_32BIT=arm-eabi-4.8
 EDK2_LLVM=llvm-arm-toolchain-ship
 SEC_IMAGE=SecImage
 
-if [ ! -f $LINARO_GCC_PREFIX*.xz ] || \
-   [ ! -f $GOOGLE_GCC_4_9*.gz ] || \
-   [ ! -f $EDK2_LLVM*.gz ] || \
-   [ ! -f $GOOGLE_GCC_4_8_32BIT*.gz ] || \
-   [ ! -f $SEC_IMAGE*.gz ]; then
-  cd $ROOT
-  git lfs install
-  git lfs pull
-  cd $DIR
-fi
+cd $ROOT
+git lfs pull
+cd $DIR
 
 LINARO_GCC_TARBALL=$(find . -name $LINARO_GCC_PREFIX*.xz)
 GOOGLE_GCC_4_9_TARBALL=$(find . -name $GOOGLE_GCC_4_9*.gz)
