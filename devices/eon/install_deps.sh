@@ -40,9 +40,9 @@ else
   echo "ANDROID_HOME already set, skipping..."
 fi
 
+yes | sdkmanager --licenses
 sdkmanager "platform-tools" "platforms;android-23" "platforms;android-27"
 sdkmanager "extras;android;m2repository"
 sdkmanager "extras;google;m2repository"
-yes | sdkmanager --licenses
 
 echo "Dependency install completed"
