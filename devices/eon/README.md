@@ -1,7 +1,12 @@
-Make sure python3 is not in your path, so remove all the pyenv shim directories.
+This build environment is designed and tested with Ubuntu 16.04 LTS, and
+certain parts of the Android system build still use legacy Python 2 code.
+Make sure the system default Python 2 has not been replaced with Python 3,
+either directly or using `pyenv` to override. Remove the `pyenv` entries
+from your PATH if necessary.
 
-If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
-If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
+# Options
+- If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
+- If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
 
 # Normal build procedure
 1. If not already done, set some Git config parameters:
