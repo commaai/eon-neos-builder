@@ -75,15 +75,13 @@ mv $PREFIX/lib/gcc/arm-none-eabi/4.7.1/include/stdint-gcc.h $PREFIX/lib/gcc/arm-
 popd
 
 # -------- Capnp stuff
-VERSION=0.6.1
+VERSION=0.8.0
 
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
 
 pushd capnproto-c++-${VERSION}
 
-# Patch for 0.6.1
-patch -p1 < ~/capnp.patch
 CXXFLAGS="-fPIC -O2" ./configure --prefix=/usr
 make -j4 install
 popd
