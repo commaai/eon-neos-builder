@@ -44,6 +44,13 @@ pycryptodome = "*"
 pillow = "*"
 scons = "*"
 cysignals = "*"
+aenum = "*"
+coverage = "*"
+dictdiffer = "*"
+lru-dict = "*"
+pycurl = "*"
+tenacity = "*"
+tqdm = "*"
 
 
 [requires]
