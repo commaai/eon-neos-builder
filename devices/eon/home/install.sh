@@ -107,7 +107,7 @@ popd
 # popd
 
 # ---- Eigen
-wget --tries=inf http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
+wget --tries=inf https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
 mkdir eigen
 tar xjf 3.3.7.tar.bz2
 pushd eigen-eigen-323c052e1731
