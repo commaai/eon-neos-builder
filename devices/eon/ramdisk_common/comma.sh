@@ -20,10 +20,10 @@ echo 0 > /sys/class/leds/button-backlight/max_brightness
 
 # lock all four cores at historically supported frequencies
 # can be reset/overridden later in userspace if needed
-echo "userspace" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-echo "userspace" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-echo "1670400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_setspeed
+echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo "performance" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+echo "1670400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
 
 # constrain everything but us to one cpu
 echo 0 > /dev/cpuset/background/cpus
