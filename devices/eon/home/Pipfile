@@ -51,7 +51,8 @@ lru-dict = "*"
 pycurl = "*"
 tenacity = "*"
 tqdm = "*"
+pre-commit = "*"
 
 
 [requires]
-python_version = "3.7.3"
+python_version = "3.8.2"
