@@ -13,18 +13,18 @@ chmod +x /usr/var/lib/dpkg/info/*.postinst
 find /usr/var/lib/dpkg/info -type f  -executable -exec sh -c 'exec "$1"' _ {} \;
 chmod +x /usr/var/lib/dpkg/info/*.prerm
 
-mkdir /tmp/build
+mkdir -p /tmp/build
 cd /tmp/build
 
 # -------- GCC
-mkdir gcc
+mkdir -p gcc
 pushd gcc
 
 BINUTILS=binutils-2.32
 GCC=gcc-4.7.1
 PREFIX=/usr
 
-mkdir src
+mkdir -p src
 pushd src
 wget --tries=inf ftp://ftp.gnu.org/gnu/binutils/$BINUTILS.tar.bz2
 tar -xf $BINUTILS.tar.bz2
@@ -108,10 +108,10 @@ popd
 
 # ---- Eigen
 wget --tries=inf https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
-mkdir eigen
-tar xjf 3.3.7.tar.bz2
+mkdir -p eigen
+tar xjf eigen-3.3.7.tar.bz2
 pushd eigen-eigen-323c052e1731
-mkdir build
+mkdir -p build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make install
