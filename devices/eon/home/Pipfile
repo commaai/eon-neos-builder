@@ -50,7 +50,6 @@ dictdiffer = "*"
 lru-dict = "*"
 pycurl = "*"
 tenacity = "*"
-tqdm = "*"
 pre-commit = "*"
 
 
