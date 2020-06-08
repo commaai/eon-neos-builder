@@ -18,34 +18,28 @@ ip rule add prio 100 from all lookup main
 # disable the button lights
 echo 0 > /sys/class/leds/button-backlight/max_brightness
 
-# lock all four cores at historically supported frequencies
+# clock all four cores at historically supported frequencies
 # can be reset/overridden later in userspace if needed
 echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo "performance" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
 echo "1670400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
 
-# constrain everything but us to one cpu
-echo 0 > /dev/cpuset/background/cpus
-echo 0 > /dev/cpuset/system-background/cpus
-echo 0 > /dev/cpuset/foreground/boost/cpus
-echo 0 > /dev/cpuset/foreground/cpus
-
+# migrate all existing Android tasks to a common CPU set
+# for now, let everything run everywhere to keep the installer responsive
+# the installed NEOS application will tune things later
 mkdir /dev/cpuset/android
-echo 0 > /dev/cpuset/android/cpus
+echo 0-3 > /dev/cpuset/android/cpus
 echo 0 > /dev/cpuset/android/mems
 
 # migrate all tasks
 while read i; do echo $i > /dev/cpuset/android/tasks; done < /dev/cpuset/tasks 2>/dev/null
 
-# NEOS general purpose applications
+# NEOS application CPU set
+# the installed app may set up its own realtime reservations within this set
 mkdir /dev/cpuset/app
-echo 0-2 > /dev/cpuset/app/cpus
+echo 0-3 > /dev/cpuset/app/cpus
 echo 0 > /dev/cpuset/app/mems
-# NEOS realtime applications
-mkdir /dev/cpuset/realtime
-echo 3 > /dev/cpuset/realtime/cpus
-echo 0 > /dev/cpuset/realtime/mems
 
 echo $$ > /dev/cpuset/app/tasks
 # (our parent, tmux, also gets all the cores)
