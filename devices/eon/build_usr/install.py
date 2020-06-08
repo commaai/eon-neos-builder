@@ -198,7 +198,8 @@ if __name__ == "__main__":
         'openssl-tool',
         'patchelf',
         'pkg-config',
-        'python-dev',
+        # Included in main python package in recent termux
+        #'python-dev',
         'rsync',
         'strace',
         'tar',
