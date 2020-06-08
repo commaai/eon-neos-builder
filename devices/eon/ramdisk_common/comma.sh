@@ -60,10 +60,12 @@ if [ ! -f /persist/comma/id_rsa.pub ]; then
 
   openssl genrsa -out /persist/comma/id_rsa.tmp 2048 &&
     openssl rsa -in /persist/comma/id_rsa.tmp -pubout -out /persist/comma/id_rsa.tmp.pub &&
+    sync &&
     mv /persist/comma/id_rsa.tmp /persist/comma/id_rsa &&
-    mv /persist/comma/id_rsa.tmp.pub /persist/comma/id_rsa.pub
-  chmod 755 /persist/comma/
-  chmod 744 /persist/comma/id_rsa
+    mv /persist/comma/id_rsa.tmp.pub /persist/comma/id_rsa.pub &&
+    chmod 755 /persist/comma/ &&
+    chmod 744 /persist/comma/id_rsa &&
+    sync
 fi
 
 rm -f /data/params/d/AthenadPid
