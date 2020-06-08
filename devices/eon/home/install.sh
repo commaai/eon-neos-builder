@@ -110,7 +110,7 @@ popd
 wget --tries=inf https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
 mkdir -p eigen
 tar xjf eigen-3.3.7.tar.bz2
-pushd eigen-eigen-323c052e1731
+pushd eigen-3.3.7
 mkdir -p build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
