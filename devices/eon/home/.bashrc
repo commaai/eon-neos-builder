@@ -10,3 +10,6 @@ alias more='less'
 
 # everyone wants to start here anyway
 [ -d "/data/openpilot" ] && cd /data/openpilot
+
+# support for optional community-supported shell extensions
+[ -f "/data/community/.bashrc" ] && source /data/community/.bashrc
