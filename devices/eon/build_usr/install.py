@@ -56,7 +56,7 @@ DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found',
 # build inside container: ./build-package.sh -a aarch64 python
 # copy outside container: mkdir /tmp/termux-packages && docker cp termux-package-builder:/home/builder/termux-packages/debs/python_3.8.2_arm.deb /tmp/termux-packages
 
-LOCAL_OVERRIDE_PATH = '/tmp/termux-packages'
+LOCAL_OVERRIDE_PATH = 'local-packages'
 LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
 
 def load_packages():
