@@ -50,7 +50,9 @@ sudo sed -i 's/neos.vpn=1/neos.vpn=0/' mnt/build.prop
 # echo "service.adb.tcp.port=5555" | sudo tee -a mnt/build.prop
 
 sudo cp -Rv "$DIR/home" mnt/comma/home
-sudo rm mnt/comma/home/install.sh
+if [ -z "$CLEAN_USR" ]; then
+ sudo rm mnt/comma/home/install.sh
+fi
 sudo chmod 600 mnt/comma/home/.ssh/*
 sudo chown root:root mnt/build.prop
 sudo chmod 644 mnt/build.prop
