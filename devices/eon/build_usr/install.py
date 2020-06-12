@@ -56,7 +56,6 @@ DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found',
 # build inside container: ./build-package.sh -a aarch64 python
 # copy outside container: mkdir /tmp/termux-packages && docker cp termux-package-builder:/home/builder/termux-packages/debs/python_3.8.2_arm.deb /tmp/termux-packages
 
-LOCAL_OVERRIDE_PATH = 'local-packages'
 LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
 
 def load_packages():
@@ -100,11 +99,12 @@ def install_package(pkg_deps, pkg_filenames, pkg):
     if not os.path.exists('out'):
         os.mkdir('out')
 
+    build_usr_dir = os.getcwd()
     tmp_dir = tempfile.mkdtemp()
 
     if pkg in LOCAL_OVERRIDE_PKG:
         deb_name = LOCAL_OVERRIDE_PKG[pkg]
-        deb_path = os.path.join(LOCAL_OVERRIDE_PATH, deb_name)
+        deb_path = os.path.join(os.path.join(build_usr_dir, "local_packages"), deb_name)
         print("Using local copy of package %s - %s - %s" % (pkg, tmp_dir, deb_name))
     elif pkg in pkg_filenames:
         url = BASE_URL + pkg_filenames[pkg]

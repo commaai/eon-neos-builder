@@ -159,5 +159,7 @@ popd
 # ------- Install python packages
 cd $HOME
 
+export PYCURL_SSL_LIBRARY=openssl
 pip install pipenv
 pipenv install --deploy --system
+
