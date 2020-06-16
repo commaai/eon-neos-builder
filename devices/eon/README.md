@@ -6,6 +6,7 @@ from your PATH if necessary.
 
 # Options
 - If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
+- If the msm8996 kernel has changed, change the commit hash in `make_x_image.sh`.
 - If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
 
 # Normal build procedure
