@@ -4,9 +4,12 @@ Make sure the system default Python 2 has not been replaced with Python 3,
 either directly or using `pyenv` to override. Remove the `pyenv` entries
 from your PATH if necessary.
 
-# Options
+# Important notes
 - If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
 - If the msm8996 kernel has changed, change the commit hash in `make_x_image.sh`.
+- If making changes to Android components, check `build_system.sh` for where to
+  check out the `mindroid` branch of the Android build manifest. When finished
+  with testing, update the commit hashes in `repeatable-build-mindroid`.
 - If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
 
 # Normal build procedure
