@@ -21,7 +21,7 @@ pushd boot_ramdisk
   ln -s /data/data/com.termux/files/tmp tmp
   ln -s /data/data/com.termux/files/usr usr
   sudo cp -v "$DIR"/ramdisk_common/* .
-  echo "15" > VERSION
+  echo "15-RC2" > VERSION
   touch EON
 
   # repack ramdisk
