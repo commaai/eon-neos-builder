@@ -36,12 +36,13 @@ sudo mkdir -p mnt/comma
 sudo cp -R ../build_usr/out/data/data/com.termux/files/usr mnt/comma
 
 sudo chmod a+rx mnt/comma mnt/comma/usr mnt/comma/usr/lib
-if [ -z "$EMBED_DASHCAM" ]; then
-    echo "Skipping dashcam checkout"
-else
-    sudo rm -rf mnt/comma/openpilot
-    sudo git clone --branch=dashcam-staging --depth=1 https://github.com/commaai/openpilot.git mnt/comma/openpilot
-fi
+# base build option for embedding dashcam is deprecated in favor of build-dashcam-images.sh
+#if [ -z "$EMBED_DASHCAM" ]; then
+#    echo "Skipping dashcam checkout"
+#else
+#    sudo rm -rf mnt/comma/openpilot
+#    sudo git clone --branch=dashcam-staging --depth=1 https://github.com/commaai/openpilot.git mnt/comma/openpilot
+#fi
 
 sudo sed -i 's/ro.adb.secure=1/ro.adb.secure=0/' mnt/build.prop
 sudo sed -i 's/neos.vpn=1/neos.vpn=0/' mnt/build.prop
