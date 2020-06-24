@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NEOS_VERSION sets the /VERSION for the new build. This value MUST be updated
-# for any change put into test/staging or production. For interim builds, use 
+# for any change put into test/staging or production. For interim builds, use
 # a value like "15-RC3" or similar, so that any device with a test build will
 # update to the final release version.
 
@@ -13,9 +13,10 @@ export NEOS_BUILD_VERSION="14"
 
 export NEOS_BASE_FOR_USR="https://raw.githubusercontent.com/commaai/eon-neos/d22cfd2123e13fded340e6290eea8204c73ce9a2/update.json"
 
+
+# TODO: this url can't be used now since it doesn't include the focaltech touchscreen fix in the kernel
 # NEOS_BASE_FOR_DASHCAM is used by build_dashcam_images.sh to set the base OTA
 # image on which to build a dashcam-cached system image. These images are used
 # in the Comma manufacturing process and also for PC desktop flashing. Before
 # and after NEOS versions must match.
-
-export NEOS_BASE_FOR_DASHCAM="https://raw.githubusercontent.com/commaai/openpilot/dashcam-staging/installer/updater/update.json"
+# export NEOS_BASE_FOR_DASHCAM="https://raw.githubusercontent.com/commaai/openpilot/dashcam-staging/installer/updater/update.json"

@@ -14,18 +14,19 @@ cd $DIR
 
 echo "Extracting and updating original NEOS base image" && echo
 sudo umount $OUT/mnt || true
-rm -rf $OUT $OTA
-mkdir -p $OUT/mnt $OUT/tmp $OTA
+rm -rf $OUT/ota_tmp
+mkdir -p $OUT/mnt $OUT/ota_tmp $OTA
 
-unzip build_usr/ota-signed-latest.zip -d $OTA
-sudo mount -o loop $OTA/files/system.img $OUT/mnt
+# Unzip ota image and copy to out folder
+unzip build_usr/ota-signed-latest.zip -d $OUT/ota_tmp
+cp $OUT/ota_tmp/files/boot.img $OUT/boot.img
+cp $OUT/ota_tmp/files/system.img $OUT/system.img
 
+# Mount system.img and check out new dashcam-staging
+sudo mount -o loop $OUT/system.img $OUT/mnt
 sudo rm -rf $OUT/mnt/comma/openpilot
 sudo git clone --branch=dashcam-staging --depth=1 https://github.com/commaai/openpilot.git $OUT/mnt/comma/openpilot
-
 sudo umount $OUT/mnt
 
-# Staging for existing local flash and OTA prep scripts to function
+# Copy recovery.img from revious release
 cp build_usr/recovery.img $DIR/out/recovery.img
-ln ota/files/boot.img out/boot.img
-ln ota/files/system.img out/system.img
