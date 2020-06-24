@@ -7,9 +7,9 @@ OTA=$DIR/ota
 cd $DIR
 source build_env.sh
 
-echo "Downloading existing NEOS OTA images from current dashcam branch" && echo
-cd build_usr
-./download.py
+mkdir -p $OUT/download
+cd $OUT/download
+$DIR/build_usr/download.py
 cd $DIR
 
 echo "Extracting and updating original NEOS base image" && echo
@@ -18,7 +18,7 @@ rm -rf $OUT/ota_tmp
 mkdir -p $OUT/mnt $OUT/ota_tmp $OTA
 
 # Unzip ota image and copy to out folder
-unzip build_usr/ota-signed-latest.zip -d $OUT/ota_tmp
+unzip $OUT/download/ota-signed-latest.zip -d $OUT/ota_tmp
 cp $OUT/ota_tmp/files/boot.img $OUT/boot.img
 cp $OUT/ota_tmp/files/system.img $OUT/system.img
 
@@ -28,5 +28,5 @@ sudo rm -rf $OUT/mnt/comma/openpilot
 sudo git clone --branch=dashcam-staging --depth=1 https://github.com/commaai/openpilot.git $OUT/mnt/comma/openpilot
 sudo umount $OUT/mnt
 
-# Copy recovery.img from revious release
-cp build_usr/recovery.img $DIR/out/recovery.img
+# Copy recovery.img from previous release
+cp $OUT/download/recovery.img $DIR/out/recovery.img

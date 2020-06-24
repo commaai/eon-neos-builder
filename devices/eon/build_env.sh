@@ -14,9 +14,11 @@ export NEOS_BUILD_VERSION="14"
 export NEOS_BASE_FOR_USR="https://raw.githubusercontent.com/commaai/eon-neos/d22cfd2123e13fded340e6290eea8204c73ce9a2/update.json"
 
 
-# TODO: this url can't be used now since it doesn't include the focaltech touchscreen fix in the kernel
 # NEOS_BASE_FOR_DASHCAM is used by build_dashcam_images.sh to set the base OTA
 # image on which to build a dashcam-cached system image. These images are used
 # in the Comma manufacturing process and also for PC desktop flashing. Before
 # and after NEOS versions must match.
+
+# TODO: this url can't be used for NEOS 14 because it's missing the focaltech touchscreen fix in the kernel
 # export NEOS_BASE_FOR_DASHCAM="https://raw.githubusercontent.com/commaai/openpilot/dashcam-staging/installer/updater/update.json"
+export NEOS_BASE_FOR_DASHCAM="$NEOS_BASE_FOR_USR"
