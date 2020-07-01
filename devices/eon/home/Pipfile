@@ -51,6 +51,7 @@ lru-dict = "*"
 pycurl = "*"
 tenacity = "*"
 pre-commit = "*"
+parameterized = "*"
 
 
 [requires]
