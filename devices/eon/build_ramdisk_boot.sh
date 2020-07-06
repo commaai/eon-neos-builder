@@ -2,6 +2,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 cd "$DIR"
+source build_env.sh
 
 BOOT_RAMDISK="mindroid/system/out/target/product/oneplus3/ramdisk.img"
 [ ! -f $BOOT_RAMDISK ] && ./build_android.sh
@@ -21,7 +22,7 @@ pushd boot_ramdisk
   ln -s /data/data/com.termux/files/tmp tmp
   ln -s /data/data/com.termux/files/usr usr
   sudo cp -v "$DIR"/ramdisk_common/* .
-  echo "14" > VERSION
+  echo "$NEOS_BUILD_VERSION" > VERSION
   touch EON
 
   # repack ramdisk

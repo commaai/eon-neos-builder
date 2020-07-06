@@ -4,10 +4,12 @@ Make sure the system default Python 2 has not been replaced with Python 3,
 either directly or using `pyenv` to override. Remove the `pyenv` entries
 from your PATH if necessary.
 
-# Options
-- If you want to increase the version number, that is in `build_ramdisk_boot.sh`.
+# Important notes
+- If you want to increase the version number, that is in `build_env.sh`.
 - If the msm8996 kernel has changed, change the commit hash in `make_x_image.sh`.
-- If you want the dashcam branch to be pre-checked-out in the image set `EMBED_DASHCAM=1`
+- If making changes to Android components, check `build_system.sh` for where to
+  check out the `mindroid` branch of the Android build manifest. When finished
+  with testing, update the commit hashes in `repeatable-build-mindroid`.
 
 # Normal build procedure
 1. If not already done, set some Git config parameters:
@@ -31,3 +33,11 @@ This process requires an EON connected with [Comma Smays](https://comma.ai/shop/
 2. Copy `neosupdate/update.staging.json` into openpilot `installer/updater/update.json`
 3. Update the NEOS version check in `launch_chffrplus.sh`.
 4. When going to production run `./ota_push_prod.sh`, and put `neosupdate/update.json` in the updater folder.
+
+# Comma internal only: updating an existing NEOS image with current dashcam-staging
+
+1. Ensure the openpilot repo dashcam-staging branch is up-to-date and has the desired base `installer/updater/update.json`
+2. Fetch the current NEOS and re-roll the system partition with the current dashcam version slipstreamed: `./build_dashcam_images.sh`
+3. Run `./prepare_ota.sh` to generate new signed OTA update images.
+4. Run `./ota_push_prod.sh` to upload to Azure.
+5. Replace `update.json` in the eon-neos repository with `neosupdate/update.json`.
