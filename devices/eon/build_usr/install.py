@@ -17,44 +17,19 @@ BASE_URL = 'http://termux.comma.ai/'
 DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools']
 
 # Python 3.8.2 is not available in binary form from the termux package repo,
-# but it can be built from source from the termux-packages collection. It
-# must be built locally in docker and copied to the path below.
+# but it can be built from source from the termux-packages collection, using
+# the legacy android-5 branch:
 #
-# FIXME: still needs termux-elf stripping
-# FIXME: should probably be using the Android API level options/legacy android-5 termux repo to start
-# FIXME: explicitly test for the override package not being present and warn the user to look here
+# https://github.com/termux/termux-packages/tree/android-5/packages/python
 #
-# Clone the termux repo and change the Python package build.sh and patch file
-# back to its Python 3.8.2 state (from the current 3.8.3 or other future state)
-#
-# Then replace the configure.patch file with the below: removes lockf(), the
-# preadv()/pwritev() family, and if_nameindex(), and undoes the termux patch
-# removing link() which is usable on our ext4 filesystems.
-#
-#
-#    diff -u -r ../cpython/configure ./configure
-#    --- ../cpython/configure	2020-05-29 17:02:33.994795843 -0700
-#    +++ ./configure	2020-05-29 17:44:19.524728185 -0700
-#    @@ -11484,12 +11484,11 @@
-#      getgrgid_r getgrnam_r \
-#      getgrouplist getgroups getlogin getloadavg getpeername getpgid getpid \
-#      getpriority getresuid getresgid getpwent getpwnam_r getpwuid_r getspnam getspent getsid getwd \
-#    - if_nameindex \
-#    - initgroups kill killpg lchown lockf linkat lstat lutimes mmap \
-#    + initgroups kill killpg lchown linkat lstat lutimes mmap \
-#      memrchr mbrtowc mkdirat mkfifo \
-#      madvise mkfifoat mknod mknodat mktime mremap nice openat pathconf pause pipe2 plock poll \
-#    - posix_fallocate posix_fadvise posix_spawn posix_spawnp pread preadv preadv2 \
-#    - pthread_condattr_setclock pthread_init pthread_kill putenv pwrite pwritev pwritev2 \
-#    + posix_fallocate posix_fadvise posix_spawn posix_spawnp pread \
-#    + pthread_condattr_setclock pthread_init pthread_kill putenv pwrite \
-#      readlink readlinkat readv realpath renameat \
-#      sem_open sem_timedwait sem_getvalue sem_unlink sendfile setegid seteuid \
-#      setgid sethostname \
+# It must be manually retouched to build Python 3.8.2 instead of 3.8.0; the
+# changes can be borrowed from the master branch.
 #
 # start docker: termux-packages/scripts/run-docker.sh
 # build inside container: ./build-package.sh -a aarch64 python
 # copy outside container: mkdir /tmp/termux-packages && docker cp termux-package-builder:/home/builder/termux-packages/debs/python_3.8.2_arm.deb /tmp/termux-packages
+#
+# A prebuilt Python 3.8.2 is LFS-checked into the eon-neos-builder repo.
 
 LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
 
@@ -208,7 +183,7 @@ if __name__ == "__main__":
         'wget',
         'xz-utils',
         'zlib-dev',
-	'zsh',
+        'zsh',
     ]
 
     pkg_deps, pkg_filenames = load_packages()
