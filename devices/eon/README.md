@@ -24,8 +24,9 @@ This process requires an EON connected with [Comma Smays](https://comma.ai/shop/
 1. Build all images with clean `/usr`: `CLEAN_USR=1 ./build_all.sh`
 2. Flash everything to EON: `sudo ./flash.sh`
 3. SSH into EON and run `~/install.sh` to finishing building all packages. If
-Python packages have been added to the Pipfile, the `pipenv install...` step at the
-end of `install.sh` will need to be repeated after running `pipenv lock`.
+Python packages have been added to the `Pipfile`, the `pipenv install...` step at the
+end of `install.sh` will need to be repeated after running `pipenv lock`, and the
+resulting `Pipfile.lock` should be committed to the eon-neos-builder repo.
 4. Build new system image with compiled packages. Make sure EON is still connected for this step since it will pull `/usr` from the EON. `CLEAN_USR=1 STAGE2=1 ./build_system.sh`
 5. Build OTA images: `./prepare_ota.sh`
 
