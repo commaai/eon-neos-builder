@@ -157,13 +157,13 @@ popd
 
 # ----- OP3T binary blobs for Qualcomm thermal management
 pushd /vendor/lib64
-wget https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/lib64/libthermalioctl.so
+wget -N https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/lib64/libthermalioctl.so
 chmod 600 libthermalioctl.so
-wget https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/lib64/libthermalclient.so
+wget -N https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/lib64/libthermalclient.so
 chmod 600 libthermalclient.so
 popd
 pushd /vendor/bin
-wget https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/bin/thermal-engine
+wget -N https://github.com/TheMuppets/proprietary_vendor_oneplus/raw/cm-13.0/oneplus3/proprietary/vendor/bin/thermal-engine
 chmod 755 thermal-engine
 popd
 
@@ -171,6 +171,7 @@ popd
 cd $HOME
 
 export PYCURL_SSL_LIBRARY=openssl
+pip install --upgrade pip
 pip install pipenv
 pipenv install --deploy --system
 
