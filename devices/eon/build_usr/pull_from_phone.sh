@@ -2,7 +2,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 if [ -z "$PHONE" ]; then
-    PHONE=192.168.1.230
+    PHONE=192.168.5.11
 fi
 chmod 600 "$DIR/id_rsa"
 sshphone="ssh -i $DIR/id_rsa -p 8022 -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o StrictHostKeyChecking=no"
