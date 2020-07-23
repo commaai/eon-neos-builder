@@ -5,6 +5,7 @@ ROOT=$DIR/../..
 TOOLS=$ROOT/tools
 
 cd $DIR
+source build_env.sh
 
 # install build tools
 if [[ -z "${SKIP_DEPS}" ]]; then

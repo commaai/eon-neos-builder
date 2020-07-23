@@ -6,6 +6,7 @@ ROOT=$DIR/../..
 TOOLS=$ROOT/tools
 
 cd $DIR
+source build_env.sh
 
 ./build_android.sh
 
