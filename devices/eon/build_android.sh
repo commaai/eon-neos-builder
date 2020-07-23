@@ -26,7 +26,7 @@ cd $DIR/mindroid/system
 # hashes for each Comma-forked component. If doing active development, check
 # out "mindroid" instead, update the repeatable-build-mindroid manifest hashes
 # when finished, and update the commit hash here.
-$TOOLS/repo init -u https://github.com/commaai/android.git -b f3fc4153ccdcd2ed5de374fdc4d30cae3dda6bea
+$TOOLS/repo init -u https://github.com/commaai/android.git -b b5f97cb85abeae9e76564b1995ac9d674798a8de
 $TOOLS/repo sync -c -j$JOBS
 
 export PATH=$PWD/bin:$PATH
