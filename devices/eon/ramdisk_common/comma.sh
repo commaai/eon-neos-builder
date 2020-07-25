@@ -25,11 +25,9 @@ echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo "performance" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
 echo "1670400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
 
-# migrate all existing Android tasks to a common CPU set
-# for now, let everything run everywhere to keep the installer responsive
-# the installed NEOS application will tune things later
+# setup CPU set for all android tasks
 mkdir /dev/cpuset/android
-echo 0-3 > /dev/cpuset/android/cpus
+echo 0 > /dev/cpuset/android/cpus
 echo 0 > /dev/cpuset/android/mems
 
 # migrate all tasks
