@@ -3,13 +3,13 @@
 echo "Starting dependency installs"
 
 # Add third-party package repos and keys required for Ubuntu 16.04
-sudo apt-get install curl
+# sudo apt-get install curl
 # git-lfs
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+#curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 # nodejs and yarn (versions in Ubuntu repo are old/broken)
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+#curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+#curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 # Basic dependencies
 sudo apt-get update
