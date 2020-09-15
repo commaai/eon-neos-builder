@@ -1,11 +1,9 @@
 #!/bin/bash
 
 # NEOS_VERSION sets the /VERSION for the new build. This value MUST be updated
-# for any change put into test/staging or production. For interim builds, use
-# a value like "15-RC3" or similar, so that any device with a test build will
-# update to the final release version.
+# for any change put into test/staging or production.
 
-export NEOS_BUILD_VERSION="14"
+export NEOS_BUILD_VERSION="15-RT1"
 
 # NEOS_BASE_FOR_USR sets the OTA image used for normal NEOS builds, where the
 # Termux /system base binaries are copied from the production shipping OTA

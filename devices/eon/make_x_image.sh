@@ -20,7 +20,7 @@ fi
 
 # Compile kernel
 cd android_kernel_comma_msm8996
-git checkout d2918fd9489da0eeda32ff7e465a28b0e0b94b5f
+git checkout 23e71e232b4f49b5c2f441e05310727ee130f622
 git pull
 make comma_defconfig
 make -j$(nproc --all)
