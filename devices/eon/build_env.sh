@@ -3,7 +3,7 @@
 # NEOS_VERSION sets the /VERSION for the new build. This value MUST be updated
 # for any change put into test/staging or production.
 
-export NEOS_BUILD_VERSION="15-RT1"
+export NEOS_BUILD_VERSION="15"
 
 # NEOS_BASE_FOR_USR sets the OTA image used for normal NEOS builds, where the
 # Termux /system base binaries are copied from the production shipping OTA
