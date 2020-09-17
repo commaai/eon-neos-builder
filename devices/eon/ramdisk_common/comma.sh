@@ -18,12 +18,11 @@ ip rule add prio 100 from all lookup main
 # disable the button lights
 echo 0 > /sys/class/leds/button-backlight/max_brightness
 
-# clock all four cores at historically supported frequencies
-# can be reset/overridden later in userspace if needed
-echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-echo "performance" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-echo "1670400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+# constrain everything but us to one cpu
+echo 0 > /dev/cpuset/background/cpus
+echo 0 > /dev/cpuset/system-background/cpus
+echo 0 > /dev/cpuset/foreground/boost/cpus
+echo 0 > /dev/cpuset/foreground/cpus
 
 # setup CPU set for all android tasks
 mkdir /dev/cpuset/android
@@ -33,8 +32,7 @@ echo 0 > /dev/cpuset/android/mems
 # migrate all tasks
 while read i; do echo $i > /dev/cpuset/android/tasks; done < /dev/cpuset/tasks 2>/dev/null
 
-# NEOS application CPU set
-# the installed app may set up its own realtime reservations within this set
+# we get all the cores
 mkdir /dev/cpuset/app
 echo 0-3 > /dev/cpuset/app/cpus
 echo 0 > /dev/cpuset/app/mems
@@ -44,7 +42,7 @@ echo $$ > /dev/cpuset/app/tasks
 echo $PPID > /dev/cpuset/app/tasks
 
 if ! iptables -t mangle -w -C PREROUTING -i wlan0 -j TTL  --ttl-set 65 > /dev/null 2>&1; then
-    iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
+  iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
 fi
 
 if [ ! -f /persist/comma/id_rsa.pub ]; then
@@ -78,7 +76,7 @@ while true; do
   /data/data/ai.comma.plus.neossetup/installer
 
   if [ $? -ne 0 ]; then
-      echo "Installer failed"
-      rm -f /data/data/com.termux/files/continue.sh
+    echo "Installer failed"
+    rm -f /data/data/com.termux/files/continue.sh
   fi
 done
