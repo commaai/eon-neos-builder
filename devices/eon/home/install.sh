@@ -75,30 +75,14 @@ mv $PREFIX/lib/gcc/arm-none-eabi/4.7.1/include/stdint-gcc.h $PREFIX/lib/gcc/arm-
 popd
 
 # -------- Capnp stuff
-VERSION=0.6.1
+VERSION=0.8.0
 
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
 tar xvf capnproto-c++-${VERSION}.tar.gz
 
 pushd capnproto-c++-${VERSION}
 
-# Patch for 0.6.1
-patch -p1 < ~/capnp.patch
 CXXFLAGS="-fPIC -O2" ./configure --prefix=/usr
-make -j4 install
-popd
-
-git clone https://github.com/commaai/c-capnproto.git
-pushd c-capnproto
-git submodule update --init --recursive
-CFLAGS="-fPIC -O2" autoreconf -f -i -s
-CFLAGS="-fPIC -O2" ./configure --prefix=/usr
-gcc -fPIC -O2 -c lib/capn-malloc.c
-gcc -fPIC -O2 -c lib/capn-stream.c
-gcc -fPIC -O2 -c lib/capn.c
-ar rcs libcapn.a capn-malloc.o capn-stream.o capn.o
-cp libcapn.a /usr/lib
-
 make -j4 install
 popd
 
@@ -123,10 +107,10 @@ popd
 # popd
 
 # ---- Eigen
-wget --tries=inf http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
+wget --tries=inf https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
 mkdir eigen
-tar xjf 3.3.7.tar.bz2
-pushd eigen-eigen-323c052e1731
+tar xjf eigen-3.3.7.tar.bz2
+pushd eigen-3.3.7
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
@@ -171,9 +155,11 @@ make -j4
 make install
 popd
 
-
 # ------- Install python packages
 cd $HOME
 
+export PYCURL_SSL_LIBRARY=openssl
+pip install --upgrade pip
 pip install pipenv
 pipenv install --deploy --system
+

@@ -14,8 +14,24 @@ BASE_URL = 'http://termux.comma.ai/'
 # azcopy --source dists/ --destination https://termuxdist.blob.core.windows.net/dists --recursive --dest-key $(az storage account keys list --account-name termuxdist --output tsv --query "[0].value")
 
 
-DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools']
+DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools']
 
+# Python 3.8.2 is not available in binary form from the termux package repo,
+# but it can be built from source from the termux-packages collection, using
+# the legacy android-5 branch:
+#
+# https://github.com/termux/termux-packages/tree/android-5/packages/python
+#
+# It must be manually retouched to build Python 3.8.2 instead of 3.8.0; the
+# changes can be borrowed from the master branch.
+#
+# start docker: termux-packages/scripts/run-docker.sh
+# build inside container: ./build-package.sh -a aarch64 python
+# copy outside container: mkdir /tmp/termux-packages && docker cp termux-package-builder:/home/builder/termux-packages/debs/python_3.8.2_arm.deb /tmp/termux-packages
+#
+# A prebuilt Python 3.8.2 is LFS-checked into the eon-neos-builder repo.
+
+LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
 
 def load_packages():
     pkg_deps = {}
@@ -58,18 +74,24 @@ def install_package(pkg_deps, pkg_filenames, pkg):
     if not os.path.exists('out'):
         os.mkdir('out')
 
-    if pkg not in pkg_filenames:
+    build_usr_dir = os.getcwd()
+    tmp_dir = tempfile.mkdtemp()
+
+    if pkg in LOCAL_OVERRIDE_PKG:
+        deb_name = LOCAL_OVERRIDE_PKG[pkg]
+        deb_path = os.path.join(os.path.join(build_usr_dir, "local_packages"), deb_name)
+        print("Using local copy of package %s - %s - %s" % (pkg, tmp_dir, deb_name))
+    elif pkg in pkg_filenames:
+        url = BASE_URL + pkg_filenames[pkg]
+        print("Downloading %s - %s - %s" % (pkg, tmp_dir, url))
+        r = requests.get(url)
+        deb_name = 'out.deb'
+        deb_path = os.path.join(tmp_dir, deb_name)
+        open(deb_path, 'wb').write(r.content)
+    else:
         print("%s not found" % pkg)
         return ""
 
-    url = BASE_URL + pkg_filenames[pkg]
-    tmp_dir = tempfile.mkdtemp()
-
-    print("Downloading %s - %s - %s" % (pkg, tmp_dir, url))
-    r = requests.get(url)
-
-    deb_path = os.path.join(tmp_dir, 'out.deb')
-    open(deb_path, 'wb').write(r.content)
     subprocess.check_call(['ar', 'x', deb_path], cwd=tmp_dir)
     subprocess.check_call(['tar', '-C', './out', '-p', '-xf', os.path.join(tmp_dir, 'data.tar.xz')])
     if os.path.exists(os.path.join(tmp_dir, 'control.tar.gz')):
@@ -80,7 +102,7 @@ def install_package(pkg_deps, pkg_filenames, pkg):
     control = open(os.path.join(tmp_dir, 'control')).read()
     control += 'Status: install ok installed\n'
 
-    files = subprocess.check_output(['dpkg', '-c', 'out.deb'], cwd=tmp_dir)
+    files = subprocess.check_output(['dpkg', '-c', deb_path], cwd=tmp_dir)
 
     file_list = ""
     for f in files.split('\n'):
@@ -151,7 +173,8 @@ if __name__ == "__main__":
         'openssl-tool',
         'patchelf',
         'pkg-config',
-        'python-dev',
+        # Included in main python package in recent termux
+        #'python-dev',
         'rsync',
         'strace',
         'tar',
@@ -160,6 +183,7 @@ if __name__ == "__main__":
         'wget',
         'xz-utils',
         'zlib-dev',
+        'zsh',
     ]
 
     pkg_deps, pkg_filenames = load_packages()
