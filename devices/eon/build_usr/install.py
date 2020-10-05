@@ -183,7 +183,6 @@ if __name__ == "__main__":
         'wget',
         'xz-utils',
         'zlib-dev',
-        'zsh',
     ]
 
     pkg_deps, pkg_filenames = load_packages()
