@@ -16,18 +16,14 @@ BASE_URL = 'http://termux.comma.ai/'
 
 DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools']
 
-# Python 3.8.2 is not available in binary form from the termux package repo,
-# but it can be built from source from the termux-packages collection, using
-# the legacy android-5 branch:
+# Python 3.8.2 is not available in binary form from the termux package repo.
+# Build it using the neos branch on our termux-packages fork:
 #
-# https://github.com/termux/termux-packages/tree/android-5/packages/python
-#
-# It must be manually retouched to build Python 3.8.2 instead of 3.8.0; the
-# changes can be borrowed from the master branch.
+# https://github.com/commaai/termux-packages/tree/android-5/packages/python
 #
 # start docker: termux-packages/scripts/run-docker.sh
 # build inside container: ./build-package.sh -a aarch64 python
-# copy outside container: mkdir /tmp/termux-packages && docker cp termux-package-builder:/home/builder/termux-packages/debs/python_3.8.2_arm.deb /tmp/termux-packages
+# copy the deb from termux-packages/debs/
 #
 # A prebuilt Python 3.8.2 is LFS-checked into the eon-neos-builder repo.
 
