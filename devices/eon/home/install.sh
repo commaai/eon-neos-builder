@@ -174,7 +174,7 @@ popd
 # -------- Python
 VERSION=3.8.2
 
-wget --tres=inf https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz
+wget --tries=inf https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz
 tar xvf Python-${VERSION}.tar.gz
 
 apt purge python
