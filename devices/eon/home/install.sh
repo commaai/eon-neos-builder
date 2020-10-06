@@ -179,8 +179,11 @@ tar xvf Python-${VERSION}.tar.gz
 
 apt purge python
 
+patch -p1 < ~/configure.patch
+patch -p1 < ~/subprocess.patch
+patch -p1 < ~/setup.patch
 # compile
-# TO-DO: specific profiling to cut down time
+# TEST: mtune and march
 pushd Python-${VERSION}
 CFLAGS="-O3 -fno-semantic-interposition" LDFLAGS="$LDFLAGS -fno-semantic=interposition" ./configure --prefix=/usr \
                           ac_cv_file__dev_ptmx=yes ac_cv_file__dev_ptc=no ac_cv_func_wcsftime=no \
