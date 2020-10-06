@@ -1,0 +1,13 @@
+--- ../Python-3.8.2/Lib/subprocess.py
++++ ./Lib/subprocess.py
+@@ -1567,9 +1567,7 @@
+                 args = list(args)
+ 
+             if shell:
+-                # On Android the default shell is at '/system/bin/sh'.
+-                unix_shell = ('/system/bin/sh' if
+-                          hasattr(sys, 'getandroidapilevel') else '/bin/sh')
++                unix_shell = ('/usr/bin/sh')
+                 args = [unix_shell, "-c"] + args
+                 if executable:
+                     args[0] = executable
