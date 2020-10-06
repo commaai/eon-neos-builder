@@ -171,6 +171,45 @@ make -j4
 make install
 popd
 
+# -------- Python
+VERSION=3.8.2
+
+wget --tres=inf https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz
+tar xvf Python-${VERSION}.tar.gz
+
+apt purge python
+
+# compile
+# TO-DO: specific profiling to cut down time
+pushd Python-${VERSION}
+CFLAGS="-O3 -fno-semantic-interposition" LDFLAGS="$LDFLAGS -fno-semantic=interposition" ./configure --prefix=/usr \
+                          ac_cv_file__dev_ptmx=yes ac_cv_file__dev_ptc=no ac_cv_func_wcsftime=no \
+                          ac_cv_posix_semaphores_enabled=no ac_cv_func_ftime=no ac_cv_func_faccessat=no \
+                          ac_cv_func_gethostbyname_r=no ac_cv_func_linkat=no ac_cv_buggy_getaddrinfo=no \
+                          ac_cv_func_sem_open=no ac_cv_func_sem_timedwait=no ac_cv_func_sem_getvalue=no ac_cv_func_sem_unlink=no \
+                          --enable-loadable-sqlite-extensions \
+                          --with-system-ffi --without-ensurepip \
+                          --enable-optimizations --with-computed-gotos --with-lto
+make -j4 EXTRA_CFLAGS="-03  -fno-semantic-interposition"
+make EXTRA_CFLAGS="-03" install 
+popd
+
+# usr bin
+pushd /usr/bin
+ln -s idle3.8 idle
+ln -s python3.8 python
+ln -s python3.8-config python-config
+ln -s pydoc3 pydoc
+cd /usr/share/man/man1
+ln -s python3.8.1 python.1
+popd
+
+# pip
+if [ ! -f "$TERMUX_PREFIX/bin/pip" ]; then
+    rm -Rf ${TERMUX_PREFIX}/lib/python${_MAJOR_VERSION}/site-packages/pip-*.dist-info
+fi
+
+python -m ensurepip --upgrade --default-pip
 
 # ------- Install python packages
 cd $HOME
