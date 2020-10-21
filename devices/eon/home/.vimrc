@@ -10,6 +10,8 @@ set ai
 set number
 set hlsearch
 set ruler
-set mouse=
+set mouse=a
 set viminfo=""
 highlight Comment ctermfg=green
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/

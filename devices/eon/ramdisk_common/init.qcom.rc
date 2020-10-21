@@ -58,8 +58,8 @@ on early-boot
     write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
     write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
     write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
-    write /sys/kernel/boot_adsp/boot 1
     write /sys/kernel/boot_slpi/boot 1
+    write /sys/kernel/boot_adsp/boot 1
 
 on fs
     wait /dev/block/bootdevice

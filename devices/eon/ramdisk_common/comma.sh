@@ -15,7 +15,7 @@ fi
 # TODO: investigate this
 ip rule add prio 100 from all lookup main
 
-#disable the button lights
+# disable the button lights
 echo 0 > /sys/class/leds/button-backlight/max_brightness
 
 # constrain everything but us to one cpu
@@ -24,6 +24,7 @@ echo 0 > /dev/cpuset/system-background/cpus
 echo 0 > /dev/cpuset/foreground/boost/cpus
 echo 0 > /dev/cpuset/foreground/cpus
 
+# setup CPU set for all android tasks
 mkdir /dev/cpuset/android
 echo 0 > /dev/cpuset/android/cpus
 echo 0 > /dev/cpuset/android/mems
@@ -41,7 +42,7 @@ echo $$ > /dev/cpuset/app/tasks
 echo $PPID > /dev/cpuset/app/tasks
 
 if ! iptables -t mangle -w -C PREROUTING -i wlan0 -j TTL  --ttl-set 65 > /dev/null 2>&1; then
-    iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
+  iptables -t mangle -w -A PREROUTING -i wlan0 -j TTL --ttl-set 65
 fi
 
 if [ ! -f /persist/comma/id_rsa.pub ]; then
@@ -49,10 +50,12 @@ if [ ! -f /persist/comma/id_rsa.pub ]; then
 
   openssl genrsa -out /persist/comma/id_rsa.tmp 2048 &&
     openssl rsa -in /persist/comma/id_rsa.tmp -pubout -out /persist/comma/id_rsa.tmp.pub &&
+    sync &&
     mv /persist/comma/id_rsa.tmp /persist/comma/id_rsa &&
-    mv /persist/comma/id_rsa.tmp.pub /persist/comma/id_rsa.pub
-  chmod 755 /persist/comma/
-  chmod 744 /persist/comma/id_rsa
+    mv /persist/comma/id_rsa.tmp.pub /persist/comma/id_rsa.pub &&
+    chmod 755 /persist/comma/ &&
+    chmod 744 /persist/comma/id_rsa &&
+    sync
 fi
 
 rm -f /data/params/d/AthenadPid
@@ -73,7 +76,7 @@ while true; do
   /data/data/ai.comma.plus.neossetup/installer
 
   if [ $? -ne 0 ]; then
-      echo "Installer failed"
-      rm -f /data/data/com.termux/files/continue.sh
+    echo "Installer failed"
+    rm -f /data/data/com.termux/files/continue.sh
   fi
 done
