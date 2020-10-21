@@ -13,6 +13,4 @@ export NEOS_BASE_FOR_USR="https://raw.githubusercontent.com/commaai/eon-neos/d22
 # in the Comma manufacturing process and also for PC desktop flashing. Before
 # and after NEOS versions must match.
 
-# TODO: this url can't be used for NEOS 14 because it's missing the focaltech touchscreen fix in the kernel
-# export NEOS_BASE_FOR_DASHCAM="https://raw.githubusercontent.com/commaai/openpilot/dashcam-staging/installer/updater/update.json"
-export NEOS_BASE_FOR_DASHCAM="$NEOS_BASE_FOR_USR"
+export NEOS_BASE_FOR_DASHCAM="https://raw.githubusercontent.com/commaai/openpilot/dashcam-staging/installer/updater/update.json"
