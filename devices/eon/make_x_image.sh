@@ -21,12 +21,14 @@ fi
 # Compile kernel
 cd android_kernel_comma_msm8996
 git fetch --all
+#git checkout adb
 git checkout faa493113452db5e572daf76060ac03e23dfe4c9
 make comma_defconfig
 make -j$(nproc --all)
 cd ..
 
 # Assemble an unsigned boot.img
+# for early serial output, add: earlycon=msm_hsl_uart,0x75b0000
 $TOOLS/mkbootimg \
   --kernel android_kernel_comma_msm8996/out/arch/arm64/boot/Image.gz-dtb \
   --cmdline "cma=32M@0-0xffffffff androidboot.hardware=qcom androidboot.selinux=permissive" \
