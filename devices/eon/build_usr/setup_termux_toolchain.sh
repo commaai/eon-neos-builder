@@ -2,6 +2,7 @@
 # in sync with commaai/termux-packages, scripts/build/termux_step_setup_toolchain.sh
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+ROOT=$DIR/..
 
 NDK=/tmp/ndk
 TERMUX_PREFIX=/data/data/com.termux/files/usr
@@ -9,7 +10,7 @@ TERMUX_ANDROID_HOME=/data/data/com.termux/files/home
 TERMUX_PKG_API_LEVEL=24
 TERMUX_NDK_VERSION=20
 TERMUX_HOST_PLATFORM=aarch64-linux-android
-TERMUX_STANDALONE_TOOLCHAIN=$DIR/mindroid/termux-toolchain
+TERMUX_STANDALONE_TOOLCHAIN=$ROOT/mindroid/termux-toolchain
 _TERMUX_TOOLCHAIN_TMPDIR=/tmp/termux-toolchain
 TERMUX_ARCH=aarch64
 
