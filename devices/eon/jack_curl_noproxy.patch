@@ -1,0 +1,50 @@
+unchanged:
+--- system/prebuilts/sdk/tools/jack	2021-02-22 01:51:37.952980295 +0000
++++ system.mod/prebuilts/sdk/tools/jack	2021-02-22 04:07:40.393352606 +0000
+@@ -125,7 +125,7 @@
+ DATE_CONNECT=$(date +%s)
+ while true; do
+   CURL_TIME=$(date +%H:%M:%S)
+-  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:$SERVER_PORT_SERVICE http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
++  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --noproxy 127.0.0.1 http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
+   CURL_CODE=$?
+   JACK_CODE=$(cat "$JACK_EXIT")
+   echo "CURL: $$ - $CURL_TIME - $CURL_CODE - $HTTP_CODE - $JACK_CODE" >>$SERVER_LOG
+unchanged:
+--- system/prebuilts/sdk/tools/jack-admin	2021-02-22 01:51:37.952980295 +0000
++++ system.mod/prebuilts/sdk/tools/jack-admin	2021-02-22 04:08:16.541354336 +0000
+@@ -120,7 +120,7 @@
+ # Send command to Jack server
+ DATE_CONNECT=$(date +%s)
+ while true; do
+-  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --no-proxy 127.0.0.1:$SERVER_PORT_ADMIN http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
++  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --noproxy 127.0.0.1 http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
+   CURL_CODE=$?
+   if [ $CURL_CODE -eq 0 ]; then
+     # No problem, let's go
+only in patch2:
+unchanged:
+--- system/out/host/linux-x86/bin/jack	2021-02-22 02:47:57.825127227 +0000
++++ system.mod/out/host/linux-x86/bin/jack	2021-02-22 04:07:40.393352606 +0000
+@@ -125,7 +125,7 @@
+ DATE_CONNECT=$(date +%s)
+ while true; do
+   CURL_TIME=$(date +%H:%M:%S)
+-  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:$SERVER_PORT_SERVICE http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
++  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --noproxy 127.0.0.1 http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
+   CURL_CODE=$?
+   JACK_CODE=$(cat "$JACK_EXIT")
+   echo "CURL: $$ - $CURL_TIME - $CURL_CODE - $HTTP_CODE - $JACK_CODE" >>$SERVER_LOG
+only in patch2:
+unchanged:
+--- system/out/host/linux-x86/bin/jack-admin	2021-02-22 02:47:57.833127227 +0000
++++ system.mod/out/host/linux-x86/bin/jack-admin	2021-02-22 04:08:16.541354336 +0000
+@@ -120,7 +120,7 @@
+ # Send command to Jack server
+ DATE_CONNECT=$(date +%s)
+ while true; do
+-  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --no-proxy 127.0.0.1:$SERVER_PORT_ADMIN http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
++  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --noproxy 127.0.0.1 http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
+   CURL_CODE=$?
+   if [ $CURL_CODE -eq 0 ]; then
+     # No problem, let's go
