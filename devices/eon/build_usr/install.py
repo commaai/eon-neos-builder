@@ -27,7 +27,7 @@ DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found',
 #
 # A prebuilt Python 3.8.2 is LFS-checked into the eon-neos-builder repo.
 
-LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
+LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.5_aarch64.deb'}
 
 def load_packages():
     pkg_deps = {}
