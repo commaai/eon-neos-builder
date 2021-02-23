@@ -13,19 +13,7 @@ echo "Starting dependency installs"
 
 # Basic dependencies
 sudo apt-get update || true
-sudo apt-get install -y cpio git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python2 bc  android-sdk-libsparse-utils android-sdk-ext4-utils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
-
-# Java 8
-sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java 2000
-sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac 2000
-
-# python2 and pip
-#sudo ln -sf /usr/bin/python2 /usr/bin/python
-
-#curl https://bootstrap.pypa.io/2.7/get-pip.py --output get-pip.py
-#sudo python get-pip.py
-
-#pip2 install requests
+sudo apt-get install -y cpio git-core git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python python-requests bc android-tools-fsutils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
 
 # Additional setup for Android SDK environment and toolset
 if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
