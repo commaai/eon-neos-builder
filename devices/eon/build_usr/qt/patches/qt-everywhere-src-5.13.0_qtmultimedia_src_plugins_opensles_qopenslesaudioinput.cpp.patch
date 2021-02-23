@@ -1,0 +1,42 @@
+--- qt-everywhere-src-5.13.0/qtmultimedia/src/plugins/opensles/qopenslesaudioinput.cpp	2019-05-14 04:30:32.000000000 +0000
++++ qt-everywhere-src-5.13.0.mod/qtmultimedia/src/plugins/opensles/qopenslesaudioinput.cpp	2020-12-13 05:22:05.224337537 +0000
+@@ -46,6 +46,9 @@
+ 
+ #ifdef ANDROID
+ #include <SLES/OpenSLES_AndroidConfiguration.h>
++#endif
++
++#if defined(ANDROID) && !defined(Q_OS_ANDROID_EMBEDDED)
+ #include <QtCore/private/qjnihelpers_p.h>
+ #include <QtCore/private/qjni_p.h>
+ #endif
+@@ -56,7 +59,7 @@
+ #define DEFAULT_PERIOD_TIME_MS 50
+ #define MINIMUM_PERIOD_TIME_MS 5
+ 
+-#ifdef ANDROID
++#if defined(ANDROID) && !defined(Q_OS_ANDROID_EMBEDDED)
+ static bool hasRecordingPermission()
+ {
+     using namespace QtAndroidPrivate;
+@@ -82,7 +85,9 @@
+ 
+     return true;
+ }
++#endif
+ 
++#ifdef ANDROID
+ static void bufferQueueCallback(SLAndroidSimpleBufferQueueItf, void *context)
+ #else
+ static void bufferQueueCallback(SLBufferQueueItf, void *context)
+@@ -207,8 +212,10 @@
+ 
+ bool QOpenSLESAudioInput::startRecording()
+ {
++#if !defined(Q_OS_ANDROID_EMBEDDED)
+     if (!hasRecordingPermission())
+         return false;
++#endif
+ 
+     m_processedBytes = 0;
+     m_clockStamp.restart();

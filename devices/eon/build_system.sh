@@ -22,6 +22,10 @@ else
         sudo rm -rf out/
         ./install.py
         ./finish.sh
+        if [ ! -z "$COMPILE_QT" ]; then
+            ./setup_termux_toolchain.sh
+            ./build_qt.sh
+        fi
     else
         ./pull_from_phone.sh
     fi

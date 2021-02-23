@@ -1,0 +1,11 @@
+diff -uNr qt-everywhere-src-5.13.0/qtbase/src/plugins/platforms/eglfs/deviceintegration/deviceintegration.pro qt-everywhere-src-5.13.0.mod/qtbase/src/plugins/platforms/eglfs/deviceintegration/deviceintegration.pro
+--- qt-everywhere-src-5.13.0/qtbase/src/plugins/platforms/eglfs/deviceintegration/deviceintegration.pro	2019-06-13 04:18:18.000000000 +0000
++++ qt-everywhere-src-5.13.0.mod/qtbase/src/plugins/platforms/eglfs/deviceintegration/deviceintegration.pro	2020-10-13 15:46:05.456285439 +0000
+@@ -11,6 +11,7 @@
+ qtConfig(eglfs_rcar): SUBDIRS += eglfs_rcar
+ qtConfig(eglfs_viv_wl): SUBDIRS += eglfs_viv_wl
+ qtConfig(eglfs_openwfd): SUBDIRS += eglfs_openwfd
++qtConfig(eglfs_surfaceflinger): SUBDIRS += eglfs_surfaceflinger
+ qtConfig(opengl): SUBDIRS += eglfs_emu
+ 
+ eglfs_kms_egldevice.depends = eglfs_kms_support

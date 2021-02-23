@@ -1,0 +1,14 @@
+--- qt-everywhere-src-5.13.0/qtbase/src/gui/configure.json	2019-06-13 04:18:18.000000000 +0000
++++ qt-everywhere-src-5.13.0.mod/qtbase/src/gui/configure.json	2020-10-13 19:20:00.349405104 +0000
+@@ -1443,6 +1443,11 @@
+             "condition": "features.eglfs && features.xcb-xlib && features.egl_x11",
+             "output": [ "privateFeature" ]
+         },
++        "eglfs_surfaceflinger": {
++            "label": "EGLFS Surfaceflinger",
++            "condition": "features.eglfs && config.android-embedded",
++            "output": [ "privateFeature" ]
++        },
+         "gif": {
+             "label": "GIF",
+             "condition": "features.imageformatplugin",

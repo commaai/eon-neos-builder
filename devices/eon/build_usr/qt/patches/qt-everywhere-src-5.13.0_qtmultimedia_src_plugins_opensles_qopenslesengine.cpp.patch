@@ -1,0 +1,39 @@
+--- qt-everywhere-src-5.13.0/qtmultimedia/src/plugins/opensles/qopenslesengine.cpp	2019-05-14 04:30:32.000000000 +0000
++++ qt-everywhere-src-5.13.0.mod/qtmultimedia/src/plugins/opensles/qopenslesengine.cpp	2020-12-12 01:39:57.024539126 +0000
+@@ -44,6 +44,9 @@
+ 
+ #ifdef ANDROID
+ #include <SLES/OpenSLES_Android.h>
++#endif
++
++#if defined(ANDROID) && !defined(Q_OS_ANDROID_EMBEDDED)
+ #include <QtCore/private/qjnihelpers_p.h>
+ #include <QtCore/private/qjni_p.h>
+ #endif
+@@ -149,7 +152,7 @@
+ 
+ int QOpenSLESEngine::getOutputValue(QOpenSLESEngine::OutputValue type, int defaultValue)
+ {
+-#if defined(Q_OS_ANDROID)
++#if defined(Q_OS_ANDROID) and !defined(Q_OS_ANDROID_EMBEDDED)
+     static int sampleRate = 0;
+     static int framesPerBuffer = 0;
+     static const int sdkVersion = QtAndroidPrivate::androidSdkVersion();
+@@ -210,7 +213,7 @@
+ 
+ int QOpenSLESEngine::getDefaultBufferSize(const QAudioFormat &format)
+ {
+-#if defined(Q_OS_ANDROID)
++#if defined(Q_OS_ANDROID) && !defined(Q_OS_ANDROID_EMBEDDED)
+     if (!format.isValid())
+         return 0;
+ 
+@@ -259,7 +262,7 @@
+ 
+ bool QOpenSLESEngine::supportsLowLatency()
+ {
+-#if defined(Q_OS_ANDROID)
++#if defined(Q_OS_ANDROID) && !defined(Q_OS_ANDROID_EMBEDDED)
+     static int isSupported = -1;
+ 
+     if (isSupported != -1)
