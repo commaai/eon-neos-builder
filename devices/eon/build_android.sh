@@ -29,6 +29,5 @@ cd $DIR/mindroid/system
 $TOOLS/repo init -u https://github.com/commaai/android.git -b "repeatable-build-mindroid"
 $TOOLS/repo sync -c -j$JOBS
 
-export LC_ALL=C
 export PATH=$PWD/bin:$PATH
 (source build/envsetup.sh && breakfast oneplus3 && make -j$JOBS)
