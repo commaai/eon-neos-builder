@@ -12,7 +12,7 @@ hexdump = "*"
 libusb1 = "*"
 numpy = "*"
 psutil = "*"
-pycapnp = {git = "https://github.com/capnproto/pycapnp.git",ref = "7bfd5b962b05dc0533c3235675cb27b84cb593d1"}
+pycapnp = "1.0.0"
 cryptography = "*"
 pyserial = "*"
 python-dateutil = "*"
@@ -53,6 +53,5 @@ tenacity = "*"
 pre-commit = "*"
 parameterized = "*"
 
-
 [requires]
-python_version = "3.8.2"
+python_version = "3.8.5"
