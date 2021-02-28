@@ -2,8 +2,11 @@ android_kernel_comma_msm8996/
 mindroid/
 mnt/
 out/
+old/
 usr/
 venv/
 ramdisk-boot.gz
 ramdisk-recovery.gz
 boot_ramdisk/
+
+.python_version

@@ -5,6 +5,10 @@ export PREFIX='/usr'
 export VALGRIND_LIB='/usr/lib/valgrind'
 export LD_LIBRARY_PATH="/data/phonelibs:$LD_LIBRARY_PATH"
 
+export QT_QPA_EGLFS_HIDECURSOR=1
+export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event1:rotate=270
+export QT_QPA_FONTDIR=/usr/share/fonts
+
 # add these symlinks if you want
 export PYTHONPATH="/data/pythonpath"
 export GIT_SSH_COMMAND="ssh -i /data/gitkey"
