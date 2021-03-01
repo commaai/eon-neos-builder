@@ -26,7 +26,7 @@ DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found',
 # copy the deb from termux-packages/debs/
 
 LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.5_aarch64.deb', 'qt5-base': 'qt5-base_5.12.8-28_aarch64.deb',
-                      'libicu': 'libicu_65.1-1_aarch64.deb', 'qt-declarative': 'qt5-declarative_5.12.8-28_aarch64.deb'}
+                      'libicu': 'libicu_65.1-1_aarch64.deb', 'qt5-declarative': 'qt5-declarative_5.12.8-28_aarch64.deb'}
 
 def load_packages():
     pkg_deps = {}
