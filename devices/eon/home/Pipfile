@@ -13,7 +13,7 @@ libusb1 = "*"
 numpy = "*"
 psutil = "*"
 pycapnp = {git = "https://github.com/capnproto/pycapnp.git",ref = "1075ce005c2afe3125fd9364fa412782c29e7d2e"}
-cryptography = "3.4.3"
+cryptography = "==3.4.3"
 pyserial = "*"
 python-dateutil = "*"
 pyzmq = "*"
