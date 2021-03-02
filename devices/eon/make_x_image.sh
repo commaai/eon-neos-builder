@@ -22,7 +22,7 @@ fi
 cd android_kernel_comma_msm8996
 git fetch --all
 #git checkout adb
-git checkout faa493113452db5e572daf76060ac03e23dfe4c9
+git checkout 571028d71cf61da21d7db405246adf344d565453
 make comma_defconfig
 make -j$(nproc --all)
 cd ..

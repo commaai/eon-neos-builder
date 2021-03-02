@@ -9,4 +9,4 @@ ramdisk-boot.gz
 ramdisk-recovery.gz
 boot_ramdisk/
 
-.python_version
+.python-version
