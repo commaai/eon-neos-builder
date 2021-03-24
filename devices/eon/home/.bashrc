@@ -6,6 +6,8 @@ alias gl='git pull'
 alias gp='git push'
 alias gcam='git commit -a -m'
 alias gst='git status'
+alias gco='git checkout'
+alias gsu='git submodule update'
 alias more='less'
 
 # everyone wants to start here anyway
