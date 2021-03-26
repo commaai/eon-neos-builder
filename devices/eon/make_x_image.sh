@@ -24,7 +24,6 @@ git fetch --all
 #git checkout adb
 git checkout 348bac2aad6a970c4ab5a5411ff97b4d9d0e8387
 make comma_defconfig
-make -j$(nproc --all) clean
 make -j$(nproc --all)
 cd ..
 

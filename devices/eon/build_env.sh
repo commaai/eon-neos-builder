@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # sets /VERSION for the build
-export NEOS_BUILD_VERSION="16.1"
+export NEOS_BUILD_VERSION="16.2"
 
 # NEOS_BASE_FOR_USR sets the OTA image used for normal NEOS builds, where the
 # Termux /system base binaries are copied from the production shipping OTA
