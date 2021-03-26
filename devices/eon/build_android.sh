@@ -8,7 +8,7 @@ cd $DIR
 source build_env.sh
 
 # install build tools
-if [[ -z "${SKIP_DEPS}" ]]; then
+if [[ ! -z "${INSTALL_DEPS}" ]]; then
   source $DIR/install_deps.sh
 fi
 

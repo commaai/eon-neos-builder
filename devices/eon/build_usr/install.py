@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess
 import requests
@@ -14,20 +14,19 @@ BASE_URL = 'http://termux.comma.ai/'
 # azcopy --source dists/ --destination https://termuxdist.blob.core.windows.net/dists --recursive --dest-key $(az storage account keys list --account-name termuxdist --output tsv --query "[0].value")
 
 
-DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools']
+DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools', 'qt5-base', 'qt5-declarative', 'libicu']
 
-# Python 3.8.2 is not available in binary form from the termux package repo.
+# Newer pythons are not available in binary form from the termux package repo.
 # Build it using the neos branch on our termux-packages fork:
 #
-# https://github.com/commaai/termux-packages/tree/android-5/packages/python
+# https://github.com/commaai/termux-packages/tree/neos/
 #
 # start docker: termux-packages/scripts/run-docker.sh
 # build inside container: ./build-package.sh -a aarch64 python
 # copy the deb from termux-packages/debs/
-#
-# A prebuilt Python 3.8.2 is LFS-checked into the eon-neos-builder repo.
 
-LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.2_aarch64.deb'}
+LOCAL_OVERRIDE_PKG = {'python': 'python_3.8.5_aarch64.deb', 'libicu': 'libicu_65.1-1_aarch64.deb',
+                      'qt5-base': 'qt5-base_5.12.8-28_aarch64.deb', 'qt5-declarative': 'qt5-declarative_5.12.8-28_aarch64.deb'}
 
 def load_packages():
     pkg_deps = {}
@@ -98,7 +97,7 @@ def install_package(pkg_deps, pkg_filenames, pkg):
     control = open(os.path.join(tmp_dir, 'control')).read()
     control += 'Status: install ok installed\n'
 
-    files = subprocess.check_output(['dpkg', '-c', deb_path], cwd=tmp_dir)
+    files = subprocess.check_output(['dpkg', '-c', deb_path], cwd=tmp_dir, encoding='utf-8')
 
     file_list = ""
     for f in files.split('\n'):
@@ -169,8 +168,6 @@ if __name__ == "__main__":
         'openssl-tool',
         'patchelf',
         'pkg-config',
-        # Included in main python package in recent termux
-        #'python-dev',
         'rsync',
         'strace',
         'tar',

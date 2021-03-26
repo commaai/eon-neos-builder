@@ -3,5 +3,7 @@ PasswordAuthentication no
 PubkeyAcceptedKeyTypes +ssh-dss
 Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
 
+Port 22
+Port 8022
 StrictModes no
 AuthorizedKeysFile /data/params/d/GithubSshKeys
