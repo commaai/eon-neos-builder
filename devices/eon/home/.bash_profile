@@ -8,6 +8,8 @@ export LD_LIBRARY_PATH="/data/phonelibs:$LD_LIBRARY_PATH"
 export QT_QPA_EGLFS_HIDECURSOR=1
 export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event1:rotate=270
 export QT_QPA_FONTDIR=/usr/share/fonts
+export QT_QPA_EGLFS_PHYSICAL_WIDTH=151
+export QT_QPA_EGLFS_PHYSICAL_HEIGHT=74
 
 # add these symlinks if you want
 export PYTHONPATH="/data/pythonpath"
