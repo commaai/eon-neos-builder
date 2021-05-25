@@ -9,7 +9,7 @@ source build_env.sh
 
 mkdir -p $OUT/download
 cd $OUT/download
-$DIR/build_usr/download.py
+DASHCAM=1 $DIR/build_usr/download.py
 cd $DIR
 
 echo "Extracting and updating original NEOS base image" && echo

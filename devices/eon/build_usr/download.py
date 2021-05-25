@@ -29,12 +29,12 @@ def download(url, fhash, finalname):
 
 if __name__ == "__main__":
   try:
-    if os.getenv("CLEAN_USR") == "1":
-      ota_json_download_url = os.getenv("NEOS_BASE_FOR_USR")
-      print("Fetching NEOS base for /usr from system image")
-    else:
+    if os.getenv("DASHCAM") is not None:
       ota_json_download_url = os.getenv("NEOS_BASE_FOR_DASHCAM")
       print("Fetching NEOS base for dashcam slipstream")
+    else:
+      ota_json_download_url = os.getenv("NEOS_BASE_FOR_USR")
+      print("Fetching NEOS base for /usr from system image")
     up = requests.get(ota_json_download_url).json()
   except Exception:
     print("Couldn't fetch current NEOS OTA image!")
