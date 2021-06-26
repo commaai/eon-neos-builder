@@ -161,16 +161,28 @@ cd $HOME
 export PYCURL_SSL_LIBRARY=openssl
 pip install --no-cache-dir --upgrade pip
 pip install --no-cache-dir pipenv
-pipenv install --deploy --system
+pipenv install --deploy --system --clear
 
 # ------- casadi
-git clone https://github.com/casadi/casadi.git -b master casadi
+cd /tmp/build
+git clone https://github.com/casadi/casadi.git
 pushd casadi
 git fetch --all --tags
 git checkout tags/3.5.5
-mkdir build
+sed -i "s/target_link_libraries(_casadi casadi)/target_link_libraries(_casadi $\{PYTHON_LIBRARIES} casadi)/g" swig/python/CMakeLists.txt
+
+mkdir -p build
 cd build
-cmake -DWITH_PYTHON=ON -DWITH_PYTHON3=ON -DWITH_DEEPBIND=OFF ..
+cmake -DWITH_PYTHON=ON \
+      -DWITH_PYTHON3=ON \
+      -DWITH_DEEPBIND=OFF \
+      -DWITH_DOC=OFF \
+      -DWITH_EXAMPLES=OFF \
+      -DLIB_PREFIX=/usr/lib \
+      -DINCLUDE_PREFIX=/usr/include \
+      ..
 make -j4
 make install
+rm -rf /usr/local/
+python -c "from casadi import *"
 popd
