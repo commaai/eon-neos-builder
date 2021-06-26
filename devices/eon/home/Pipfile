@@ -53,7 +53,6 @@ pycurl = "*"
 tenacity = "*"
 pre-commit = "*"
 parameterized = "*"
-casadi = "*"
 future-fstrings = "*"
 
 [requires]

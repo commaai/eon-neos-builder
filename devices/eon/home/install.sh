@@ -159,7 +159,18 @@ popd
 cd $HOME
 
 export PYCURL_SSL_LIBRARY=openssl
-pip install --upgrade pip
-pip install pipenv
+pip install --no-cache-dir --upgrade pip
+pip install --no-cache-dir pipenv
 pipenv install --deploy --system
 
+# ------- casadi
+git clone https://github.com/casadi/casadi.git -b master casadi
+pushd casadi
+git fetch --all --tags
+git checkout tags/3.5.5
+mkdir build
+cd build
+cmake -DWITH_PYTHON=ON -DWITH_PYTHON3=ON -DWITH_DEEPBIND=OFF ..
+make -j4
+make install
+popd
