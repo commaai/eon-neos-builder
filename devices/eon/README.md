@@ -4,21 +4,6 @@ Make sure the system default Python 2 has not been replaced with Python 3,
 either directly or using `pyenv` to override. Remove the `pyenv` entries
 from your PATH if necessary.
 
-# Important notes
-- If you want to increase the version number, that is in `build_env.sh`.
-- If the msm8996 kernel has changed, change the commit hash in `make_x_image.sh`.
-- If making changes to Android components, check `build_system.sh` for where to
-  check out the `mindroid` branch of the Android build manifest. When finished
-  with testing, update the commit hashes in `repeatable-build-mindroid`.
-
-# Normal build procedure
-1. If not already done, set some Git config parameters:
-   - `git config --global user.name "John Doe"`
-   - `git config --global user.email "john.doe@example.com`
-   - `git config --global color.ui true`
-2. Build everything. This will pull `/usr` from the latest shipped NEOS. `./build_all.sh`
-3. Build OTA images. `./prepare_ota.sh`
-
 # Build procedure with clean /usr
 This process requires an EON connected with [Comma Smays](https://comma.ai/shop/products/comma-smays-adapter)!
 1. Build all images with clean `/usr`: `CLEAN_USR=1 ./build_all.sh`
