@@ -22,7 +22,7 @@ fi
 cd android_kernel_comma_msm8996
 git fetch --all
 #git checkout adb
-git checkout 31f1524d0bac766ee71dde42886edceb6b2e7f2b
+#git checkout 31f1524d0bac766ee71dde42886edceb6b2e7f2b
 make comma_defconfig
 make -j$(nproc --all)
 cd ..
@@ -31,7 +31,7 @@ cd ..
 # for early serial output, add: earlycon=msm_hsl_uart,0x75b0000
 $TOOLS/mkbootimg \
   --kernel android_kernel_comma_msm8996/out/arch/arm64/boot/Image.gz-dtb \
-  --cmdline "cma=32M@0-0xffffffff androidboot.hardware=qcom androidboot.selinux=permissive" \
+  --cmdline "cma=32M@0-0xffffffff androidboot.hardware=qcom androidboot.selinux=permissive kthread=0,1" \
   --base 0x80000000 \
   --kernel_offset 0x8000 \
   --ramdisk_offset 0x2000000 \
