@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -e
+
 sudo sysctl -w net.ipv4.ip_forward=1
 
 PHONE=$(ip route | grep 192.168.5.0/24 | cut -d' ' -f3)
@@ -19,4 +20,5 @@ if ! sudo iptables -t nat -w -C $POSTROUTING_MASQ > /dev/null 2>&1; then
   sudo iptables -t nat -w -A $POSTROUTING_MASQ
 fi
 
+ssh phone "date -s '$(date)'"
 ssh phone "route add default gw 192.168.5.1 && ndc network create 100 && ndc network interface add 100 eth0 && ndc resolver setnetdns 100 localdomain 8.8.8.8 8.8.4.4 && ndc network default set 100"

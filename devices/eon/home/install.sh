@@ -161,7 +161,7 @@ cd $HOME
 export PYCURL_SSL_LIBRARY=openssl
 pip install --no-cache-dir --upgrade pip
 pip install --no-cache-dir pipenv
-pipenv install --deploy --system --clear
+pipenv install --deploy --system --verbose --clear
 
 # ------- casadi
 cd /tmp/build
