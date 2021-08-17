@@ -1,16 +1,22 @@
 #!/bin/bash
-set -e
+sudo sysctl -w net.ipv4.ip_forward=1
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
-if [ -z "$PHONE" ]; then
-    PHONE=192.168.5.11
+PHONE=$(ip route | grep 192.168.5.0/24 | cut -d' ' -f3)
+INTERNET=$(ip route | grep 192.168.2.0/23 | cut -d' ' -f3)
+
+FORWARD_NEW="FORWARD -o $INTERNET -i $PHONE -s 192.168.5.0/24 -m conntrack --ctstate NEW -j ACCEPT"
+if ! sudo iptables -w -C $FORWARD_NEW > /dev/null 2>&1; then
+  sudo iptables -w -A $FORWARD_NEW
 fi
 
-chmod 600 "$DIR/build_usr/id_rsa"
-sshphone="ssh -i $DIR/build_usr/id_rsa -p 8022 -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o StrictHostKeyChecking=no"
+FORWARD_EST_REL="FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT"
+if ! sudo iptables -w -C $FORWARD_EST_REL > /dev/null 2>&1; then
+  sudo iptables -w -A $FORWARD_EST_REL
+fi
 
-# connect to internet through computer
-$sshphone $PHONE "route add default gw 192.168.5.1 && ndc network create 100 && ndc network interface add 100 eth0 && ndc resolver setnetdns 100 localdomain 8.8.8.8 8.8.4.4 && ndc network default set 100"
+POSTROUTING_MASQ="POSTROUTING -o $INTERNET -j MASQUERADE"
+if ! sudo iptables -t nat -w -C $POSTROUTING_MASQ > /dev/null 2>&1; then
+  sudo iptables -t nat -w -A $POSTROUTING_MASQ
+fi
 
-NOW=$(date)
-$sshphone $PHONE "date -s '$NOW'"
+ssh phone "route add default gw 192.168.5.1 && ndc network create 100 && ndc network interface add 100 eth0 && ndc resolver setnetdns 100 localdomain 8.8.8.8 8.8.4.4 && ndc network default set 100"
