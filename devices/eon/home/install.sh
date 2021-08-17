@@ -74,7 +74,7 @@ mv $PREFIX/lib/gcc/arm-none-eabi/4.7.1/include/stdint-gcc.h $PREFIX/lib/gcc/arm-
 
 popd
 
-# -------- Capnp stuff
+# -------- capnproto
 VERSION=0.8.0
 
 wget --tries=inf https://capnproto.org/capnproto-c++-${VERSION}.tar.gz
@@ -85,26 +85,6 @@ pushd capnproto-c++-${VERSION}
 CXXFLAGS="-fPIC -O2" ./configure --prefix=/usr
 make -j4 install
 popd
-
-# ----- libzmq
-# ZMQ is build on the host, and copied in
-# VERSION="4.2.0"
-# wget --tries=inf https://github.com/zeromq/libzmq/releases/download/v$VERSION/zeromq-$VERSION.tar.gz
-# tar xvf zeromq-$VERSION.tar.gz
-# pushd zeromq-$VERSION
-# CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" CXXFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" ./configure --prefix=/usr --enable-drafts=no
-# make -j4
-# make install
-# popd
-
-# VERSION="4.0.2"
-# wget --tries=inf https://github.com/zeromq/czmq/releases/download/v$VERSION/czmq-$VERSION.tar.gz
-# tar xvf czmq-$VERSION.tar.gz
-# pushd czmq-$VERSION
-# CFLAGS="-fPIC -O2 -DCZMQ_HAVE_ANDROID=1" LDFLAGS="-llog" ./configure --prefix=/usr --enable-drafts=no --with-liblz4=no
-# make -j4
-# make install
-# popd
 
 # ---- Eigen
 wget --tries=inf https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
@@ -155,9 +135,8 @@ make -j4
 make install
 popd
 
-# ------- Install python packages
+# ------- python packages
 cd $HOME
-
 export PYCURL_SSL_LIBRARY=openssl
 pip install --no-cache-dir --upgrade pip
 pip install --no-cache-dir pipenv
@@ -186,3 +165,6 @@ make install
 rm -rf /usr/local/
 python -c "from casadi import *"
 popd
+
+
+printf "\n\nInstall successful"
