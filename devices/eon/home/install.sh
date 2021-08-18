@@ -167,4 +167,4 @@ python -c "from casadi import *"
 popd
 
 
-printf "\n\nInstall successful"
+printf "\n\nInstall successful\nTook $SECONDS seconds\n"

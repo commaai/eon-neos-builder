@@ -14,7 +14,7 @@ BASE_URL = 'http://termux.comma.ai/'
 # azcopy --source dists/ --destination https://termuxdist.blob.core.windows.net/dists --recursive --dest-key $(az storage account keys list --account-name termuxdist --output tsv --query "[0].value")
 
 
-DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools', 'qt5-base', 'qt5-declarative', 'libicu', 'swig', 'gettext']
+DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools', 'qt5-base', 'qt5-declarative', 'libicu', 'swig', 'gettext', 'ripgrep']
 
 # Newer pythons are not available in binary form from the termux package repo.
 # Build it using the neos branch on our termux-packages fork:
@@ -31,6 +31,7 @@ LOCAL_OVERRIDE_PKG = {
   'swig': 'swig_4.0.1-1_aarch64.deb',
   'libicu': 'libicu_65.1-1_aarch64.deb',
   'gettext': 'gettext_0.20.1-3_aarch64.deb',
+  'ripgrep': 'ripgrep_11.0.2-1_aarch64.deb',
   'qt5-base': 'qt5-base_5.12.8-28_aarch64.deb',
   'qt5-declarative': 'qt5-declarative_5.12.8-28_aarch64.deb'
 }
