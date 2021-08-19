@@ -625,10 +625,10 @@ service servicemanager /system/bin/servicemanager
     group system
     critical
     onrestart restart healthd
-    #onrestart restart zygote
-    #onrestart restart media
-    #onrestart restart surfaceflinger
-    #onrestart restart drm
+    onrestart restart zygote
+    onrestart restart media
+    onrestart restart surfaceflinger
+    onrestart restart drm
 
 service vold /system/bin/vold \
         --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \

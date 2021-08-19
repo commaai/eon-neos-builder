@@ -4,7 +4,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 export PATH="$DIR/bin:$PATH"
 
 # sets /VERSION for the build
-export NEOS_BUILD_VERSION="18.1"
+export NEOS_BUILD_VERSION="18"
 
 # NEOS_BASE_FOR_USR sets the OTA image used for normal NEOS builds, where the
 # Termux /system base binaries are copied from the production shipping OTA
