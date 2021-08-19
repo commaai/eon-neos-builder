@@ -40,7 +40,7 @@ echo 0 > /dev/cpuset/system-background/cpus
 echo 0 > /dev/cpuset/foreground/boost/cpus
 echo 0 > /dev/cpuset/foreground/cpus
 
-# setup CPU set for all android tasks
+# setup cpuset for all android tasks
 mkdir /dev/cpuset/android
 echo 0 > /dev/cpuset/android/cpus
 echo 0 > /dev/cpuset/android/mems

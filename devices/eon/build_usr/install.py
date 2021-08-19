@@ -16,18 +16,17 @@ BASE_URL = 'http://termux.comma.ai/'
 
 DEFAULT_PKG = ['apt', 'bash', 'busybox', 'ca-certificates', 'command-not-found', 'dash', 'dash', 'dpkg', 'gdbm', 'gpgv', 'libandroid-support', 'libbz2', 'libc++', 'libcrypt', 'libcrypt-dev', 'libcurl', 'libffi', 'libgcrypt', 'libgpg-error', 'liblzma', 'libnghttp2', 'libsqlite', 'libutil', 'ncurses', 'ncurses-ui-libs', 'openssl', 'python', 'readline', 'termux-am', 'termux-exec', 'termux-tools', 'qt5-base', 'qt5-declarative', 'libicu', 'swig', 'gettext', 'ripgrep']
 
-# Newer pythons are not available in binary form from the termux package repo.
-# Build it using the neos branch on our termux-packages fork:
-#
+# The checked-in debs are built using the neos branch on:
 # https://github.com/commaai/termux-packages/tree/neos/
 #
-# start docker: termux-packages/scripts/run-docker.sh
-# build inside container: ./build-package.sh -a aarch64 python
-# copy the deb from termux-packages/debs/
+# Quick Start:
+#  * start docker: scripts/run-docker.sh
+#  * build inside container: ./build-package.sh -a aarch64 python
+#  * copy the deb from termux-packages/debs/
 
 LOCAL_OVERRIDE_PKG = {
-  'python': 'python_3.8.5_aarch64.deb',
   #'rust': 'rust_1.38.0-4_aarch64.deb',
+  'python': 'python_3.8.5_aarch64.deb',
   'swig': 'swig_4.0.1-1_aarch64.deb',
   'libicu': 'libicu_65.1-1_aarch64.deb',
   'gettext': 'gettext_0.20.1-3_aarch64.deb',
