@@ -10,6 +10,22 @@ else
   exit 0
 fi
 
+handle_setup_keys () {
+  # install default SSH key while still in setup
+  if [[ ! -e /data/params/d/GithubSshKeys && ! -e /data/data/com.termux/files/continue.sh ]]; then
+    echo "Installing setup keys"
+    if [ ! -e /data/params/d ]; then
+      mkdir -p /data/params/d_tmp
+      ln -s /data/params/d_tmp /data/params/d
+    fi
+    cp /data/data/com.termux/files/home/setup_keys /data/params/d/GithubSshKeys
+  elif [[ -e /data/params/d/GithubSshKeys && -e /data/data/com.termux/files/continue.sh ]]; then
+    echo "Clearing setup keys"
+    if cmp -s /data/params/d/GithubSshKeys /data/data/com.termux/files/home/setup_keys; then
+      rm /data/params/d/GithubSshKeys
+    fi
+  fi
+}
 
 # fix the messed up routes in android for eth0
 # TODO: investigate this
@@ -24,7 +40,7 @@ echo 0 > /dev/cpuset/system-background/cpus
 echo 0 > /dev/cpuset/foreground/boost/cpus
 echo 0 > /dev/cpuset/foreground/cpus
 
-# setup CPU set for all android tasks
+# setup cpuset for all android tasks
 mkdir /dev/cpuset/android
 echo 0 > /dev/cpuset/android/cpus
 echo 0 > /dev/cpuset/android/mems
@@ -61,6 +77,8 @@ fi
 rm -f /data/params/d/AthenadPid
 
 while true; do
+  handle_setup_keys
+
   if [ -f /data/data/com.termux/files/continue.sh ]; then
     exec /data/data/com.termux/files/continue.sh
   fi

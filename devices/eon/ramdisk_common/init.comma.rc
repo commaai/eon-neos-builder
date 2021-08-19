@@ -1,5 +1,7 @@
 # **** comma additions ****
 
+# https://android.googlesource.com/platform/system/core/+/master/init/README.md
+
 service comma-usb-sh /comma.usb.sh
    class core
    user root
@@ -25,17 +27,6 @@ service sshd /comma.ssh.sh
    group root
    wait /data/data/com.termux/files/usr
    oneshot
-
-on property:neos.vpn=1
-   enable openvpn
-
-service openvpn /system/comma/vpn/vpn.sh
-   class late_start
-   user root
-   group root
-   wait /data/data/com.termux/files/usr
-   setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
-   disabled
 
 on property:sys.boot_completed=1
    start comma
