@@ -505,6 +505,17 @@ on boot
     # Define default initial receive window size in segments.
     setprop net.tcp.default_init_rwnd 60
 
+    setprop log.tag.NetorkStats VERBOSE
+    setprop log.tag.NetworkPolicy VERBOSE
+    setprop log.tag.NetworkConnectivityListener VERBOSE
+    setprop log.tag.NetworkStatsManager VERBOSE
+    setprop log.tag.NetworkSettings VERBOSE
+    setprop log.tag.NetworkStatsFactory VERBOSE
+    setprop log.tag.NetworkManagement VERBOSE
+    setprop log.tag.NetworkState VERBOSE
+    setprop log.tag.NetworkOverLimitActivity VERBOSE
+    setprop log.tag.NetworkDiagnostics VERBOSE
+
     class_start core
 
 on nonencrypted
