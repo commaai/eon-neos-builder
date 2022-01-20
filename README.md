@@ -1,7 +1,7 @@
 NEOS Builder
 ======
 
-This is the tool to build the operating system for your [EON](https://shop.comma.ai/products/eon-dashcam-devkit) or [Comma Two](https://comma.ai/shop/products/comma-two-devkit) dashcam development kit.
+This is the tool to build the operating system for your EON Gold and [comma two](https://comma.ai/shop/products/comma-two-devkit) dashcam development kit.
 
 What is NEOS?
 ------
@@ -40,10 +40,9 @@ Usage
 
 ### Prerequisites
 
-* An Ubuntu 16.04 build environment with at least 80GB of free disk space
+* An Ubuntu 20.04 build environment with at least 80GB of free disk space
 * Install git and [git-lfs](https://github.com/git-lfs/git-lfs/wiki/Installation) to fetch build tools during `git clone`
 
 ### Building and Installing
 
 See the device-specific instructions in `devices/eon/README.md`
-
