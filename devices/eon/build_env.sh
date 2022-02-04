@@ -4,9 +4,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 export PATH="$DIR/bin:$PATH"
 
 # sets /VERSION for the build
-export NEOS_BUILD_VERSION="19"
+export NEOS_BUILD_VERSION="19.1"
 
 # NEOS_BASE_FOR_USR sets the OTA image used for normal NEOS builds, where the
 # Termux /system base binaries are copied from the production shipping OTA
 # image instead of rebuilding from scratch. Ignored if CLEAN_USR set.
-export NEOS_BASE_FOR_USR="https://raw.githubusercontent.com/commaai/eon-neos/0b090d11af27c227de81fc07a0bd02f313ea5421/update.json"
+export NEOS_BASE_FOR_USR="https://raw.githubusercontent.com/commaai/openpilot/6a9514570cfeb2bf9b15929b2a6d3748ff2eb9a6/selfdrive/hardware/eon/neos.json"
