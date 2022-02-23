@@ -28,7 +28,11 @@ make -j$(nproc --all)
 cd ..
 
 # Assemble an unsigned boot.img
-# for early serial output, add: earlycon=msm_hsl_uart,0x75b0000
+# for a bootloader-to-shell serial console, add these options to the kernel cmdline:
+#   "earlycon=msm_hsl_uart,0x75b0000 console=ttyHSL0,115200n8 androidboot.console=ttyHSL0"
+# serial UART is on the USB-C SBU1/SBU2 pins, TTL level 1.8V, 115200, 8n1, no flow control
+# TX/RX will flip with USB orientation, be sure to connect ground or output will be noisy
+# won't work through comma two uno daughterboard, attempting might damage your TTL device
 $TOOLS/mkbootimg \
   --kernel android_kernel_comma_msm8996/out/arch/arm64/boot/Image.gz-dtb \
   --cmdline "cma=32M@0-0xffffffff androidboot.hardware=qcom androidboot.selinux=permissive" \
