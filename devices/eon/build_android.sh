@@ -7,6 +7,9 @@ TOOLS=$ROOT/tools
 cd $DIR
 source build_env.sh
 
+# Override locale to prevent assert on LC_TIME sizeof later in build process
+export LC_ALL=C
+
 # install build tools
 if [[ ! -z "${INSTALL_DEPS}" ]]; then
   source $DIR/install_deps.sh
