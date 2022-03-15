@@ -34,3 +34,4 @@ $TOOLS/repo sync -c -j$JOBS
 
 export PATH=$PWD/bin:$PATH
 (source build/envsetup.sh && breakfast oneplus3 && make -j$JOBS)
+
