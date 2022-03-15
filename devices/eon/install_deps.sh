@@ -4,7 +4,7 @@ echo "Starting dependency installs"
 
 # Basic dependencies
 sudo apt-get update || true
-sudo apt-get install -y cpio git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python3-requests bc android-sdk-libsparse-utils android-sdk-ext4-utils openjdk-8-jdk openjdk-8-jre android-sdk yarnpkg nodejs
+sudo apt-get install -y cpio git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python3-requests bc android-sdk-libsparse-utils android-sdk-ext4-utils openjdk-8-jdk openjdk-8-jre android-sdk yarnpkg nodejs
 
 # Clean up if the cmdtest version of yarn is already installed, then make sure yarnpkg is the system default yarn
 sudo apt-get remove -y cmdtest || true
