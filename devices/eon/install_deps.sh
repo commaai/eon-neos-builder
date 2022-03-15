@@ -15,6 +15,16 @@ echo "Starting dependency installs"
 sudo apt-get update || true
 sudo apt-get install -y cpio git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python3-requests bc android-sdk-libsparse-utils android-sdk-ext4-utils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
 
+# Check to make sure java/javac are set to use JRE/JDK version 8, required by Android SDK
+JAVA_VERSION=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
+JAVAC_VERSION=$(javac -version 2>&1 | head -1 | cut -d' ' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
+echo "java version: ${JAVA_VERSION}"
+echo "javac version: ${JAVAC_VERSION}"
+if [ $JAVA_VERSION != "8" ] || [ $JAVAC_VERSION != "8" ]; then
+  echo "java / javac version 8 must be selected with \"sudo update-alternatives --config [java/javac]\" before proceeding"
+  exit
+fi
+
 # Additional setup for Android SDK environment and toolset
 if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
   echo "Installing Android SDK tools"
