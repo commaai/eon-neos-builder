@@ -1,0 +1,3 @@
+[submodule "devices/eon/apk/termux-packages"]
+	path = devices/eon/apk/termux-packages
+	url = git@github.com:commaai/termux-packages.git
