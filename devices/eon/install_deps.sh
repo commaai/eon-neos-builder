@@ -2,18 +2,23 @@
 
 echo "Starting dependency installs"
 
-# Add third-party package repos and keys required for Ubuntu 16.04
-# sudo apt-get install curl
-# git-lfs
-#curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-# nodejs and yarn (versions in Ubuntu repo are old/broken)
-#curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-#curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
 # Basic dependencies
 sudo apt-get update || true
-sudo apt-get install -y cpio git-core git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python python-requests bc android-tools-fsutils openjdk-8-jdk openjdk-8-jre android-sdk nodejs yarn
+sudo apt-get install -y cpio git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip python3-requests bc android-sdk-libsparse-utils android-sdk-ext4-utils openjdk-8-jdk openjdk-8-jre android-sdk yarnpkg nodejs
+
+# Clean up if the cmdtest version of yarn is already installed, then make sure yarnpkg is the system default yarn
+sudo apt-get remove -y cmdtest || true
+[[ ! -h "/usr/bin/yarn" ]] && sudo ln -s /usr/bin/yarnpkg /usr/bin/yarn
+
+# Check to make sure java/javac are set to use JRE/JDK version 8, required by Android SDK
+JAVA_VERSION=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
+JAVAC_VERSION=$(javac -version 2>&1 | head -1 | cut -d' ' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
+echo "java version: ${JAVA_VERSION}"
+echo "javac version: ${JAVAC_VERSION}"
+if [ $JAVA_VERSION != "8" ] || [ $JAVAC_VERSION != "8" ]; then
+  echo "java / javac version 8 must be selected with \"sudo update-alternatives --config [java/javac]\" before proceeding"
+  exit
+fi
 
 # Additional setup for Android SDK environment and toolset
 if [[ ! -f "/usr/lib/android-sdk/tools/bin/sdkmanager" ]]; then
