@@ -13,7 +13,6 @@ What is NEOS?
 Supported Devices
 ------
 
-* [OnePlus 3T](https://www.oneplus.com/3t)
 * [LeEco LePro 3](https://www.cnet.com/products/leeco-lepro-3/review/)
 
 What works
